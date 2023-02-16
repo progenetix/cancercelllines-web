@@ -197,9 +197,11 @@ function GeneResultSet({cellline, gene, labels, setLabels})
         }
 
         {data.pairs.length < 2 ? 
-          ""
+          <td>&nbsp;</td>
         :
-          <td><Button color="secondary" onClick={() => {setExpand(!expand)}}>{expand ? <b>Close</b> : <b>Expand</b>}</Button></td>
+          <td>
+            <Button color="secondary" onClick={() => {setExpand(!expand)}}>{expand ? <b>Close</b> : <b>Expand</b>}</Button>
+          </td>
         }
       </tr> : ""}
     </Loader>
@@ -227,17 +229,17 @@ function GeneResultRow({pair})
     <tr>
       <table>
       <tr>
-        <td>
+        <td style={{border: '0px'}}>
           <div dangerouslySetInnerHTML={{ __html:pair.matches[0]}}/>
         </td>
-        <td colSpan="3">
+        <td colSpan="3"  style={{border: '0px'}}>
           <a target="_blank" rel="noreferrer" href={"https://pubmed.ncbi.nlm.nih.gov/"+pair.pmid}>{pair.title} ({pair.pmid})</a>
         </td>
-        <td><Button onClick={() => {setShowAbstract(!showAbstract)}}>{!showAbstract ? <p>Abstract</p> : <p>Close Abstract</p>}</Button></td>
+        <td style={{border: '0px'}}><Button onClick={() => {setShowAbstract(!showAbstract)}}>{!showAbstract ? <p>Abstract</p> : <p>Close Abstract</p>}</Button></td>
       </tr>
       {showAbstract ?
         <tr>
-          <td colSpan="9" dangerouslySetInnerHTML={{ __html:pair.abstract}}></td>
+          <td colSpan="9" dangerouslySetInnerHTML={{ __html:pair.abstract}} style={{border: '0px'}}></td>
         </tr>
       : ""}
       </table>
@@ -246,7 +248,7 @@ function GeneResultRow({pair})
 }
 
 
-// TODO: Standard reack memp(?) component for table
+// TODO: Standard react memo(?) component for table
 function ResultRow({pair})
 {
   const [showAbstract, setShowAbstract] = useState(false);
@@ -254,17 +256,17 @@ function ResultRow({pair})
     <tr>
       <table>
         <tr>
-        <td>
+        <td style={{border: '0px'}}>
           <div dangerouslySetInnerHTML={{ __html:pair.text}}/>
         </td>
-        <td>
+        <td style={{border: '0px'}}>
           <a target="_blank" rel="noreferrer" href={"https://pubmed.ncbi.nlm.nih.gov/"+pair.pmid}>{pair.title}</a>
         </td>
-        <td><Button onClick={() => {setShowAbstract(!showAbstract)}}>{!showAbstract ? <p>Abstract</p> : <p>Close Abstract</p>}</Button></td>
+        <td style={{border: '0px'}}><Button onClick={() => {setShowAbstract(!showAbstract)}}>{!showAbstract ? <p>Abstract</p> : <p>Close Abstract</p>}</Button></td>
         </tr>
         {showAbstract ?
         <tr>
-          <td colSpan="9" dangerouslySetInnerHTML={{ __html:pair.abstract}}></td>
+          <td colSpan="9" dangerouslySetInnerHTML={{ __html:pair.abstract}} style={{border: '0px'}}></td>
         </tr>
       : ""}
       </table>
