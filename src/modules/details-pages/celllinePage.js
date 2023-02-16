@@ -78,13 +78,14 @@ function LiteratureSearchResultsTabbed({label, labels, setLabels}) {
 
   const {data,error,isLoading} = useLiteratureCellLineMatches(label);
   const TABS = {
-    cytobands: "Cytoband Matches",
-    process: "Disease Annotations",
     genes: "Gene Matches",
+    cytobands: "Cytoband Matches",
     variants: "Variants"
   }
+  // process: "Disease Annotations",
+  // TABS.process, 
 
-  const tabNames = [TABS.process, TABS.cytobands, TABS.genes, TABS.variants]
+  const tabNames = [TABS.genes, TABS.cytobands, TABS.variants]
   const [selectedTab, setSelectedTab] = useState(tabNames[0])
 
   return (
@@ -113,7 +114,7 @@ function LiteratureSearchResultsTabbed({label, labels, setLabels}) {
           <ResultComponent cellline={label} entities={data.Cancer} /> 
         }
         {data?.Gene?.length > 0 && selectedTab === TABS.genes &&
-          <GeneComponent cellline={label} genes={data.Gene} labels={labels} setLabels={setLabels}/>
+          <GeneComponent cellline={label} genes={data.Gene.sort()} labels={labels} setLabels={setLabels}/>
         }
         {data?.Band?.length > 0 && selectedTab === TABS.cytobands &&
           <ResultComponent cellline={label} entities={data.Band} />
