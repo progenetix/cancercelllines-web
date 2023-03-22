@@ -99,7 +99,7 @@ function Variant({ variant, id, datasetIds }) {
     <ul>
 
     {variant.variation.identifiers.proteinHGVSIds && (
-       <li>Protein HGVSids:
+      <li>Protein HGVSids:
         <ul>
         {variant.variation.identifiers.proteinHGVSIds.map((ph) =>
           <li key={ph}>
@@ -107,7 +107,19 @@ function Variant({ variant, id, datasetIds }) {
           </li>
         )}
         </ul>
-        </li>
+      </li>
+    )}
+
+    {variant.variation.identifiers.genomicHGVSIds && (
+      <li>Genomic HGVSids:
+        <ul>
+        {variant.variation.identifiers.genomicHGVSIds.map((gh) =>
+          <li key={gh}>
+            {gh}
+          </li>
+        )}
+        </ul>
+      </li>
     )}
 
     {variant.variation.identifiers.clinvarIds && (
@@ -124,6 +136,22 @@ function Variant({ variant, id, datasetIds }) {
             </li>
           </ul>
         </li>
+    )}
+
+    {variant.variation.variantAlternativeIds && (
+      <>
+        {variant.variation.variantAlternativeIds.map((aa) =>
+          <li key={aa}>
+            {aa.id}
+            {aa.label && (
+              <>
+                : {aa.label}
+              </>
+            )}
+
+          </li>
+        )}
+      </>
     )}
 
     </ul>
@@ -161,28 +189,15 @@ function Variant({ variant, id, datasetIds }) {
     </>
   )}
 
+  <h5>Annotation Sources</h5>
+  <ul>
   {variant.variation.molecularAttributes && variant.variation.molecularAttributes.molecularEffects && (
-    <p>Source: CCLE mutations</p>
+    <li>CCLE mutations</li>
   )}
-
   {variant.variation.identifiers && variant.variation.identifiers.clinvarIds && (
-    <p>Source: ClinVar</p>
+    <li>ClinVar</li>
   )}
-
-  {variant.variation.variantAlternativeIds && (
-    <>
-    <h5>Alternative Variant IDs</h5>
-    <ul>
-        {variant.variation.variantAlternativeIds.map((aa) =>
-            <li key={aa}>
-                {aa.id}
-                :
-                {aa.label}
-            </li>
-        )}
-    </ul>
-    </>
-  )}
+  </ul>
 
   <h5>Download</h5>
   <ul>
@@ -216,6 +231,6 @@ function Variant({ variant, id, datasetIds }) {
 
   <ShowJSON data={variant} />
 
-</section>
-  )
+</section>)
+
 }
