@@ -28,22 +28,9 @@ const HANDOVER_IDS = {
   biosamplepgxsegvariants: "biosamplepgxsegvariants", //  "pgx:HO.biosamples-pgxseg",
   biosamplevcfvariants: "biosamplevcfvariants", //  "pgx:HO.biosamples-vcf",
   phenopackets: "phenopackets", //  "pgx:HO.phenopackets",
-  UCSClink: "UCSClink", //  "pgx:HO.bedfile2ucsc",
-  variants: "variants" //  "EDAM:3016"
+  UCSClink: "UCSClink" //  "pgx:HO.bedfile2ucsc",
+  // variants: "variants" //  "EDAM:3016"
 }
-
-// const HANDOVER_IDS = {
-//   histoplot: "pgx:HO.histoplot",
-//   biosamples: "pgx:HO.biosamples",
-//   biosamplestable: "pgx:HO.biosamplestable",
-//   biosamplevariants: "pgx:HO.biosamplevariants",
-//   annotatedvariants: "pgx:HO.annotatedvariants",
-//   biosamplepgxsegvariants: "pgx:HO.biosamples-pgxseg",
-//   biosamplevcfvariants: "pgx:HO.biosamples-vcf",
-//   phenopackets: "pgx:HO.phenopackets",
-//   UCSClink: "pgx:HO.bedfile2ucsc",
-//   variants: "EDAM:3016",
-// }
 
 const TABS = {
   results: "Results",
@@ -71,8 +58,9 @@ export function DatasetResultBox({ data: responseSet, query }) {
   const biosamplesReply = useProgenetixApi(
     biosamplesHandover && replaceWithProxy(biosamplesHandover.url)
   )
-  const paginatedHandovers = biosamplesHandover.pages
-  const paginatedBiosTableHandovers = handoverById(HANDOVER_IDS.biosamplestable).pages
+  console.log(handoverById(HANDOVER_IDS.biosamples))
+  const paginatedBiosHandovers = handoverById(HANDOVER_IDS.biosamples).pages
+  // const paginatedBiosTableHandovers = handoverById(HANDOVER_IDS.biosamplestable).pages
   const paginatedBiosVarsHandovers = handoverById(HANDOVER_IDS.biosamplevariants).pages
   const paginatedBiosVarsPgxsegHandovers = handoverById(HANDOVER_IDS.biosamplepgxsegvariants).pages
   const paginatedBiosVarsVCFhandovers = handoverById(HANDOVER_IDS.biosamplevcfvariants).pages
@@ -256,7 +244,7 @@ export function DatasetResultBox({ data: responseSet, query }) {
       ) : null}
       {tabComponent ? <div>{tabComponent}</div> : null}
       <hr/>
-      <div className="tabs">
+{/*      <div className="tabs">
         <div>
           <b>Download Sample Data (TSV)</b>
           <br/>
@@ -267,12 +255,12 @@ export function DatasetResultBox({ data: responseSet, query }) {
           </ul>
         </div>
       </div>
-      <div className="tabs">
+*/}      <div className="tabs">
         <div>
           <b>Download Sample Data (JSON)</b>
           <br/>
           <ul>
-            {paginatedHandovers.map((handover, i) => (
+            {paginatedBiosHandovers.map((handover, i) => (
               <PagedLink key={i} handover={handover} />
             ))}
           </ul>
