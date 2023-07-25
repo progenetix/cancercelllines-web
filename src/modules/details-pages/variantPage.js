@@ -253,35 +253,39 @@ function Variant({ variant, id, datasetIds }) {
 
 
 
-  {variant.variation.variantLevelData && variant.variation.variantLevelData.clinicalInterpretations.length > 0 && (
-    <>
-    <h5>Clinical Interpretations</h5>
-    <p>Clinical Relevance: <b>{variant.variation.variantLevelData.clinicalInterpretations[0].clinicalRelevance}</b></p>
-    <table>
-      <tr>
-        <th>ID</th>
-        <th>Description</th>
-      </tr>
-      {variant.variation.variantLevelData.clinicalInterpretations?.map((clinicalInterpretations, key) => {
-        return (
-          <tr key={key}>
-            <td>
-            {ReferenceLink(clinicalInterpretations.effect) ? (
-              <ExternalLink
-                href={ReferenceLink(clinicalInterpretations.effect)}
-                label={clinicalInterpretations.effect.id}
-              />
-            ) : (
-              clinicalInterpretations.effect.id
-            )}
-            </td>
-            <td>{clinicalInterpretations.effect.label}</td>
+    { variant.variation.variantLevelData.clinicalInterpretations && (
+      <>
+      {variant.variation.variantLevelData && variant.variation.variantLevelData.clinicalInterpretations.length > 0 && (
+        <>
+        <h5>Clinical Interpretations</h5>
+        <p>Clinical Relevance: <b>{variant.variation.variantLevelData.clinicalInterpretations[0].clinicalRelevance}</b></p>
+        <table>
+          <tr>
+            <th>ID</th>
+            <th>Description</th>
           </tr>
-        )
-        })}
-    </table>
+          {variant.variation.variantLevelData.clinicalInterpretations?.map((clinicalInterpretations, key) => {
+            return (
+              <tr key={key}>
+                <td>
+                {ReferenceLink(clinicalInterpretations.effect) ? (
+                  <ExternalLink
+                    href={ReferenceLink(clinicalInterpretations.effect)}
+                    label={clinicalInterpretations.effect.id}
+                  />
+                ) : (
+                  clinicalInterpretations.effect.id
+                )}
+                </td>
+                <td>{clinicalInterpretations.effect.label}</td>
+              </tr>
+            )
+            })}
+        </table>
+        </>
+      )}
     </>
-  )}
+    )}
 
   <h5>Annotation Sources</h5>
   <ul>
