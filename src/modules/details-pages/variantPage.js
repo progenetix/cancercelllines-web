@@ -253,7 +253,7 @@ function Variant({ variant, id, datasetIds }) {
 
 
 
-    { variant.variation.variantLevelData.clinicalInterpretations && (
+    { variant.variation.variantLevelData?.clinicalInterpretations && (
       <>
       {variant.variation.variantLevelData && variant.variation.variantLevelData.clinicalInterpretations.length > 0 && (
         <>
