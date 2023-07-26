@@ -138,7 +138,7 @@ function Biosample({ biosId, biosample, individual, datasetIds }) {
 
   <ul>
 
- {individual.description && (
+ {individual?.description && (
     <li>
       <b>Description</b>{": "}
       {individual.description}

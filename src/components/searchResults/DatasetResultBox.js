@@ -23,10 +23,10 @@ const HANDOVER_IDS = {
   histoplot: "histoplot", //  "pgx:HO.histoplot",
   biosamples: "biosamples", //  "pgx:HO.biosamples",
   biosamplestable: "biosamplestable", //  "pgx:HO.biosamplestable",
-  biosamplevariants: "biosamplevariants", //  "pgx:HO.biosamplevariants",
-  annotatedvariants: "annotatedvariants", //  "pgx:HO.annotatedvariants",
-  biosamplepgxsegvariants: "biosamplepgxsegvariants", //  "pgx:HO.biosamples-pgxseg",
-  biosamplevcfvariants: "biosamplevcfvariants", //  "pgx:HO.biosamples-vcf",
+  // biosamplevariants: "biosamplevariants", //  "pgx:HO.biosamplevariants",
+  // annotatedvariants: "annotatedvariants", //  "pgx:HO.annotatedvariants",
+  // biosamplepgxsegvariants: "biosamplepgxsegvariants", //  "pgx:HO.biosamples-pgxseg",
+  // biosamplevcfvariants: "biosamplevcfvariants", //  "pgx:HO.biosamples-vcf",
   phenopackets: "phenopackets", //  "pgx:HO.phenopackets",
   UCSClink: "UCSClink" //  "pgx:HO.bedfile2ucsc",
   // variants: "variants" //  "EDAM:3016"
@@ -58,12 +58,11 @@ export function DatasetResultBox({ data: responseSet, query }) {
   const biosamplesReply = useProgenetixApi(
     biosamplesHandover && replaceWithProxy(biosamplesHandover.url)
   )
-  console.log(handoverById(HANDOVER_IDS.biosamples))
   const paginatedBiosHandovers = handoverById(HANDOVER_IDS.biosamples).pages
-  // const paginatedBiosTableHandovers = handoverById(HANDOVER_IDS.biosamplestable).pages
-  const paginatedBiosVarsHandovers = handoverById(HANDOVER_IDS.biosamplevariants).pages
-  const paginatedBiosVarsPgxsegHandovers = handoverById(HANDOVER_IDS.biosamplepgxsegvariants).pages
-  const paginatedBiosVarsVCFhandovers = handoverById(HANDOVER_IDS.biosamplevcfvariants).pages
+  const paginatedBiosTableHandovers = handoverById(HANDOVER_IDS.biosamplestable).pages
+  // const paginatedBiosVarsHandovers = handoverById(HANDOVER_IDS.biosamplevariants).pages
+  // const paginatedBiosVarsPgxsegHandovers = handoverById(HANDOVER_IDS.biosamplepgxsegvariants).pages
+  // const paginatedBiosVarsVCFhandovers = handoverById(HANDOVER_IDS.biosamplevcfvariants).pages
   const paginatedPhenopacketsHandovers = handoverById(HANDOVER_IDS.phenopackets).pages
 
   const variantsHandover = handoverById(HANDOVER_IDS.variants)
@@ -71,10 +70,10 @@ export function DatasetResultBox({ data: responseSet, query }) {
     variantsHandover && replaceWithProxy(variantsHandover.url)
   )
 
-  const annotatedvariantsHandover = handoverById(HANDOVER_IDS.annotatedvariants)
-  const annotatedvariantsReply = useProgenetixApi(
-    annotatedvariantsHandover && replaceWithProxy(annotatedvariantsHandover.url)
-  )
+  // const annotatedvariantsHandover = handoverById(HANDOVER_IDS.annotatedvariants)
+  // const annotatedvariantsReply = useProgenetixApi(
+  //   annotatedvariantsHandover && replaceWithProxy(annotatedvariantsHandover.url)
+  // )
 
   const UCSCbedHandoverURL = handoverById(HANDOVER_IDS.UCSClink) === undefined ? false : handoverById(HANDOVER_IDS.UCSClink).url
 
@@ -158,10 +157,10 @@ export function DatasetResultBox({ data: responseSet, query }) {
     tabComponent = (
       <VariantsDataTable apiReply={variantsReply} datasetId={id} />
     )
-  } else if (selectedTab === TABS.annotatedvariants) {
-    tabComponent = (
-      <VariantsDataTable apiReply={annotatedvariantsReply} datasetId={id} />
-    )
+  // } else if (selectedTab === TABS.annotatedvariants) {
+  //   tabComponent = (
+  //     <VariantsDataTable apiReply={annotatedvariantsReply} datasetId={id} />
+  //   )
   }
 
   return (
@@ -244,7 +243,7 @@ export function DatasetResultBox({ data: responseSet, query }) {
       ) : null}
       {tabComponent ? <div>{tabComponent}</div> : null}
       <hr/>
-{/*      <div className="tabs">
+      <div className="tabs">
         <div>
           <b>Download Sample Data (TSV)</b>
           <br/>
@@ -255,7 +254,7 @@ export function DatasetResultBox({ data: responseSet, query }) {
           </ul>
         </div>
       </div>
-*/}      <div className="tabs">
+      <div className="tabs">
         <div>
           <b>Download Sample Data (JSON)</b>
           <br/>
@@ -266,7 +265,7 @@ export function DatasetResultBox({ data: responseSet, query }) {
           </ul>
         </div>
       </div>
-      <div className="tabs">
+{/*      <div className="tabs">
         <div>
           <b>Download Sample Variants (JSON)</b>
           <br/>
@@ -299,6 +298,7 @@ export function DatasetResultBox({ data: responseSet, query }) {
           </ul>
         </div>
       </div>
+*/}     
       <div className="tabs">
         <div>
           <b>Download Phenopackets (JSON)</b>
