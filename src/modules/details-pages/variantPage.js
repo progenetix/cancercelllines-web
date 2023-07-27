@@ -148,7 +148,6 @@ function Variant({ variant, id, datasetIds }) {
     <h5>Variant Shorthand Expression</h5>
       <ul>
         <li>{variant.variantInternalId}</li>
-        {/*<View />*/}
       </ul>
     </>
   )}
