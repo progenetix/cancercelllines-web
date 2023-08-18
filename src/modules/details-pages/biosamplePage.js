@@ -138,7 +138,7 @@ function Biosample({ biosId, biosample, individual, datasetIds }) {
 
   <ul>
 
- {individual.description && (
+ {individual?.description && (
     <li>
       <b>Description</b>{": "}
       {individual.description}
@@ -186,7 +186,7 @@ function Biosample({ biosId, biosample, individual, datasetIds }) {
 
   {/*------------------------------------------------------------------------*/}
 
-  {biosample.provenance && (
+  {biosample?.provenance && (
     <>
     <h5>Provenance</h5>
     <ul>
@@ -232,7 +232,7 @@ function Biosample({ biosId, biosample, individual, datasetIds }) {
     </>
   )}
 
-  { biosample.info && biosample.info.callsetIds?.length > 0 && (
+  { biosample.info && biosample.info?.callsetIds?.length > 0 && (
     <>
       <h5>CNV {pluralizeWord("Plot", biosample.info.callsetIds.length)}</h5>
       {biosample.info?.callsetIds.map((csid, i) => (
@@ -296,5 +296,3 @@ function Biosample({ biosId, biosample, individual, datasetIds }) {
 </section>
   )
 }
-
-

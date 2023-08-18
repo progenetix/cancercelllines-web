@@ -399,7 +399,7 @@ export function subsetHistoBaseLink(id, datasetIds) {
 // TODO: make this a function here - UI links resolved in UI, API links in bycon
 export function subsetIdLink(id) {
   const subsetRoot = id.match("cellosaurus") ? "cellline" : "subset"
-  return `${SITE_DEFAULTS.SITE}/${subsetRoot}/?id=${id}`
+  return `${SITE_DEFAULTS.SITE}${subsetRoot}/?id=${id}`
 }
 
 export function subsetPgxsegLink(id) {

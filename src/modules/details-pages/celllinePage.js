@@ -28,7 +28,7 @@ const CellLineDetailsPage = withUrlQuery(({ urlQuery }) => {
   const [plotGeneSymbols, setGeneSymbols] = useState("");
   const [plotCytoregionLabels, setCytoregionSymbols] = useState("");
 
-  const aURL = `${SITE_DEFAULTS.API_PATH}beacon/genomicVariations/?filters=${id}&requestEntityId=genomicVariations&datasetIds=${datasetIds}&annotatedOnly=True&paginateResults=false`
+  const aURL = `${SITE_DEFAULTS.API_PATH}beacon/genomicVariations/?filters=${id}&datasetIds=${datasetIds}&variantType=SO:0001059&paginateResults=false`
   const variantsReply = useProgenetixApi( aURL )
 
   const iURL = `${SITE_DEFAULTS.API_PATH}beacon/individuals/?filters=${id}&datasetIds=${datasetIds}&limit=1`
