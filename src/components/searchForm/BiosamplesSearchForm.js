@@ -189,6 +189,19 @@ export function Form({
   const geoCity = watch("geoCity")
   const showGeoDistance = !parameters.geoCity.isHidden && geoCity != null
 
+  const [collapsedSections, setCollapsedSections] = useState({
+    location: true,
+    filters: true
+  });
+
+  const toggleSection = (section) => {
+    setCollapsedSections((prevSections) => ({
+      ...prevSections,
+      [section]: !prevSections[section]
+    }));
+  };
+
+
   return (
     <>
       <div>
@@ -227,96 +240,116 @@ export function Form({
         )}
         <form onSubmit={handleSubmit(onSubmit)}>
           {errors?.global?.message && (
-            <div className="notification is-warning">
-              {errors.global.message}
-            </div>
+              <div className="notification is-warning">
+                {errors.global.message}
+              </div>
           )}
+
           <SelectField {...parameters.datasetIds} {...selectProps} />
           <SelectField {...parameters.assemblyId} {...selectProps} />
           {!parameters.geneId.isHidden && (
-            <GeneSymbolSelector {...parameters.geneId} {...selectProps} />
+              <GeneSymbolSelector {...parameters.geneId} {...selectProps} />
           )}
-          <div className="columns my-0">
-            <SelectField
-              className={cn(
-                !parameters.referenceName.isHidden && "column",
-                "py-0 mb-3"
-              )}
-              {...parameters.referenceName}
-              {...selectProps}
-            />
-            <SelectField
-              className={cn(
-                !parameters.variantType.isHidden && "column",
-                "py-0 mb-3"
-              )}
-              {...parameters.variantType}
-              {...selectProps}
-            />
+
+          {/*<div className="section inline-section">*/}
+            <div
+                className="section-title"
+                onClick={() => toggleSection("location")}
+                style={{ padding: "10px 0" }} // Add padding before and after the title
+            >
+              <b> Query by Position </b> {collapsedSections.location ? <b>&gt;</b> : <b>&#8964;</b>}
+            {/*</div>*/}
+            {!collapsedSections.location && (
+                <>
+                  <div className="columns my-0">
+                    <SelectField
+                        className={cn(
+                            !parameters.referenceName.isHidden && "column",
+                            "py-0 mb-3"
+                        )}
+                        {...parameters.referenceName}
+                        {...selectProps}
+                    />
+                    <SelectField
+                        className={cn(
+                            !parameters.variantType.isHidden && "column",
+                            "py-0 mb-3"
+                        )}
+                        {...parameters.variantType}
+                        {...selectProps}
+                    />
+                  </div>
+                  <div className="columns my-0">
+                    <InputField
+                        className={cn(
+                            !parameters.start.isHidden && "column",
+                            "py-0 mb-3"
+                        )}
+                        {...fieldProps}
+                        {...parameters.start}
+                        rules={{
+                          validate: checkIntegerRange
+                        }}
+                    />
+                    <InputField
+                        className={cn(
+                            !parameters.end.isHidden && "column",
+                            "py-0 mb-3"
+                        )}
+                        {...fieldProps}
+                        {...parameters.end}
+                        rules={{
+                          validate: checkIntegerRange
+                        }}
+                    />
+                  </div>
+                  <div className="columns my-0">
+                    <InputField
+                        className={cn(
+                            !parameters.variantMinLength.isHidden && "column",
+                            "py-0 mb-3"
+                        )}
+                        {...fieldProps}
+                        {...parameters.variantMinLength}
+                        rules={{
+                          validate: checkIntegerRange
+                        }}
+                    />
+                    <InputField
+                        className={cn(
+                            !parameters.variantMaxLength.isHidden && "column",
+                            "py-0 mb-3"
+                        )}
+                        {...fieldProps}
+                        {...parameters.variantMaxLength}
+                        rules={{
+                          validate: checkIntegerRange
+                        }}
+                    />
+                  </div>
+                  <div className="columns my-0">
+                    <InputField
+                        className={cn(
+                            !parameters.referenceBases.isHidden && "column",
+                            "py-0 mb-3"
+                        )}
+                        {...fieldProps}
+                        {...parameters.referenceBases}
+                    />
+                    <InputField
+                        className={cn(
+                            !parameters.alternateBases.isHidden && "column",
+                            "py-0 mb-3"
+                        )}
+                        {...fieldProps}
+                        {...parameters.alternateBases}
+                    />
+                  </div>
+                </>
+            )}
           </div>
-          <div className="columns my-0">
-            <InputField
-              className={cn(
-                !parameters.start.isHidden && "column",
-                "py-0 mb-3"
-              )}
-              {...fieldProps}
-              {...parameters.start}
-              rules={{
-                validate: checkIntegerRange
-              }}
-            />
-            <InputField
-              className={cn(!parameters.end.isHidden && "column", "py-0 mb-3")}
-              {...fieldProps}
-              {...parameters.end}
-              rules={{
-                validate: checkIntegerRange
-              }}
-            />
-          </div>
-          <div className="columns my-0">
-            <InputField
-              className={cn(
-                !parameters.variantMinLength.isHidden && "column",
-                "py-0 mb-3"
-              )}
-              {...fieldProps}
-              {...parameters.variantMinLength}
-              rules={{
-                validate: checkIntegerRange
-              }}
-            />
-            <InputField
-              className={cn(
-                !parameters.variantMaxLength.isHidden && "column",
-                "py-0 mb-3"
-              )}
-              {...fieldProps}
-              {...parameters.variantMaxLength}
-              rules={{
-                validate: checkIntegerRange
-              }}
-            />
-          </div>
-          <div className="columns my-0">
-            <InputField
-              className={cn(
-                !parameters.referenceBases.isHidden && "column",
-                "py-0 mb-3"
-              )}
-              {...fieldProps}
-              {...parameters.referenceBases}
-            />
-            <InputField
-              className={cn(
-                !parameters.alternateBases.isHidden && "column",
-                "py-0 mb-3"
-              )}
-              {...fieldProps}
-              {...parameters.alternateBases}
-            />
-          </div>
+
+
           <div className="columns my-0">
             <SelectField
               className={cn(
@@ -374,58 +407,74 @@ export function Form({
               {...selectProps}
             />
           </div>
-          <div className="columns my-0">
-            <InputField
-              className="column py-0 mb-3"
-              {...parameters.freeFilters}
-              {...fieldProps}
-            />
-            <SelectField
-              className="column py-0 mb-3"
-              {...parameters.filterLogic}
-              {...selectProps}
-              label={
-                <span>
+
+          {/*<div className="section">*/}
+            <div
+                className="section-title"
+                onClick={() => toggleSection("filters")}
+                style={{ padding: "10px 0" }} // Add padding before and after the title
+            >
+            <b>Filtering Options</b>  {collapsedSections.filters ? <b>&gt;</b> : <b>&#8964;</b>}
+            {/*</div>*/}
+            {!collapsedSections.filters && (
+                <>
+                  <div className="columns my-0">
+                    <InputField
+                        className="column py-0 mb-3"
+                        {...parameters.freeFilters}
+                        {...fieldProps}
+                    />
+                    <SelectField
+                        className="column py-0 mb-3"
+                        {...parameters.filterLogic}
+                        {...selectProps}
+                        label={
+                          <span>
                   <span>{parameters.filterLogic.label}</span>
                   <FilterLogicWarning isVisible={isFilterlogicWarningVisible} />
                 </span>
-              }
-            />
-            <SelectField
-              className="column py-0 mb-3"
-              {...parameters.includeDescendantTerms}
-              {...selectProps}
-              label={
-                <span>
+                        }
+                    />
+                    <SelectField
+                        className="column py-0 mb-3"
+                        {...parameters.includeDescendantTerms}
+                        {...selectProps}
+                        label={
+                          <span>
                   <span>{parameters.includeDescendantTerms.label}</span>
                 </span>
-              }
-            />
+                        }
+                    />
+                  </div>
+                  <div className="columns my-0">
+                    <InputField
+                        className={cn(
+                            !parameters.limit.isHidden && "column",
+                            "py-0 mb-3"
+                        )}
+                        {...fieldProps}
+                        {...parameters.limit}
+                        rules={{
+                          validate: checkIntegerRange
+                        }}
+                    />
+                    <InputField
+                        className={cn(
+                            !parameters.skip.isHidden && "column",
+                            "py-0 mb-3"
+                        )}
+                        {...fieldProps}
+                        {...parameters.skip}
+                        rules={{
+                          validate: checkIntegerRange
+                        }}
+                    />
+                  </div>
+                </>
+            )}
           </div>
-          <div className="columns my-0">
-            <InputField
-              className={cn(
-                !parameters.limit.isHidden && "column",
-                "py-0 mb-3"
-              )}
-              {...fieldProps}
-              {...parameters.limit}
-              rules={{
-                validate: checkIntegerRange
-              }}
-            />
-            <InputField
-              className={cn(
-                !parameters.skip.isHidden && "column",
-                "py-0 mb-3"
-              )}
-              {...fieldProps}
-              {...parameters.skip}
-              rules={{
-                validate: checkIntegerRange
-              }}
-            />
-          </div>
+
+
           <InputField {...parameters.accessid} {...fieldProps} />
           {!parameters.geoCity.isHidden && (
             <div className="columns my-0">
