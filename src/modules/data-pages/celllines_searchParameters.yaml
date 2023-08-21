@@ -18,10 +18,10 @@ celllines:
       placeholder: "EFO:0030067"
     alternateBases:
       placeholder: ""
-      isHidden: true
+      isHidden: false
     referenceBases:
       placeholder: ""
-      isHidden: true
+      isHidden: false
     accessid:
       isHidden: true
     filterPrecision:
