@@ -257,7 +257,7 @@ export function Form({
                 onClick={() => toggleSection("location")}
                 style={{ padding: "10px 0" }} // Add padding before and after the title
             >
-              <b> Query by Position </b> {collapsedSections.location ? <b>&gt;</b> : <b>&#8964;</b>}
+              <b> Query by Position </b> {collapsedSections.location ? <u>Show</u> : <u>Hide</u>}
             {/*</div>*/}
             {!collapsedSections.location && (
                 <>
@@ -410,11 +410,11 @@ export function Form({
 
           {/*<div className="section">*/}
             <div
-                className="section-title"
+                className={`section-title clickable ${collapsedSections.filters ? "show-button" : "hide-button"}`}
                 onClick={() => toggleSection("filters")}
                 style={{ padding: "10px 0" }} // Add padding before and after the title
             >
-            <b>Filtering Options</b>  {collapsedSections.filters ? <b>&gt;</b> : <b>&#8964;</b>}
+            <b>Filtering Options </b> {collapsedSections.filters ? <u>Show</u> : <u>Hide</u>}
             {/*</div>*/}
             {!collapsedSections.filters && (
                 <>
