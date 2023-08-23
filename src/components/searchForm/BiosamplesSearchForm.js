@@ -252,6 +252,7 @@ export function Form({
           )}
 
           {/*<div className="section inline-section">*/}
+
             <div
                 className="section-title"
                 onClick={() => toggleSection("location")}
@@ -261,7 +262,7 @@ export function Form({
             {/*</div>*/}
             {!collapsedSections.location && (
                 <>
-                  <div className="columns my-0">
+                  <div className="columns my-0" onClick={(e) => e.stopPropagation()}>
                     <SelectField
                         className={cn(
                             !parameters.referenceName.isHidden && "column",
@@ -279,18 +280,18 @@ export function Form({
                         {...selectProps}
                     />
                   </div>
-                  <div className="columns my-0">
-                    <InputField
-                        className={cn(
-                            !parameters.start.isHidden && "column",
-                            "py-0 mb-3"
-                        )}
-                        {...fieldProps}
-                        {...parameters.start}
-                        rules={{
-                          validate: checkIntegerRange
-                        }}
-                    />
+                  <div className="columns my-0" onClick={(e) => e.stopPropagation()}>
+                      <InputField
+                          className={cn(
+                              !parameters.start.isHidden && "column",
+                              "py-0 mb-3"
+                          )}
+                          {...fieldProps}
+                          {...parameters.start}
+                          rules={{
+                            validate: checkIntegerRange
+                          }}
+                      />
                     <InputField
                         className={cn(
                             !parameters.end.isHidden && "column",
@@ -303,7 +304,7 @@ export function Form({
                         }}
                     />
                   </div>
-                  <div className="columns my-0">
+                  <div className="columns my-0" onClick={(e) => e.stopPropagation()}>
                     <InputField
                         className={cn(
                             !parameters.variantMinLength.isHidden && "column",
@@ -327,7 +328,7 @@ export function Form({
                         }}
                     />
                   </div>
-                  <div className="columns my-0">
+                  <div className="columns my-0" onClick={(e) => e.stopPropagation()}>
                     <InputField
                         className={cn(
                             !parameters.referenceBases.isHidden && "column",
@@ -408,7 +409,7 @@ export function Form({
             />
           </div>
 
-          {/*<div className="section">*/}
+
             <div
                 className={`section-title clickable ${collapsedSections.filters ? "show-button" : "hide-button"}`}
                 onClick={() => toggleSection("filters")}
@@ -418,7 +419,7 @@ export function Form({
             {/*</div>*/}
             {!collapsedSections.filters && (
                 <>
-                  <div className="columns my-0">
+                  <div className="columns my-0" onClick={(e) => e.stopPropagation()}>
                     <InputField
                         className="column py-0 mb-3"
                         {...parameters.freeFilters}
@@ -446,7 +447,7 @@ export function Form({
                         }
                     />
                   </div>
-                  <div className="columns my-0">
+                  <div className="columns my-0" onClick={(e) => e.stopPropagation()}>
                     <InputField
                         className={cn(
                             !parameters.limit.isHidden && "column",
