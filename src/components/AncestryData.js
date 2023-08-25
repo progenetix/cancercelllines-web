@@ -2,9 +2,9 @@ import React, { useState, useCallback } from "react"
 import {VictoryPie, VictoryLegend } from "victory";
 
 export function AncestryData({ individual }) {
-  const processedData = individual?.genomeAncestry
-      ?.sort((a, b) => a.label.localeCompare(b.label)) // Sort alphabetically
-      ?.filter((datum) => parseFloat(datum.percentage) > 0); // Filter out data points with percentage of 0
+    const processedData = individual?.genomeAncestry
+        ?.sort((a, b) => a.label.localeCompare(b.label)) // Sort alphabetically
+        ?.filter((datum) => parseFloat(datum.percentage) > 0); // Filter out data points with percentage of 0
     const legendData = processedData.map((datum) => ({ name: `${datum.label} ${datum.percentage}%` }))
     const colorScale = ['#E0BBE4', '#957DAD', '#D291BC', '#FEC8D8', '#FFDFD3', '#FEE1E8', '#D3C2CE']
     const [boundingRect, setBoundingRect] = useState({ width: 0, height: 0 });
