@@ -60,7 +60,13 @@ const CellLineDetailsPage = withUrlQuery(({ urlQuery }) => {
           <VariantsDataTable apiReply={variantsReply} datasetId={datasetIds} />
         </Panel>
 
-        <Panel heading="Subset CNV Frequencies" className="content">
+        <Panel heading="CNV Profile" className="content">
+          <p>The graph shows the copy number gains (up, blue) and losses (down, orange)
+          as percentage of the cell line instances they were observed in. Off note, since
+          all instances arose from the same donor cell line one would expect all genomic
+          regions to be either 0 or 100 percent. Regions with diverging values are either
+          due to clonal divergence/progression and/or to experimental variability.
+          </p>
           <div className="mb-3">
             <SubsetHistogram
               id={id}
