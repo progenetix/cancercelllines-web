@@ -161,7 +161,7 @@ function Individual({ individual, datasetIds }) {
           <BeaconRESTLink
             entryType="individuals"
             idValue={individual.id}
-            responseType="variants"
+            responseType="genomicVariations"
             datasetIds={datasetIds}
             label="Beacon JSON"
           />
@@ -170,7 +170,7 @@ function Individual({ individual, datasetIds }) {
           <BeaconRESTLink
             entryType="individuals"
             idValue={individual.id}
-            responseType="variants"
+            responseType="genomicVariations"
             datasetIds={datasetIds}
             output="pgxseg"
             label="Progenetix .pgxseg file"
@@ -180,7 +180,7 @@ function Individual({ individual, datasetIds }) {
           <BeaconRESTLink
             entryType="individuals"
             idValue={individual.id}
-            responseType="variants"
+            responseType="genomicVariations"
             datasetIds={datasetIds}
             output="vcf"
             label="(experimental) VCF 4.4 file"

@@ -304,9 +304,7 @@ export function getServiceItemUrl(id, collection, datasetIds) {
 }
 
 export function getDataItemPageUrl(id, entity, datasetIds) {
-  return `${SITE_DEFAULTS.API_PATH}${entity}/?datasetIds=${datasetIds}&${
-    entity == "variants" ? "_id" : "id"
-  }=${id}`
+  return `${SITE_DEFAULTS.API_PATH}${entity}/?datasetIds=${datasetIds}&id=${id}`
 }
 
 export function NoResultsHelp(id, entity) {

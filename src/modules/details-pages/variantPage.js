@@ -306,7 +306,7 @@ function Variant({ variant, id, datasetIds }) {
   <ul>
     <li>Variant as{" "}
       <BeaconRESTLink
-        entryType="variants"
+        entryType="genomicVariations"
         idValue={id}
         datasetIds={datasetIds}
         label="Beacon JSON"
@@ -314,7 +314,7 @@ function Variant({ variant, id, datasetIds }) {
     </li>
     <li>Variant as{" "}
       <BeaconRESTLink
-        entryType="variants"
+        entryType="genomicVariations"
         idValue={id}
         datasetIds={datasetIds}
         output="pgxseg"
@@ -323,7 +323,7 @@ function Variant({ variant, id, datasetIds }) {
     </li>
     <li>Variant as{" "}
       <BeaconRESTLink
-        entryType="variants"
+        entryType="genomicVariations"
         idValue={id}
         datasetIds={datasetIds}
         output="vcf"
