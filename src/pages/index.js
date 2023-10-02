@@ -105,10 +105,10 @@ export const getStaticProps = async () => {
     `${SITE_DEFAULTS.PREFETCH_PATH}services/collations/?datasetIds=${SITE_DEFAULTS.DATASETID}&method=counts&collationTypes=cellosaurus,NCIT,icdom,PMID,icdot`
   )
   const cellosaurusCountReply = await tryFetch(
-    `${SITE_DEFAULTS.PREFETCH_PATH}services/collations/?datasetIds=${SITE_DEFAULTS.DATASETID}&method=codematches&collationTypes=cellosaurus&requestedGranularity=count`
+    `${SITE_DEFAULTS.PREFETCH_PATH}services/collations/?datasetIds=${SITE_DEFAULTS.DATASETID}&method=codematches&collationTypes=cellosaurus`
   )
   const ncitCountReply = await tryFetch(
-    `${SITE_DEFAULTS.PREFETCH_PATH}services/collations/?datasetIds=${SITE_DEFAULTS.DATASETID}&method=codematches&collationTypes=NCIT&requestedGranularity=count`
+    `${SITE_DEFAULTS.PREFETCH_PATH}services/collations/?datasetIds=${SITE_DEFAULTS.DATASETID}&method=codematches&collationTypes=NCIT`
   )
   return {
     props: {
