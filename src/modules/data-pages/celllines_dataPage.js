@@ -1,7 +1,7 @@
 import React from "react"
 import { Layout } from "../../components/Layout"
 import parametersConfig from "../shared/searchParameters.yaml"
-import requestTypesConfig from "./celllines_searchParameters.yaml"
+import requestTypeConfig from "./celllines_searchParameters.yaml"
 import BiosamplesSearchPanel from "../../components/searchForm/BiosamplesSearchPanel"
 
 export default function cellLines_dataPage({ cytoBands }) {
@@ -14,7 +14,7 @@ export default function cellLines_dataPage({ cytoBands }) {
 */}   
       <BiosamplesSearchPanel
         parametersConfig={parametersConfig}
-        requestTypesConfig={requestTypesConfig}
+        requestTypeConfig={requestTypeConfig}
         cytoBands={cytoBands}
         collapsed={false}
       />

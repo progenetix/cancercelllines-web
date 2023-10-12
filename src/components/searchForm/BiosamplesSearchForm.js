@@ -36,7 +36,7 @@ BiosamplesSearchForm.propTypes = {
   cytoBands: PropTypes.object.isRequired,
   isQuerying: PropTypes.bool.isRequired,
   setSearchQuery: PropTypes.func.isRequired,
-  requestTypesConfig: PropTypes.object.isRequired,
+  requestTypeConfig: PropTypes.object.isRequired,
   parametersConfig: PropTypes.object.isRequired
 }
 
@@ -74,7 +74,7 @@ export function Form({
   cytoBands,
   isQuerying,
   setSearchQuery,
-  requestTypesConfig,
+  requestTypeConfig,
   parametersConfig,
   urlQuery,
   setUrlQuery,
@@ -88,8 +88,6 @@ export function Form({
   //   formRef.current.submit();
   // }, []);
 
-  const requestTypeId = Object.entries(requestTypesConfig)[0][0]
-  const requestTypeConfig = requestTypesConfig[requestTypeId]
   const [example, setExample] = useState(null)
   let parameters = useMemo(
     () =>

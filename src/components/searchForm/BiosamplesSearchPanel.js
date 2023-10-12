@@ -9,14 +9,14 @@ import PropTypes from "prop-types"
 // import cn from "classnames"
 
 BiosamplesSearchPanel.propTypes = {
-  requestTypesConfig: PropTypes.object.isRequired,
+  requestTypeConfig: PropTypes.object.isRequired,
   parametersConfig: PropTypes.object.isRequired,
   collapsed: false
 }
 
 export default function BiosamplesSearchPanel({
-  requestTypesConfig,
   parametersConfig,
+  requestTypeConfig,
   cytoBands,
   collapsed,
   useUtilitiesButtons = true
@@ -75,7 +75,7 @@ export default function BiosamplesSearchPanel({
       >
         <BiosamplesSearchForm
           cytoBands={cytoBands}
-          requestTypesConfig={requestTypesConfig}
+          requestTypeConfig={requestTypeConfig}
           parametersConfig={parametersConfig}
           isQuerying={isLoading}
           setSearchQuery={onValidFormQuery}
