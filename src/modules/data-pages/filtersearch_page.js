@@ -12,6 +12,7 @@ export default function filtersearch_page({cytoBands}) {
       <BiosamplesSearchPanel
         parametersConfig={parametersConfig}
         requestTypeConfig={requestTypeConfig}
+        requestTypeExamples={[]}
         cytoBands={cytoBands}
         collapsed={false}
         useUtilitiesButtons={false}

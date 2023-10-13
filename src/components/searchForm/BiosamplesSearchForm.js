@@ -37,6 +37,7 @@ BiosamplesSearchForm.propTypes = {
   isQuerying: PropTypes.bool.isRequired,
   setSearchQuery: PropTypes.func.isRequired,
   requestTypeConfig: PropTypes.object.isRequired,
+  requestTypeExamples: PropTypes.object.isRequired,
   parametersConfig: PropTypes.object.isRequired
 }
 
@@ -75,6 +76,7 @@ export function Form({
   isQuerying,
   setSearchQuery,
   requestTypeConfig,
+  requestTypeExamples,
   parametersConfig,
   urlQuery,
   setUrlQuery,
@@ -211,7 +213,7 @@ export function Form({
                 setExample,
                 setUrlQuery
               )}
-              requestTypeConfig={requestTypeConfig}
+              requestTypeExamples={requestTypeExamples}
             />
           )}
           { useUtilitiesButtons && (
@@ -511,10 +513,10 @@ export function Form({
   )
 }
 
-function ExamplesButtons({ requestTypeConfig, onExampleClicked }) {
+function ExamplesButtons({ requestTypeExamples, onExampleClicked }) {
   return (
     <div>
-      {Object.entries(requestTypeConfig?.examples || []).map(([id, value]) => (
+      {Object.entries(requestTypeExamples || []).map(([id, value]) => (
         <button
           key={id}
           className="button is-light"
