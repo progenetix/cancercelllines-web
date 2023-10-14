@@ -1,7 +1,7 @@
 import React from "react"
 import { Layout } from "../../components/Layout"
-import parametersConfig from "../shared/searchParameters.yaml"
-import requestTypeConfig from "./filtersearch_searchParameters.yaml"
+import parametersConfig from "../../config/searchParameters.yaml"
+import requestTypeConfig from "../../config/filtersearch_searchParameters.yaml"
 import BiosamplesSearchPanel from "../../components/searchForm/BiosamplesSearchPanel"
 // import Link from "next/link"
 
