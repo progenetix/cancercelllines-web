@@ -25,7 +25,7 @@ export default function SVGloader({ apiReply }) {
   )
 }
 
-export function SubsetHistogram({ id, filter, datasetIds, plotRegionLabels, plotGeneSymbols, plotCytoregionLabels, title, description, size: givenSize }) {
+export function SubsetHistogram({ id, datasetIds, plotRegionLabels, plotGeneSymbols, plotCytoregionLabels, title, description, size: givenSize }) {
   const componentRef = useRef()
   const { width } = useContainerDimensions(componentRef)
   const size = givenSize || width
@@ -35,7 +35,6 @@ export function SubsetHistogram({ id, filter, datasetIds, plotRegionLabels, plot
         apiReply={useSubsethistogram({
           datasetIds,
           id,
-          filter,
           plotRegionLabels,
           plotGeneSymbols,
           plotCytoregionLabels,
@@ -74,7 +73,7 @@ export function SubsetHistogram({ id, filter, datasetIds, plotRegionLabels, plot
 export function BiosamplePlot({ biosid, datasetIds, plotRegionLabels, plotChros}) {
   const componentRef = useRef()
   const { width } = useContainerDimensions(componentRef)
-  const url = `${SITE_DEFAULTS.API_PATH}beacon/biosamples/${biosid}/?datasetIds=${datasetIds}&output=samplesplot&plot_width=${width}&plotRegionLabels=${plotRegionLabels}&plotChros=${plotChros}&forceEmptyPlot=true`
+  const url = `${SITE_DEFAULTS.API_PATH}services/sampleplots/${biosid}/?datasetIds=${datasetIds}&plot_width=${width}&plotRegionLabels=${plotRegionLabels}&plotChros=${plotChros}&forceEmptyPlot=true`
   // width > 0 to make sure the component is mounted and avoid double fetch
   const dataEffect = useExtendedSWR(width > 0 && url, svgFetcher)
   return (
@@ -87,7 +86,7 @@ export function BiosamplePlot({ biosid, datasetIds, plotRegionLabels, plotChros}
 export function CallsetHistogram({ csid, datasetIds }) {
   const componentRef = useRef()
   const { width } = useContainerDimensions(componentRef)
-  const url = `${SITE_DEFAULTS.API_PATH}beacon/biosamples/?analysisIds=${csid}&datasetIds=${datasetIds}&output=samplesplot&plot_width=${width}`
+  const url = `${SITE_DEFAULTS.API_PATH}services/sampleplots/?analysisIds=${csid}&datasetIds=${datasetIds}&plot_width=${width}`
   // width > 0 to make sure the component is mounted and avoid double fetch
   const dataEffect = useExtendedSWR(width > 0 && url, svgFetcher)
   return (
@@ -99,6 +98,5 @@ export function CallsetHistogram({ csid, datasetIds }) {
 
 SubsetHistogram.propTypes = {
   id: PropTypes.string.isRequired,
-  filter: PropTypes.string,
   background: PropTypes.bool
 }
