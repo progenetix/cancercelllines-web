@@ -273,20 +273,6 @@ export function useProgenetixRefPublicationList({ geoCity, geodistanceKm }) {
   return useProgenetixApi(url)
 }
 
-export const ontologymapsBaseUrl = `${SITE_DEFAULTS.API_PATH}services/ontologymaps?`
-
-export function ontologymapsUrl({ filters, filterPrecision }) {
-  let params = new URLSearchParams({ filters: filters })
-  if (filterPrecision) {
-    params.append("filterPrecision", filterPrecision)
-  }
-  return `${ontologymapsBaseUrl}${params.toString()}`
-}
-
-export function ontologymapsPrefUrl({ prefixes, filters }) {
-  return `${ontologymapsBaseUrl}filters=${prefixes},${filters}&filterPrecision=start`
-}
-
 export function useDataItemDelivery(id, entity, datasetIds) {
   return useProgenetixApi(getDataItemUrl(id, entity, datasetIds))
 }
@@ -303,17 +289,11 @@ export function getServiceItemUrl(id, collection, datasetIds) {
   return `${SITE_DEFAULTS.API_PATH}services/${collection}?id=${id}&datasetIds=${datasetIds}`
 }
 
-export function getDataItemPageUrl(id, entity, datasetIds) {
-  return `${SITE_DEFAULTS.API_PATH}${entity}/?datasetIds=${datasetIds}&id=${id}`
-}
-
 export function NoResultsHelp(id, entity) {
-  const url = getDataItemPageUrl(id, entity, SITE_DEFAULTS.DATASETID)
   return (
     <div className="notification is-size-5">
-      This page will only show content if called with a specific biosample ID
-      which already exists in Progenetix {" "}
-      <strong>{entity}</strong> database, e.g. <a href={url}>{url}</a>.
+      This page will only show content if called with an existing {entity} ID;{" "}
+      is not valid.
     </div>
   )
 }
@@ -326,15 +306,14 @@ export function useCytomapper(querytext) {
   return useProgenetixApi(url)
 }
 
-export function useSubsethistogram({ datasetIds, id, filter, plotRegionLabels, plotGeneSymbols, plotCytoregionLabels, size, chr2plot }) {
+export function useSubsethistogram({ datasetIds, id, plotRegionLabels, plotGeneSymbols, plotCytoregionLabels, size, plotChros }) {
   const svgbaseurl = subsetHistoBaseLink(id, datasetIds)
   const params = []
-  filter && params.push(["filter", filter])
   plotRegionLabels && params.push(["plotRegionLabels", plotRegionLabels])
   plotGeneSymbols && params.push(["plotGeneSymbols", plotGeneSymbols])
   plotCytoregionLabels && params.push(["plotCytoregionLabels", plotCytoregionLabels])
   size && params.push(["plotWidth", size])
-  chr2plot && params.push(["chr2plot", chr2plot])
+  plotChros && params.push(["plotChros", plotChros])
   const searchQuery = new URLSearchParams(params).toString()
   return useExtendedSWR(size > 0 && `${svgbaseurl}&${searchQuery}`, svgFetcher)
 }
@@ -390,7 +369,7 @@ export function useGeneSymbol({ geneId }) {
 }
 
 export function subsetHistoBaseLink(id, datasetIds) {
-  return `${SITE_DEFAULTS.API_PATH}services/intervalFrequencies/?datasetIds=${datasetIds}&id=${id}&output=histoplot`
+  return `${SITE_DEFAULTS.API_PATH}services/collationplots/?datasetIds=${datasetIds}&id=${id}`
 }
 
 // the targets are resolved by `bycon` (bycon/services/ids.py)
