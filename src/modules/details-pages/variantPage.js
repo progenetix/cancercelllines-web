@@ -204,7 +204,7 @@ function Variant({ variant, id, datasetIds }) {
     <ul>
 
     {variant.variation.identifiers.proteinHGVSIds && (
-      <li>Protein HGVSids:
+      <li>Protein HGVSIDs:
         <ul>
         {variant.variation.identifiers.proteinHGVSIds.map((ph) =>
           <li key={ph}>
@@ -215,14 +215,10 @@ function Variant({ variant, id, datasetIds }) {
       </li>
     )}
 
-    {variant.variation?.identifiers.genomicHGVSIds && (
-      <li>Genomic HGVSids:
+    {variant.variation?.identifiers.genomicHGVSId && (
+      <li>Genomic HGVSID:
         <ul>
-        {variant.variation.identifiers.genomicHGVSIds.map((gh) =>
-          <li key={gh}>
-            {gh}
-          </li>
-        )}
+        {variant.variation.identifiers.genomicHGVSId}
         </ul>
       </li>
     )}
@@ -268,6 +264,7 @@ function Variant({ variant, id, datasetIds }) {
         <tr>
           <th>ID</th>
           <th>Description</th>
+          <th>Additional Annotations</th>
         </tr>
         {variant.variation.variantLevelData.clinicalInterpretations?.map((clinicalInterpretations, key) => {
           return (
@@ -283,6 +280,7 @@ function Variant({ variant, id, datasetIds }) {
               )}
               </td>
               <td>{clinicalInterpretations.effect.label}</td>
+              <td>{clinicalInterpretations.effectIds.join(', ')}</td>
             </tr>
           )
           })}
