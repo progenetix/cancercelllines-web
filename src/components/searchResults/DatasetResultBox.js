@@ -73,22 +73,20 @@ export function DatasetResultBox({ data: responseSet, query }) {
   let histoplotUrl
   let visualizationLink
   if (handoverById(HANDOVER_IDS.histoplot)) {
-    if (resultsCount <= MAX_HISTO_SAMPLES) {
-      histoplotUrl = handoverById(HANDOVER_IDS.histoplot).url
-      let visualizationAccessId = new URLSearchParams(
-        new URL(histoplotUrl).search
-      ).get("accessid")
-      let visualizationFileId = new URLSearchParams(
-        new URL(histoplotUrl).search
-      ).get("fileId")
-      let visualizationSkip = new URLSearchParams(
-        new URL(histoplotUrl).search
-      ).get("skip")
-      let visualizationLimit = new URLSearchParams(
-        new URL(histoplotUrl).search
-      ).get("limit")
-      visualizationLink = getVisualizationLink(id, visualizationAccessId, visualizationFileId, visualizationSkip, visualizationLimit, resultsCount)
-    }
+    histoplotUrl = handoverById(HANDOVER_IDS.histoplot).url
+    let visualizationAccessId = new URLSearchParams(
+      new URL(histoplotUrl).search
+    ).get("accessid")
+    let visualizationFileId = new URLSearchParams(
+      new URL(histoplotUrl).search
+    ).get("fileId")
+    let visualizationSkip = new URLSearchParams(
+      new URL(histoplotUrl).search
+    ).get("skip")
+    let visualizationLimit = new URLSearchParams(
+      new URL(histoplotUrl).search
+    ).get("limit")
+    visualizationLink = getVisualizationLink(id, visualizationAccessId, visualizationFileId, visualizationSkip, visualizationLimit, resultsCount)
   }
 
   // main / samples / variants
