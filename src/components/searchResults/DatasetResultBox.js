@@ -46,8 +46,7 @@ export function DatasetResultBox({ data: responseSet, query }) {
     id,
     resultsHandovers,
     info,
-    resultsCount,
-    paginatedResultsCount
+    resultsCount
   } = responseSet
 
   // const handoverById = (givenId) =>
@@ -74,7 +73,7 @@ export function DatasetResultBox({ data: responseSet, query }) {
   let histoplotUrl
   let visualizationLink
   if (handoverById(HANDOVER_IDS.histoplot)) {
-    if (paginatedResultsCount <= MAX_HISTO_SAMPLES) {
+    if (resultsCount <= MAX_HISTO_SAMPLES) {
       histoplotUrl = handoverById(HANDOVER_IDS.histoplot).url
       let visualizationAccessId = new URLSearchParams(
         new URL(histoplotUrl).search
@@ -88,7 +87,7 @@ export function DatasetResultBox({ data: responseSet, query }) {
       let visualizationLimit = new URLSearchParams(
         new URL(histoplotUrl).search
       ).get("limit")
-      visualizationLink = getVisualizationLink(id, visualizationAccessId, visualizationFileId, visualizationSkip, visualizationLimit, paginatedResultsCount)
+      visualizationLink = getVisualizationLink(id, visualizationAccessId, visualizationFileId, visualizationSkip, visualizationLimit, resultsCount)
     }
   }
 
@@ -119,7 +118,7 @@ export function DatasetResultBox({ data: responseSet, query }) {
         variantType={query.alternateBases}
         histoplotUrl={histoplotUrl}
         biosamplesReply={biosamplesReply}
-        variantCount={info.counts.variantCount}
+        variantCount={info.counts.variants}
         datasetId={id}
       />
     )
@@ -163,11 +162,11 @@ export function DatasetResultBox({ data: responseSet, query }) {
         <div className="column is-one-third">
           <div>
             <b>Matched Samples: </b>
-            {resultsCount}
+            {info.counts.biosamples}
           </div>
           <div>
             <b>Retrieved Samples: </b>
-            {paginatedResultsCount}
+            {resultsCount}
           </div>
           {info.counts.variantCount > 0 ? (
             <div>
