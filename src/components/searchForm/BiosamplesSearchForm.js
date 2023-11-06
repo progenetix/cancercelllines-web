@@ -201,20 +201,29 @@ export function Form({
     }));
   };
 
+  const handleExampleClicked = (reset, setExample, setUrlQuery, section) => (example) => {
+    // Reset URL query and set example
+    setUrlQuery({}, { replace: true });
+    setExample(example);
+
+    // Update the state to expand the specified section
+    setCollapsedSections((prevSections) => ({
+      ...prevSections,
+      [section]: false, // Set the section to be expanded
+    }));
+  };
+
 
   return (
     <>
       <div>
         <div className="buttons">
           { useExamplesButtons && (
-            <ExamplesButtons
-              onExampleClicked={handleExampleClicked(
-                reset,
-                setExample,
-                setUrlQuery
-              )}
-              requestTypeExamples={requestTypeExamples}
-            />
+              <ExamplesButtons
+                  onExampleClicked={handleExampleClicked(reset, setExample, setUrlQuery, "location")}
+                  requestTypeExamples={requestTypeExamples}
+              />
+
           )}
           { useUtilitiesButtons && (
             <FormUtilitiesButtons
@@ -619,10 +628,7 @@ function validateForm(formValues) {
   return errors
 }
 
-const handleExampleClicked = (reset, setExample, setUrlQuery) => (example) => {
-  setUrlQuery({}, { replace: true })
-  setExample(example)
-}
+
 
 // Maps FilteringTerms hook to apiReply usable by DataFetchSelect
 function useBioSubsets(watchForm) {
