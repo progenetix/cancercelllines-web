@@ -11,8 +11,7 @@ import { withUrlQuery } from "../../hooks/url-query"
 import { AncestryData } from "../../components/AncestryData"
 import { Layout } from "../../components/Layout"
 import { ShowJSON } from "../../components/RawData"
-import { CallsetHistogram } from "../../components/SVGloaders"
-import { pluralizeWord }  from "../../components/helpersShared/labelHelpers"
+import { BiosamplePlot } from "../../components/SVGloaders"
 
 const itemColl = "biosamples"
 const exampleId = "pgxbs-kftvir6m"
@@ -232,14 +231,8 @@ function Biosample({ biosId, biosample, individual, datasetIds }) {
     </>
   )}
 
-  { biosample.info && biosample.info?.callsetIds?.length > 0 && (
-    <>
-      <h5>CNV {pluralizeWord("Plot", biosample.info.callsetIds.length)}</h5>
-      {biosample.info?.callsetIds.map((csid, i) => (
-        <CallsetHistogram key={i} csid={csid} datasetIds={datasetIds} />
-      ))}
-    </>
-  )}
+  <h5>CNV Plot</h5>
+  <BiosamplePlot biosId={biosId} datasetIds={datasetIds} plotRegionLabels="" plotChros="" />
 
   <h5>Download</h5>
   <ul>
