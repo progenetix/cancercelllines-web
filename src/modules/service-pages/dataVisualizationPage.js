@@ -73,6 +73,8 @@ function NoResultsHelp() {
   )
 }
 
+// TODO: rewrite to use simple plot endpoint calls instead of the biosamples + handovers construct...
+
 function DataVisualizationPanel({ datasetIds, accessid, fileId, skip, limit, sampleCount, width }) {
   const [formValues, setFormValues] = useState({})
 
@@ -90,7 +92,7 @@ function DataVisualizationPanel({ datasetIds, accessid, fileId, skip, limit, sam
     "randno": randNo,
     "plotWidth": width,
     "includeHandovers": "true",
-    "onlyHandovers": "true",
+    "requestedGranularity": "count",
     ...formValues
   })
   const onSubmit = (values) => {
