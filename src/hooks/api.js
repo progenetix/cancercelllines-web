@@ -305,14 +305,33 @@ export function useCytomapper(querytext) {
   return useProgenetixApi(url)
 }
 
-export function useSubsethistogram({ datasetIds, id, plotRegionLabels, plotGeneSymbols, plotCytoregionLabels, size, plotChros }) {
+export function useSubsethistogram({
+  datasetIds,
+  id,
+  fileId,
+  plotRegionLabels,
+  plotGeneSymbols,
+  plotCytoregionLabels,
+  size,
+  plotChros
+}) {
   const svgbaseurl = subsetHistoBaseLink(id, datasetIds)
   const params = []
-  plotRegionLabels && params.push(["plotRegionLabels", plotRegionLabels])
-  plotGeneSymbols && params.push(["plotGeneSymbols", plotGeneSymbols])
-  plotCytoregionLabels && params.push(["plotCytoregionLabels", plotCytoregionLabels])
-  size && params.push(["plotWidth", size])
-  plotChros && params.push(["plotChros", plotChros])
+  var plotPars = "plot_width=" + size
+  fileId && params.push(["fileId", fileId])
+  if (plotRegionLabels) {
+    plotPars += "::plot_region_labels=" + plotRegionLabels
+  }
+  if (plotGeneSymbols) {
+    plotPars += "::plot_gene_symbols=" + plotGeneSymbols
+  }
+  if (plotCytoregionLabels) {
+    plotPars += "::plot_cytoregion_labels=" + plotCytoregionLabels
+  }
+  if (plotChros) {
+    plotPars += "::plot_chros=" + plotChros
+  }
+  params.push(["plotPars", plotPars])
   const searchQuery = new URLSearchParams(params).toString()
   return useExtendedSWR(size > 0 && `${svgbaseurl}&${searchQuery}`, svgFetcher)
 }
