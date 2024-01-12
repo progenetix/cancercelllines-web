@@ -1,15 +1,15 @@
 import { withUrlQuery } from "../../hooks/url-query"
 import { Layout } from "../../components/Layout"
 import React, { useRef, useState } from "react"
-import { GeneLabelOptions } from "../../components/formShared/GenespanUtilities"
+// import { GeneLabelOptions } from "../../components/formShared/GenespanUtilities"
 import { useForm } from "react-hook-form"
-import SelectField from "../../components/formShared/SelectField"
+// import SelectField from "../../components/formShared/SelectField"
 import InputField from "../../components/formShared/InputField"
 import cn from "classnames"
 import { useDataVisualization, useExtendedSWR } from "../../hooks/api"
 import { WithData } from "../../components/Loader"
 import { useContainerDimensions } from "../../hooks/containerDimensions"
-import { useAsyncSelect } from "../../hooks/asyncSelect"
+// import { useAsyncSelect } from "../../hooks/asyncSelect"
 
 import SVGloader from "../../components/SVGloaders"
 import { svgFetcher } from "../../hooks/fetcher"
@@ -39,7 +39,7 @@ const DataVisualizationPage = withUrlQuery(({ urlQuery }) => {
         <div ref={componentRef}>
           {sampleCount > sampleMaxNo && (
             <p>
-              Please limit the visualization to about {sampleMaxNo} samples...
+              Please limit the visualization to about {sampleMaxNo} samples; otherwise this might time out...
             </p>
           )}
           {width > 0 && (
@@ -49,7 +49,6 @@ const DataVisualizationPage = withUrlQuery(({ urlQuery }) => {
               fileId={fileId}
               skip={skip}
               limit={limit}
-              sampleCount={sampleCount}
               width={width}
             />
           )}
@@ -74,25 +73,16 @@ function NoResultsHelp() {
 }
 
 // TODO: rewrite to use simple plot endpoint calls instead of the biosamples + handovers construct...
-
-function DataVisualizationPanel({ datasetIds, accessid, fileId, skip, limit, sampleCount, width }) {
+function DataVisualizationPanel({ datasetIds, accessid, fileId, skip, limit, width }) {
   const [formValues, setFormValues] = useState({})
-
-  var randNo = null
-  if (sampleCount > sampleMaxNo) {
-    randNo = sampleMaxNo
-  }
-
   const dataResult = useDataVisualization({
     "datasetIds": datasetIds,
     "accessid": accessid,
     "fileId": fileId,
     "skip": skip,
     "limit": limit,
-    "randno": randNo,
-    "plotWidth": width,
-    "includeHandovers": "true",
     "requestedGranularity": "count",
+    "includeHandovers": "true",
     ...formValues
   })
   const onSubmit = (values) => {
@@ -105,7 +95,6 @@ function DataVisualizationPanel({ datasetIds, accessid, fileId, skip, limit, sam
         <div className="mb-6 column">
           <DataVisualizationForm
             isQuerying={false}
-            sampleCount={sampleCount}
             onSubmit={onSubmit}
           />
         </div>
@@ -113,25 +102,19 @@ function DataVisualizationPanel({ datasetIds, accessid, fileId, skip, limit, sam
       <WithData
         background
         apiReply={dataResult}
-        render={(data) => <ResultPanel response={data} />}
+        render={(data) => <ResultPanel formValues={formValues} response={data} width={width} />}
       />
     </div>
   )
 }
 
-function DataVisualizationForm({ isQuerying, sampleCount, onSubmit }) {
-  var randNo = null
-  if (sampleCount > sampleMaxNo) {
-    randNo = sampleMaxNo
-  }
+function DataVisualizationForm({ isQuerying, onSubmit }) {
 
   const defaultValues = {
-    "group_by": "",
     "plotRegionLabels": null,
-    "plotGeneSymbols": null,
-    "randno": randNo
+    "plotGeneSymbols": null
   }
-  const { register, handleSubmit, errors, control } = useForm({ defaultValues })
+  const { register, handleSubmit, errors } = useForm({ defaultValues })
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="columns">
@@ -146,19 +129,6 @@ function DataVisualizationForm({ isQuerying, sampleCount, onSubmit }) {
         </div>
 {/*
         <div className="column">
-          <InputField
-            name="randno"
-            label="Random Samples (no.)"
-            errors={errors}
-            infoText="Use this to pull a random selection, e.g. if the number of samples is very high (>1000)."
-            register={register}
-          />
-        </div>
-
-      </div>
-      <div className="columns">
-*/}   
-        <div className="column">
           <SelectField
             name="group_by"
             register={register}
@@ -169,7 +139,7 @@ function DataVisualizationForm({ isQuerying, sampleCount, onSubmit }) {
             errors={errors}
           />
         </div>
-{/*
+
         <div className="column">
           <InputField
             name="min_group_no"
@@ -246,11 +216,20 @@ function DataVisualizationForm({ isQuerying, sampleCount, onSubmit }) {
       </div>
       <div className="columns">
         <div className="column">
-          <GeneSpanSelector
+{/*          <GeneSpanSelector
             errors={errors}
             register={register}
             control={control}
             infoText="Select one or more genes to be highlighted on the plots."
+          />
+*/}  
+          <InputField
+            name="plotGeneSymbols"
+            label="Gene Symbols"
+            errors={errors}
+            register={register}
+            infoText="Label gene positions by their symbols (e.g. MYC, TP53)"
+            defaultValue=""
           />
         </div>
         <div className="column">
@@ -280,77 +259,73 @@ function DataVisualizationForm({ isQuerying, sampleCount, onSubmit }) {
   )
 }
 
-function ResultPanel({ response }) {
+function ResultPanel({ formValues, response, width }) {
 
   const resultsHandovers = response.response.resultSets[0].resultsHandovers
   const handoverById = (givenId) =>
     resultsHandovers.find(({ handoverType: { id } }) => id === givenId)
 
-  const histoplotUrl = handoverById(HANDOVER_IDS.histoplot).url
-  const samplesplotUrl = handoverById(HANDOVER_IDS.samplesplot).url
+  const mapped = [`plot_width=${width}`];
+  Object.entries(formValues).forEach(([k, v]) => {
+    if (v != null && v != "") {
+      mapped.push(`${k}=${v}`);
+    }
+  });
+
+  const histoplotUrl = handoverById(HANDOVER_IDS.histoplot).url + "&plotPars=" + mapped.join('::')
+  const samplesplotUrl = handoverById(HANDOVER_IDS.samplesplot).url + "&plotPars=" + mapped.join('::')
 
   return (
     <div>
       <div>
-
         <SVGloader apiReply={ useExtendedSWR(histoplotUrl, svgFetcher) } />
-        {/*<img src={replaceWithProxy(histoplotUrl)} />*/}
         <a href={histoplotUrl} target="_blank" rel="noreferrer">
           Open Histogram
         </a>
       </div>
       <div>
         <SVGloader apiReply={ useExtendedSWR(samplesplotUrl, svgFetcher) } />
-
-        {/*<img src={replaceWithProxy(samplesplotUrl)} />*/}
         <a href={samplesplotUrl} target="_blank" rel="noreferrer">
           Open Sample Plot
         </a>
       </div>
-{/*
-      <div>
-        <a href={samplematrixUrl} target="_blank" rel="noreferrer">
-          Download Sample Status Matrix
-        </a>
-      </div>
-*/}      
     </div>
   )
 }
 
-const groupByOptions = [
-  { value: "", label: "No Grouping" },
-  { value: "NCIT", label: "NCIT Neoplasm Code" },
-  { value: "icdom", label: "ICD-O Morphology Code" },
-  { value: "icdot", label: "ICD Topography Code" },
-  { value: "UBERON", label: "UBERON Anatomy Concepts" },
-  { value: "TNM", label: "NCIT TNM Finding" },
-  // { value: "NCITgrade", label: "NCIT Disease Grade" },
-  // { value: "NCITstage", label: "NCIT Disease Stage" },
-  // { value: "EFOfus", label: "followup status" },
-  { value: "PMID", label: "Publication (PubMed ID)" },
-  // { value: "geo:GSE", label: "GEO Series ID" },
-  // { value: "geo:GPL", label: "GEO Platform ID" },
-  {
-    value: "cellosaurus",
-    label: "Cellosaurus Cell line ID"
-  }
-]
+// const groupByOptions = [
+//   { value: "", label: "No Grouping" },
+//   { value: "NCIT", label: "NCIT Neoplasm Code" },
+//   { value: "icdom", label: "ICD-O Morphology Code" },
+//   { value: "icdot", label: "ICD Topography Code" },
+//   { value: "UBERON", label: "UBERON Anatomy Concepts" },
+//   { value: "TNM", label: "NCIT TNM Finding" },
+//   // { value: "NCITgrade", label: "NCIT Disease Grade" },
+//   // { value: "NCITstage", label: "NCIT Disease Stage" },
+//   // { value: "EFOfus", label: "followup status" },
+//   { value: "PMID", label: "Publication (PubMed ID)" },
+//   // { value: "geo:GSE", label: "GEO Series ID" },
+//   // { value: "geo:GPL", label: "GEO Platform ID" },
+//   {
+//     value: "cellosaurus",
+//     label: "Cellosaurus Cell line ID"
+//   }
+// ]
 
-function GeneSpanSelector({ control, errors, register }) {
-  const { inputValue, onInputChange } = useAsyncSelect()
-  const { options, isLoading } = GeneLabelOptions(inputValue)
-  return (
-    <SelectField
-      name="plotGeneSymbols"
-      label="Select Gene Label"
-      isLoading={isLoading && !!inputValue}
-      options={options}
-      onInputChange={onInputChange}
-      control={control}
-      errors={errors}
-      register={register}
-      isMulti
-    />
-  )
-}
+// function GeneSpanSelector({ control, errors, register }) {
+//   const { inputValue, onInputChange } = useAsyncSelect()
+//   const { options, isLoading } = GeneLabelOptions(inputValue)
+//   return (
+//     <SelectField
+//       name="plotGeneSymbols"
+//       label="Select Gene Label"
+//       isLoading={isLoading && !!inputValue}
+//       options={options}
+//       onInputChange={onInputChange}
+//       control={control}
+//       errors={errors}
+//       register={register}
+//       isMulti
+//     />
+//   )
+// }
