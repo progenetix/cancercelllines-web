@@ -68,9 +68,9 @@ Please **use option 1** if accessing complete entities (i.e. only using a single
 
 * as above, but plastering some cancer driver genes on the plot by their gene
   symbols (`plot_gene_symbols`):
-  - `services/collationPlots/?datasetIds={{config.api_dataset_ids}}&id=pgx:icdom-80703&plotPars=value_plot_y_max=50::plot_gene_symbols=MYC,MYCN,REL,ERBB2,TP53,CDK1,EGFR,BCL2,RB1::plot_marker_font_size=10`
+  - `services/collationPlots/?datasetIds={{config.api_dataset_ids}}&id=pgx:icdom-80703&plotPars=value_plot_y_max=50::plot_gene_symbols=MYC,MYCN,REL,ERBB2,TP53,CCND1,EGFR,BCL2,RB1::plot_marker_font_size=10`
 
-![]({{config.api_web_root}}/services/collationPlots/?datasetIds={{config.api_dataset_ids}}&id=pgx:icdom-80703&plotPars=value_plot_y_max=50::plot_gene_symbols=MYC,MYCN,REL,ERBB2,TP53,CDK1,EGFR,BCL2,RB1::plot_marker_font_size=10)
+![]({{config.api_web_root}}/services/collationPlots/?datasetIds={{config.api_dataset_ids}}&id=pgx:icdom-80703&plotPars=value_plot_y_max=50::plot_gene_symbols=MYC,MYCN,REL,ERBB2,TP53,CCND1,EGFR,BCL2,RB1::plot_marker_font_size=10)
 
 
 ### Sample Strip Plots
@@ -78,11 +78,11 @@ Please **use option 1** if accessing complete entities (i.e. only using a single
 * a sample plot, automatically clustered, from a search for Glioblastoma samples
   in the TCGA cancers cohort (limited to 30 samples)
     - it uses the `plotType=samplesplot` to force the per sample display
-    - `services/sampleplots?filters=NCIT:C3058,pgx:cohort-TCGAcancers&plotPars=plotGeneSymbols=CDKN2A,EGFR&limit=30&plotType=samplesplot`
+    - `services/sampleplots?filters=NCIT:C3058&plotPars=plotGeneSymbols=CDKN2A,EGFR&limit=30&plotType=samplesplot`
 
 ![]({{config.api_web_root}}/services/sampleplots?datasetIds={{config.api_dataset_ids}}&filters=NCIT:C3058&plotPars=plotGeneSymbols=CDKN2A,EGFR&limit=30&plotType=samplesplot)
 
 * as above, without the `plotType=samplesplot` using the `histoplot` default
-    - `services/sampleplots?filters=NCIT:C3058,pgx:cohort-TCGAcancers&plotPars=plotGeneSymbols=CDKN2A,EGFR&limit=30`
+    - `services/sampleplots?filters=NCIT:C3058&plotPars=plotGeneSymbols=CDKN2A,EGFR&limit=30`
 
 ![]({{config.api_web_root}}/services/sampleplots?datasetIds={{config.api_dataset_ids}}&filters=NCIT:C3058&plotPars=plotGeneSymbols=CDKN2A,EGFR&limit=30)
