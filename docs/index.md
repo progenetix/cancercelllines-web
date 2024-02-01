@@ -12,8 +12,8 @@ and provides an entry point for the comparative analysis of genomic variants in
 cell lines as well as for the exploration of related publications.
 
 _cancercelllines_ also includes SNV data from CCLE and ClinVar resources:
-- CCLE mutation set: last accessed _2022-06-02_
-- ClinVar variation release: last accessed _2023-06-25_
+* CCLE mutation set: last accessed _2022-06-02_
+* ClinVar variation release: last accessed _2023-06-25_
 
 !!! example "Citation"
 
