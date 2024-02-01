@@ -76,13 +76,15 @@ Please **use option 1** if accessing complete entities (i.e. only using a single
 ### Sample Strip Plots
 
 * a sample plot, automatically clustered, from a search for Glioblastoma samples
-  in the TCGA cancers cohort (limited to 30 samples)
+  (limited to 30 samples)
+    - the `variantType=EFO:0030066` is used to only retrieve samples with a CNV
+      (this also avoids finding SNV samples & under-populating the CNV data...)
     - it uses the `plotType=samplesplot` to force the per sample display
-    - `services/sampleplots?datasetIds={{config.api_dataset_ids}}&filters=NCIT:C4822&plotPars=plotGeneSymbols=CDKN2A,EGFR&limit=30&plotType=samplesplot`
+    - `services/sampleplots?datasetIds={{config.api_dataset_ids}}&filters=NCIT:C4822&variantType=EFO:0030066&plotPars=plotGeneSymbols=CDKN2A,EGFR&limit=30&plotType=samplesplot`
 
-![]({{config.api_web_root}}/services/sampleplots?datasetIds={{config.api_dataset_ids}}&filters=NCIT:C4822&plotPars=plotGeneSymbols=CDKN2A,EGFR&limit=30&plotType=samplesplot)
+![]({{config.api_web_root}}/services/sampleplots?datasetIds={{config.api_dataset_ids}}&filters=NCIT:C4822&variantType=EFO:0030066&plotPars=plotGeneSymbols=CDKN2A,EGFR&limit=30&plotType=samplesplot)
 
 * as above, without the `plotType=samplesplot` using the `histoplot` default
-    - `services/sampleplots?datasetIds={{config.api_dataset_ids}}&filters=NCIT:C4822&plotPars=plotGeneSymbols=CDKN2A,EGFR&limit=30`
+    - `services/sampleplots?datasetIds={{config.api_dataset_ids}}&filters=NCIT:C4822&variantType=EFO:0030066&plotPars=plotGeneSymbols=CDKN2A,EGFR&limit=30`
 
-![]({{config.api_web_root}}/services/sampleplots?datasetIds={{config.api_dataset_ids}}&filters=NCIT:C4822&plotPars=plotGeneSymbols=CDKN2A,EGFR&limit=30)
+![]({{config.api_web_root}}/services/sampleplots?datasetIds={{config.api_dataset_ids}}&filters=NCIT:C4822&variantType=EFO:0030066&plotPars=plotGeneSymbols=CDKN2A,EGFR&limit=30)
