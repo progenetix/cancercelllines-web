@@ -9,6 +9,7 @@ repo_url: https://github.com/progenetix/cancercelllines-web
 
 api_site_label: '[cancercelllines.org](https://cancercelllines.org)'
 api_web_root: https://cancercelllines.org
+api_dataset_ids: cellz
 
 ###############################################################################
 
