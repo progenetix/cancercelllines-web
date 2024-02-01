@@ -3,7 +3,7 @@
 ## General
 
 On the front page you can find some background information on our database and a randomly created cancer cell line CNV frequency plot where amplifications are shown in yellow and deletions in blue. The left panel shows different query options.
-![front.png](front.png)
+![cancercelllines front page](front.png)
 **Cell Line Listings** - find all available cancer cell lines represented hierarchically. Search box allows for the query of cell line of interest. Returns info on cell line origins, hierarchies, variants and cell line gene information extraction.
 **Search Cell Lines** - general search box for variant queries, cell line specific queries and queries by cancer type.
 **CNV profiles by Cancer Type** - get cancer cell line CNV profiles for cancer type of interest. Get hierarchical cancer types by NCIT or ICDO classifications.
@@ -12,29 +12,29 @@ On the front page you can find some background information on our database and a
 
 ### Search Form
 
-![cl-listing-search.png](cl-listing-search.png)
+![Cell Line Listing page](cl-listing-search.png)
 On “Cell Lines Listing” page, available cancer cell lines are listed and child terms can be expanded by clicking on the “>”. You can also search for a cell line either by name or cellosaurus ID in the search box. Numbers indicate available biosamples and CNV profiles available for cell line of interest. By clicking on cell line you will be directed to cell line results page.
 
 ### Cell Line Page
 
-![cl-page.png](cl-page.png)
+![Cell line page](cl-page.png)
 
 Cell line results page first gives information on the cell line. First, derived and parental cell lines are listed. Then information on the donor individual is listed including diagnosis, sex and age. Genomic ancestry is also available for a selection of cell lines. Below is a section on sample numbers and further search options. A link to Cellosaurus cell line knowledge resource is also provided for more information.
 
-![annotated-vars.png](annotated-vars.png)
+![Table of annotated SNVs](annotated-vars.png)
 The following section shows annotated single nucleotide variants for the cell line. Variants can be ordered by gene, for example, by clicking “Gene” on the table header. Variants shown in this section include derived variants from parental cell lines.
 
-![cnv-plot.png](cnv-plot.png)
+![CNV frequency plot](cnv-plot.png)
 Subset CNV frequencies are visualized in the next section. Links below frequency plot direct to downloading the plot in SVG format as well as to the search page.
 
-![lit-table.png](lit-table.png)
+![Table of associated literature](lit-table.png)
 The last section of the cell line results page shows literature derived gene information on the cell lines. Click on the gene name to visualize it on the frequency plot. Clicking on the article title redirects you to the article page on PubMed. Abstract of the paper will be expanded upon left-click.
 
 ## Search Cell Lines
 
 You can also search for individual cell line by the name or ID or search for cell lines that match the diagnosis of interest (eg NCIT code) or search for all cell lines that harbour a specific variant. 
 
-![search-form.png](search-form.png)
+![Search form](search-form.png)
 
 - The top row of the search fields offers some example queries, for both cell lines and positional queries.
 - You can use "Gene Spans" and "Cytobands" buttons to limit your results to a range of a gene of interest or a specific cytoband.
@@ -66,37 +66,37 @@ Here are the search results for an example query listed in the search form - K-5
 
 Clicking on “Biosample ID” on the Biosamples tab will lead to the sample page. There info about the cell line origin is shown - same as in Cell Line Page. Additional reference for the sample are provided and CNV plot of the sample is shown (when available).
 
-![sample-details.png](sample-details.png)
+![Sample details](sample-details.png)
 
 Visualization options land on a separate page with advanced options for data visualization. In addition to frequency plot, a sample plot with all clustered individual plots is shown.
 
-![visual.png](visual.png)
+![Visualization options](visual.png)
 
 Biosamples tab lists samples for this query. Associated diagnostic codes are also shown. Identifiers column shows other known sample identifiers such as GEO IDs or PMID.
 
-![img.png](img.png)
+![Biosamples table](img.png)
 
 We have geographical info about where the sample was processed. That can be visualized in the Biosamples Map tab. This info is only available for CNV samples.
 
-![img_1.png](img_1.png)
+![Map of biosamples](map.png)
 
 ### Search Results: SNV query
 
 To access our SNV data, cell line on interest can be queried in "Search Cell Lines" like for CNV samples but additional field needs to be entered under Query by Position -> Variant Type -> SO:0001059 (any sequence alteration - SNV, INDEL…). This yields in all available SNVs for the cell line of interest. For example, search results for PC-9 cell line SNVs (Filtering Options -> only match exact terms) result in:
 
-![img_2.png](img_2.png)
+![SNV results](img_2.png)
 
 CNV plot is empty in this case as no CNV samples were included in the query. Variants are listed under “Variants” tab. Here, a small part of matched variants is listed. The results can be sorted by Digest, Gene, Pathogenicity or Variant Effect by clicking on the column name. Click on the variant ID in blue for more information on the variant.
 
-![img_3.png](img_3.png)
+![Variants table](img_3.png)
 
 The example below shows available data for a variants collected from CCLE mutation set.
 
-![img_4.png](img_4.png)
+![Variant details CCLE](img_4.png)
 
 Here is an example for a matched variant in ClinVar dataset:
 
-![img_5.png](img_5.png)
+![Variant details ClinVar](img_5.png)
 
 ## CNV Profiles by Cancer Type
 
