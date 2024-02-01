@@ -1,6 +1,6 @@
 ---
-- label: "HLF Cell Line"
-  note: "Instances of HLF and daughter cell lines, searched by Cellosaurusid"
+- label: "HLF"
+  note: "Instances of HLF and daughter cell lines"
   description: >-
     The query retrieves all instances of HLF and derived cell lines using
     the "cellosaurus:CVCL_2947" identifier. HLF has a set of annotated
