@@ -13,13 +13,14 @@ cell lines as well as for the exploration of related publications.
 
 ### Data Statistics 
 
+```mermaid
 pie title Genotypic Sex of Donors
 "Female" : 1486
 "Male" : 1882
 "NA" : 846
 colors "#E0BBE4", "#957DAD", "#D291BC"
 
-
+```
 
 ### Data Sources
 
