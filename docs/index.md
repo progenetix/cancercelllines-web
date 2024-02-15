@@ -14,7 +14,7 @@ cell lines as well as for the exploration of related publications.
 ### Data Statistics 
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': {"fontFamily": "arial",'pie1':'#E0BBE4','pie2':'#957DAD','pie3':'#D291BC'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': {'pieLegendTextSize':'12px',"fontFamily": "arial",'pie1':'#E0BBE4','pie2':'#957DAD','pie3':'#D291BC'}}}%%
 pie title Genotypic Sex of Donors
   "Female" : 1486
   "Male" : 1882
