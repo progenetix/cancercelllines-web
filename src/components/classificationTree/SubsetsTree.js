@@ -43,7 +43,7 @@ export function SubsetsTree({
         <div className="field">
           <input
             className="input "
-            placeholder="Filter subsets e.g. by prefix ..."
+            placeholder="Type text to filter ..."
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
           />
@@ -226,14 +226,14 @@ function Node({
             <a
               href={`/${detailsPage}/?id=${subsetId}&datasetIds=${datasetIds}`}
             >
-              <span>{subsetId}</span>
+            {(subset?.label && (
+              <span className="Subsets__tree__label" title={subset.label}>
+                {subset.label}
+              </span>
+            )) || <span>&nbsp;</span>}
             </a>
           </Tippy>
-          {(subset?.label && (
-            <span className="Subsets__tree__label" title={subset.label}>
-              : {subset.label}
-            </span>
-          )) || <span>&nbsp;</span>}
+          <span>: {subsetId}</span>
           {isSearchPossible ? (
             <Tippy content={`Click to retrieve samples for ${subsetId}`}>
               <a
