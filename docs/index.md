@@ -16,9 +16,9 @@ cell lines as well as for the exploration of related publications.
 ```mermaid
 %%{init: {"pie": {"textPosition": 0.5}} }%%
 pie title Genotypic Sex of Donors
-"Female" : 1486
-"Male" : 1882
-"NA" : 846
+  "Female" : 1486
+  "Male" : 1882
+  "NA" : 846
 
 ```
 
