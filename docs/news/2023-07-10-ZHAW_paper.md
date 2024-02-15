@@ -1,6 +1,6 @@
 ---
 title: 'New publication out now'
-date: 2023-12-10
+date: 2023-07-10
 authors:
   - "@mbaudis"
 template: post.html
