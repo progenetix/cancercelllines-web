@@ -11,6 +11,16 @@ of the overall more than 16'000 cell lines, _cancercelllines.org_ goes beyond th
 and provides an entry point for the comparative analysis of genomic variants in
 cell lines as well as for the exploration of related publications.
 
+### Data Statistics 
+
+pie title Genotypic Sex of Donors
+"Female" : 1486
+"Male" : 1882
+"NA" : 846
+colors "#E0BBE4", "#957DAD", "#D291BC"
+
+
+
 ### Data Sources
 
 cancercelllines also includes SNV data from CCLE and ClinVar resources:
