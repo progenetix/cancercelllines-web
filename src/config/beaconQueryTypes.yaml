@@ -27,7 +27,7 @@
     bioontology:
       isHidden: false
     clinicalClasses:
-      isHidden: false
+      isHidden: true
     accessid:
       isHidden: true
     allTermsFilters:
@@ -39,7 +39,7 @@
     sex:
       isHidden: false
     materialtype:
-      isHidden: false
+      isHidden: true
     referenceid:
       isHidden: false
     cohorts:
