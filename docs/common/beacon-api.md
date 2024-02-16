@@ -168,19 +168,20 @@ The root path provides the standard `BeaconInfoResponse`.
     - in Progenetix, this particular code will be part of the annotation for the _biosample(s)_ associated with the returned individual
 * [/individuals/?filters=PATO:0020001,NCIT:C9291]({{config.api_web_root}}/beacon/individuals/?filters=PATO:0020001,NCIT:C9291)
     - this query returns information about individuals with an anal carcinoma (**NCIT:C9291**) and a known male genotypic sex (**PATO:0020001**)
-    - in Progenetix, the information about its sex is associated with the _Individual_ object (and rtherefore in the _individuals_ collection), whereas the information about the cancer type is a property of the _Biosample_ (and therefore stored in the _biosamples_ collection). However, cross
-    entity queries are no problem since we support full aggregation across the different models.
+    - in Progenetix, the information about its sex is associated with the _Individual_ object
+      (stored in _individuals_), whereas the cancer type is a property of the _Biosample_.
+      However, cross entity queries are supported through full aggregation across the different entities.
 
 ##### `/individuals/{id}/`
 
 * [/biosamples/pgxind-kftx25hb/]({{config.api_web_root}}/beacon/biosamples/pgxind-kftx25hb/)
-  - retrieval of a single individual
+    - retrieval of a single individual
 
 ##### `/individuals/{id}/genomicVariations/`
 
 * [/individuals/pgxind-kftx25hb/genomicVariations/]({{config.api_web_root}}/beacon/individuals/pgxind-kftx25hb/genomicVariations/)
-  - retrieval of all variants from a single individual
-  - currently - and especially since for a mostly CNV containing resource - `variants` means "variant instances" (or as in the early v2 draft `variantsInSample`)
+    - retrieval of all variants from a single individual
+    - currently - and especially since for a mostly CNV containing resource - `variants` means "variant instances" (or as in the early v2 draft `variantsInSample`)
 
 ----
 
