@@ -165,9 +165,9 @@ parameters:
       - value: ""
         label: "(no selection)"
   referenceid:
-    label: ID(s)/Name(s)
+    label: Cellline ID(s)/Name(s)
     infoText: |
-      Use this field to search for cell lines by cell line name or cellosaurus IDs. Searching cell lines by PMID is also enabled.
+      Use this field to search for cell lines by cell line name or cellosaurus IDs.
       If using multiple codes please be aware that probably use of an "OR" filter
       logic will be appropriate.
       This field relies on the existence of the term in the Beacon `filteringTermsResponse`.
