@@ -52,7 +52,7 @@ export function Layout({ title, headline, children }) {
       </main>
       <footer className="footer">
         <div className="content container has-text-centered">
-          © 2023 - {THISYEAR} Progenetix Cancer Genomics Information Resource by
+          © 2023 - {THISYEAR} <i>cancercelllines.org</i> Information Resource by
           the{" "}
           <a href="https://info.baudisgroup.org">
             Computational Oncogenomics Group
@@ -93,13 +93,8 @@ function Side({ onClick }) {
       <ul className="Layout__side__items">
         <MenuInternalLinkItem
           href="/"
-          label={
-            <>
-              Cancer Cell Lines<sup style={{ color: "red" }}>o</sup>
-            </>
-          }
+          label="Cancer Cell Lines"
         />
-
         <MenuInternalLinkItem
           href="/subsets/cellosaurus-subsets"
           label="Cell Line Listing"
@@ -130,7 +125,7 @@ function Side({ onClick }) {
           isSub="isSub"
         />
 */}        
-        <MenuInternalLinkItem href={SITE_DEFAULTS.MASTERROOTLINK} label="Progenetix" />
+        <MenuInternalLinkItem href={SITE_DEFAULTS.MASTERROOTLINK} label="External ..." />
         <MenuInternalLinkItem
           href={SITE_DEFAULTS.MASTERROOTLINK}
           label="Progenetix Data"
@@ -138,7 +133,7 @@ function Side({ onClick }) {
         />
         <MenuInternalLinkItem
           href={`${SITE_DEFAULTS.MASTERDOCLINK}`}
-          label="Progenetix Documentation"
+          label="Progenetix Docs"
           isSub="isSub"
         />
 {/*
@@ -151,6 +146,7 @@ function Side({ onClick }) {
         <MenuInternalLinkItem
           href="https://info.baudisgroup.org/"
           label="Baudisgroup @ UZH"
+          isSub="isSub"
         />
       </ul>
     </div>

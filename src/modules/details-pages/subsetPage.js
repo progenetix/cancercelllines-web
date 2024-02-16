@@ -64,16 +64,13 @@ function SubsetResponse({ response, datasetIds }) {
   if (!response.response.results[0]) {
     return NoResultsHelp(exampleId, "subsetdetails")
   }
-
   return <Subset subset={response.response.results[0]} datasetIds={datasetIds} />
 }
 
 function Subset({ subset, datasetIds }) {
-  
   const filters = subset.id
-  const sampleFilterScope = "freeFilters"
+  const sampleFilterScope = "allTermsFilters"
   const searchPage = "search"
-      
   return (
 <section className="content">
   <h2>

@@ -87,6 +87,11 @@ export default function Index({
             <li>
               cancercelllines.org: <strong>Cancer cell line oncogenomic online resource</strong> (2023)
             </li>
+            <li>Paloots R and Baudis M. (2023): 
+              <strong><i>cancercelllines.org</i> - a Novel Resource for Genomic Variants
+              in Cancer Cell Lines</strong> 
+              <em>bioRxiv <a href="https://doi.org/10.1101/2023.12.12.571281">DOI 10.1101/2023.12.12.571281</a></em> 2023 Dec 13
+            </li>
             <li>Huang Q, Carrio-Cordo P, Gao B, Paloots R, Baudis M. (2021): 
               <strong>The Progenetix oncogenomic resource in 2021.</strong> 
               <em>Database (Oxford).</em> 2021 Jul 17

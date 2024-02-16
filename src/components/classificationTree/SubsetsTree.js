@@ -183,7 +183,6 @@ function Node({
   const isSearchPossible = subset && canSearch(subset)
   const even = index % 2 === 0
   const detailsPage = subsetId.match("cellosaurus") ? "cellline" : "subset"
-  const searchPage = subsetId.match("cellosaurus") ? "filterSearch" : "search"
   return (
     <div
       style={{
@@ -222,7 +221,7 @@ function Node({
               <Expander isOpen={isOpen} setOpen={setOpen} />
             </span>
           )}
-          <Tippy content={`Show data for subset ${subsetId}`}>
+          <Tippy content={`Show data for subset "${subset.label}"`}>
             <a
               href={`/${detailsPage}/?id=${subsetId}&datasetIds=${datasetIds}`}
             >
@@ -241,7 +240,6 @@ function Node({
                 href={sampleSelectUrl({
                   subsets: [subset],
                   datasetIds,
-                  searchPage,
                   sampleFilterScope
                 })}
               >
@@ -349,10 +347,10 @@ function useFilterTree(tree) {
   return { searchInput, debouncedSearchInput, setSearchInput, filteredTree }
 }
 
-function sampleSelectUrl({ subsets, datasetIds, searchPage, sampleFilterScope }) {
+function sampleSelectUrl({ subsets, datasetIds, sampleFilterScope }) {
   const filters = subsets.map(({ id }) => id).join(",")
   // here the `bioontology` parameter has to be used instead of `filters` for transfer to the search form
-  return sampleSearchPageFiltersLink({ datasetIds, searchPage, sampleFilterScope, filters })
+  return sampleSearchPageFiltersLink({ datasetIds, sampleFilterScope, filters })
 }
 
 function canSearch(subset) {

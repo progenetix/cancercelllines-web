@@ -35,15 +35,9 @@
       isHidden: true
     materialtype:
       isHidden: true
-    freeFilters:
-      isHidden: true
     filterLogic:
       isHidden: true
-    accessid:
-      isHidden: true
-    geoCity:
-      isHidden: true
-    referenceid:
+    allTermsFilters:
       defaultValue: ["cellosaurus:CVCL_2947"]
 - label: "K-562 Cell Line"
   note: "Instances of K-562 and daughter cell lines, searched by Cellosaurus id"
@@ -81,15 +75,9 @@
       isHidden: true
     materialtype:
       isHidden: true
-    freeFilters:
-      isHidden: true
     filterLogic:
       isHidden: true
-    accessid:
-      isHidden: true
-    geoCity:
-      isHidden: true
-    referenceid:
+    allTermsFilters:
       defaultValue: ["cellosaurus:CVCL_0004"]
 - label: "CDKN2A Deletion Example in CL"
   note: "Example for focal CDKN2A deletion matches."
@@ -108,12 +96,8 @@
       isHidden: true
     variantMaxLength:
       isHidden: true
-    bioontology:
+    allTermsFilters:
       defaultValue: ["NCIT:C3058"]
-    accessid:
-      isHidden: true
-    geoCity:
-      isHidden: true
 - label: "MYC Duplication in CL"
   note: "Example for focal MYC Duplications."
   description: |
@@ -132,10 +116,6 @@
       isHidden: true
     variantMaxLength:
       isHidden: true
-    accessid:
-      isHidden: true
-    geoCity:
-      isHidden: true
 - label: "TP53 Del. in Cell Lines"
   note: "Example for TP53 deletion"
   description: >-
@@ -149,8 +129,4 @@
       defaultValue: "7669608-10000000"
     variantType:
       defaultValue: "EFO:0030067"
-    accessid:
-      isHidden: true
-    geoCity:
-      isHidden: true
 
