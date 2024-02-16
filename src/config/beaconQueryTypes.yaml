@@ -1,5 +1,52 @@
 ---
-- label: "Search Core"
+- label: "Cell Line Search"
+  infoText: ""
+  description: |
+    This template provides a variety of fields _excluding genomic variant parameters_
+    for the purpose to identify samples matching a single or several phenotypic
+    or other properties. While here multiple (autocomplete) input fields are presented for convenience
+    to facilitate complex queries, in the end all values are combined as a list of Beacon `filters`
+    attributes (_i.e._ one can just add all of them to teh "Filters" field).
+    See also the [Beacon `filters` documentation](https://docs.genomebeacons.org/filters/#using-filters-in-queries) for more information.
+  img: false
+  parameters:
+    datasetIds:
+      defaultValue: ["cellz"]
+    referenceName:
+      isHidden: true
+    start:
+      isHidden: true
+    end:
+      isHidden: true
+    variantType:
+      isHidden: true
+    alternateBases:
+      isHidden: true
+    referenceBases:
+      isHidden: true
+    bioontology:
+      isHidden: false
+    clinicalClasses:
+      isHidden: false
+    accessid:
+      isHidden: true
+    allTermsFilters:
+      isHidden: false
+    filterLogic:
+      isHidden: true
+    includeDescendantTerms:
+      isHidden: false
+    sex:
+      isHidden: false
+    materialtype:
+      isHidden: false
+    referenceid:
+      isHidden: false
+    cohorts:
+      isHidden: true
+  examples: []
+
+- label: "Variant Search"
   infoText: "Display main form fields"
   img: false
   parameters:
@@ -202,53 +249,6 @@
       isHidden: true
   examples: []
   img: false
-
-- label: "Metadata"
-  infoText: ""
-  description: |
-    This template provides a variety of fields _excluding genomic variant parameters_
-    for the purpose to identify samples matchinng a single or several phenotypic
-    or other properties. While here multiple (autocomplete) input fields are presented for convenience
-    to facilitate complex queries, in the end all values are combined as a list of Beacon `filters`
-    attributes (_i.e._ one can just add all of them to teh "Filters" field).
-    See also the [Beacon `filters` documentation](https://docs.genomebeacons.org/filters/#using-filters-in-queries) for more information.        
-  img: false
-  parameters:
-    datasetIds:
-      defaultValue: ["cellz"]
-    referenceName:
-      isHidden: true
-    start:
-      isHidden: true
-    end:
-      isHidden: true
-    variantType:
-      isHidden: true
-    alternateBases:
-      isHidden: true
-    referenceBases:
-      isHidden: true
-    bioontology:
-      isHidden: false
-    clinicalClasses:
-      isHidden: false
-    accessid:
-      isHidden: true
-    allTermsFilters:
-      isHidden: false
-    filterLogic:
-      isHidden: true
-    includeDescendantTerms:
-      isHidden: false
-    sex:
-      isHidden: false
-    materialtype:
-      isHidden: false
-    referenceid:
-      isHidden: false
-    cohorts:
-      isHidden: true
-  examples: []
 
 - label: "All"
   infoText: "Display all form fields"
