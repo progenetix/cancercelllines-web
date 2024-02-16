@@ -18,6 +18,7 @@ nav:
   - News & Changes: news
   - User Guide: user-guide
   - Visualizations: common/plotting
+  - Beacon+ API Use: common/beacon-api
   - Literature data: literature-data
   - Cancercelllines Data &#8599;: http://cancercelllines.org
   - Progenetix Data &#8599;: http://progenetix.org
