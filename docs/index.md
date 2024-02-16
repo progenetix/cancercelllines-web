@@ -11,17 +11,6 @@ of the overall more than 16'000 cell lines, _cancercelllines.org_ goes beyond th
 and provides an entry point for the comparative analysis of genomic variants in
 cell lines as well as for the exploration of related publications.
 
-### Data Statistics 
-
-```mermaid
-%%{init: {"",'theme': 'base', 'themeVariables': {"pieLegendTextSize":"6px","fontFamily": "arial",'pie1':'#E0BBE4','pie2':'#957DAD','pie3':'#D291BC'}}}%%
-pie showData
-title Genotypic Sex of Donors
-"Female" : 1486
-"Male" : 1882
-"NA" : 846
-
-
 ```
 
 ### Data Sources
