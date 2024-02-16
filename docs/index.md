@@ -13,7 +13,7 @@ cell lines as well as for the exploration of related publications.
 
 ### Data Statistics
 
-[histogram_ages.html](news%2Fhistogram_ages.html)
+<iframe src="news/histogram_ages.html" width="800" height="600"></iframe>
 
 
 ### Data Sources
