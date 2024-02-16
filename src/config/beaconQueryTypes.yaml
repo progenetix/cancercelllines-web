@@ -3,8 +3,6 @@
   infoText: "Display main form fields"
   img: false
   parameters:
-    datasetIds:
-      defaultValue: ["cellz"]
     aminoacidChange:
       isHidden: true
     geneId:
@@ -108,8 +106,6 @@
     See also the [Beacon documentation](https://docs.genomebeacons.org/variant-queries/#beacon-range-queries) for more information.
   img: /img/BeaconRangeQuery-graphics.png
   parameters:
-    datasetIds:
-      placeholder: ["cellz"]
     referenceName:
       isHidden: false
     geneId:
@@ -141,8 +137,6 @@
     See also the [Beacon documentation](https://docs.genomebeacons.org/variant-queries/#beacon-geneid-queries) for more information.    
   img: /img/BeaconGeneQuery-graphics.png
   parameters:
-    datasetIds:
-      defaultValue: ["cellz"]
     aminoacidChange:
       isHidden: true
     geneId:
@@ -176,8 +170,6 @@
     variants such as SNVs and INDELs.
     See also the [Beacon documentation](https://docs.genomebeacons.org/variant-queries/#beacon-sequence-queries) for more information.
   parameters:
-    datasetIds:
-      placeholder: ["cellz"]
     referenceName:
       isHidden: false
     geneId:
