@@ -11,6 +11,10 @@ of the overall more than 16'000 cell lines, _cancercelllines.org_ goes beyond th
 and provides an entry point for the comparative analysis of genomic variants in
 cell lines as well as for the exploration of related publications.
 
+### Data Statistics
+
+[histogram_ages.html](news%2Fhistogram_ages.html)
+
 
 ### Data Sources
 
