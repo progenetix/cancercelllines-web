@@ -37,27 +37,27 @@ You can also search for individual cell line by the name or ID or search for cel
 ![Search form](search-form.png)
  
 All search form fields:
-- The top row of the search fields offers some example queries, for both cell lines and positional queries.
-- You can use "Gene Spans" and "Cytobands" buttons to limit your results to a range of a gene of interest or a specific cytoband.
-- Default dataset is Cancer Cell Lines Collection but Progenetix collection is also available to enable queries with tumor samples
-- Gene Symbol - search for a variant in a gene
-- Query by Position - show fields to enable search by position
-- Chromosome - enter chromosome of interest. Refseq IDs are also accepted.
-- Variant Type - specify variant type by EFO term. This field can be used to receive available SNVs.
-- Start or Position - start of sequence variation of 1-based genomic positions
-- End - end of sequence variation of 1-based genomic positions
-- Minimum/Maximum variant length - for queries with pre-defined variant lengths
-- Reference/Alternate Base(s) - enter reference and altered nucleotide bases
-- Cell Line IDs/Names - this field can be used to query cell lines by their IDs. Cellosaurus IDs or cell line names (Cellosaurus nomenclature) are accepted as input for cell lines.
-- Cancer Classification(s) - use NCIT or ICDO disease codes to search for cell lines of the diagnostic code.
-- Genotypic Sex - search for male or female cell line samples.
-- Filtering options - additional filters to limit the number of search result, define filter logic and include child terms.
-- Filters - option to add additional free comma separated filters e.g. PMID, CVCL etc.
-- Filter logic - and/or
-- Include Child Terms - includes available child terms or only shows exact matches. Can be applied for cell lines and diagnostic codes as well.
-- Response Limit/Page Size - default is 1000, can be increased or decreased
-- Skip Pages - select number of pages to be skipped
-- City - search samples by the annotated city
+* The top row of the search fields offers some example queries, for both cell lines and positional queries.
+* You can use "Gene Spans" and "Cytobands" buttons to limit your results to a range of a gene of interest or a specific cytoband.
+* Default dataset is Cancer Cell Lines Collection but Progenetix collection is also available to enable queries with tumor samples
+* Gene Symbol - search for a variant in a gene
+* Query by Position - show fields to enable search by position
+* Chromosome - enter chromosome of interest. Refseq IDs are also accepted.
+* Variant Type - specify variant type by EFO term. This field can be used to receive available SNVs.
+* Start or Position - start of sequence variation of 1-based genomic positions
+* End - end of sequence variation of 1-based genomic positions
+* Minimum/Maximum variant length - for queries with pre-defined variant lengths
+* Reference/Alternate Base(s) - enter reference and altered nucleotide bases
+* Cell Line IDs/Names - this field can be used to query cell lines by their IDs. Cellosaurus IDs or cell line names (Cellosaurus nomenclature) are accepted as input for cell lines.
+* Cancer Classification(s) - use NCIT or ICDO disease codes to search for cell lines of the diagnostic code.
+* Genotypic Sex - search for male or female cell line samples.
+* Filtering options - additional filters to limit the number of search result, define filter logic and include child terms.
+* Filters - option to add additional free comma separated filters e.g. PMID, CVCL etc.
+* Filter logic - and/or
+* Include Child Terms - includes available child terms or only shows exact matches. Can be applied for cell lines and diagnostic codes as well.
+* Response Limit/Page Size - default is 1000, can be increased or decreased
+* Skip Pages - select number of pages to be skipped
+* City - search samples by the annotated city
 
 The top panel includes 5 other short query types: Cell Line Search, CNV query, Genomic Range, Gene ID and Sequence
 
