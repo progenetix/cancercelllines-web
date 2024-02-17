@@ -35,7 +35,8 @@ The last section of the cell line results page shows literature derived gene inf
 You can also search for individual cell line by the name or ID or search for cell lines that match the diagnosis of interest (eg NCIT code) or search for all cell lines that harbour a specific variant. 
 
 ![Search form](search-form.png)
-
+ 
+All search form fields:
 - The top row of the search fields offers some example queries, for both cell lines and positional queries.
 - You can use "Gene Spans" and "Cytobands" buttons to limit your results to a range of a gene of interest or a specific cytoband.
 - Default dataset is Cancer Cell Lines Collection but Progenetix collection is also available to enable queries with tumor samples
@@ -47,7 +48,7 @@ You can also search for individual cell line by the name or ID or search for cel
 - End - end of sequence variation of 1-based genomic positions
 - Minimum/Maximum variant length - for queries with pre-defined variant lengths
 - Reference/Alternate Base(s) - enter reference and altered nucleotide bases
-- IDs/Names - this field can be used to query cell lines by their IDs or to search for results of different PubMed IDs. Cellosaurus IDs or cell line names (Cellosaurus nomenclature) are accepted as input for cell lines.
+- Cell Line IDs/Names - this field can be used to query cell lines by their IDs. Cellosaurus IDs or cell line names (Cellosaurus nomenclature) are accepted as input for cell lines.
 - Cancer Classification(s) - use NCIT or ICDO disease codes to search for cell lines of the diagnostic code.
 - Genotypic Sex - search for male or female cell line samples.
 - Filtering options - additional filters to limit the number of search result, define filter logic and include child terms.
@@ -57,6 +58,8 @@ You can also search for individual cell line by the name or ID or search for cel
 - Response Limit/Page Size - default is 1000, can be increased or decreased
 - Skip Pages - select number of pages to be skipped
 - City - search samples by the annotated city
+
+The top panel includes 5 other short query types: Cell Line Search, CNV query, Genomic Range, Gene ID and Sequence
 
 ### Search Results: Cell Line Query
 
