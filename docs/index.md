@@ -16,11 +16,16 @@ cell lines as well as for the exploration of related publications.
 #### Genotypic Sex of Donors
 <iframe src="news/pie_sexes.html" width="600" height="600"></iframe>
 
+### Samples by Genotypic Sex
+
+<iframe src="news/pie_all_samples.html" width="600" height="600"></iframe>
+
+
 #### Donor Age
 <iframe src="news/histogram_ages.html" width="600" height="600"></iframe>
 
 #### Donors by Organ
-<iframe src="news/icdot_barplot.html" width="800" height="600"></iframe>
+<iframe src="news/icdot_barplot.html" width="800" height="700"></iframe>
 
 ### Data Sources
 

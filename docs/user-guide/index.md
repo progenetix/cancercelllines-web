@@ -35,7 +35,8 @@ The last section of the cell line results page shows literature derived gene inf
 You can also search for individual cell line by the name or ID or search for cell lines that match the diagnosis of interest (eg NCIT code) or search for all cell lines that harbour a specific variant. 
 
 ![Search form](search-form.png)
- 
+
+
 All search form fields:
 * The top row of the search fields offers some example queries, for both cell lines and positional queries.
 * You can use "Gene Spans" and "Cytobands" buttons to limit your results to a range of a gene of interest or a specific cytoband.
