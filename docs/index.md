@@ -23,10 +23,12 @@ cell lines as well as for the exploration of related publications.
 
 
 #### Donor Age
+
 <iframe src="news/histogram_ages.html" width="600" height="600"></iframe>
 
 #### Donors by Organ
-<iframe src="news/icdot_barplot.html" width="800" height="700"></iframe>
+
+<iframe src="news/icdot_barplot.html" width="800" height="800"></iframe>
 
 ### Data Sources
 
