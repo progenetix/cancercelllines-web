@@ -28,7 +28,7 @@ cell lines as well as for the exploration of related publications.
 
 #### Donors by Organ
 
-<iframe src="news/icdot_barplot.html" width="800" height="650"></iframe>
+<iframe src="news/icdot_barplot.html" width="700" height="650"></iframe>
 
 ### Data Sources
 
