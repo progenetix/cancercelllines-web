@@ -14,6 +14,7 @@ cell lines as well as for the exploration of related publications.
 ### Data Statistics
 
 #### Genotypic Sex of Donors
+
 <iframe src="news/pie_sexes.html" width="600" height="600"></iframe>
 
 #### Samples by Genotypic Sex
