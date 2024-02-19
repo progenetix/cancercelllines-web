@@ -23,6 +23,7 @@ const HANDOVER_IDS = {
   histoplot: "histoplot", //  "pgx:HO.histoplot",
   biosamples: "biosamples", //  "pgx:HO.biosamples",
   biosamplestable: "biosamplestable", //  "pgx:HO.biosamplestable",
+  biosamplesmap: "biosamplesmap",
   // biosamplevariants: "biosamplevariants", //  "pgx:HO.biosamplevariants",
   // annotatedvariants: "annotatedvariants", //  "pgx:HO.annotatedvariants",
   // biosamplepgxsegvariants: "biosamplepgxsegvariants", //  "pgx:HO.biosamples-pgxseg",
@@ -56,6 +57,7 @@ export function DatasetResultBox({ data: responseSet, query }) {
 
   const biosamplesHandover = handoverById(HANDOVER_IDS.biosamples)
   const biosamplesTableHandover = handoverById(HANDOVER_IDS.biosamplestable)
+  const biosamplesmapURL = handoverById(HANDOVER_IDS.biosamplesmap) === undefined ? false : handoverById(HANDOVER_IDS.biosamplesmap).url
   const phenopacketsHandover = handoverById(HANDOVER_IDS.phenopackets)
   const variantsHandover = handoverById(HANDOVER_IDS.variants)
   const vcfHandover = handoverById(HANDOVER_IDS.vcf)
@@ -180,6 +182,14 @@ export function DatasetResultBox({ data: responseSet, query }) {
           ) : null}
         </div>
         <div className="column is-one-third">
+          {biosamplesmapURL ? (
+            <div>
+              <ExternalLink
+                label="Geographic Map"
+                href={biosamplesmapURL}
+              />
+            </div>
+          ) : null}
           {info.counts.variantCount > 0 ? (
             <div>
               <UCSCRegion query={query} />
