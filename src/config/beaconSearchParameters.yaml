@@ -160,7 +160,7 @@ parameters:
       codes please be aware that probably use of an "OR" filter logic will be appropriate.
       This field relies on the existence of the term in the Beacon `filteringTermsResponse`.
     isMulti: true
-    isHidden: true
+    isHidden: false
     options:
       - value: ""
         label: "(no selection)"
@@ -172,7 +172,7 @@ parameters:
       logic will be appropriate.
       This field relies on the existence of the term in the Beacon `filteringTermsResponse`.
     isMulti: true
-    isHidden: true
+    isHidden: false
     options:
       - value: ""
         label: "(no selection)"
@@ -215,14 +215,15 @@ parameters:
       - value: PATO:0020001
         label: Male genotypic Sex
   allTermsFilters:
-    label: Select Filters
+    label: All Filtering Options
     isMulti: true
     infoLink: "https://info.progenetix.org/doc/filters-documentation.html"
     infoText: |
       Add any **filters** to the search. These will usually
       correspond to CURIE values supported by the resource (e.g.
       "cellosaurus:CVCL_0004"; "NCIT:C3222"; "PMID:18559507").
-      This field relies on the existence of the term in the Beacon `filteringTermsResponse`.
+      This field relies on the existence of the term in the Beacon
+      `filteringTermsResponse`.
     options:
       - value: [""]
         label: "(no selection)"
@@ -231,7 +232,7 @@ parameters:
     isHidden: true
   filterLogic:
     label: Filter Logic
-    isHidden: true
+    isHidden: false
     infoText: |
       Boolean logic for filter values; the default **AND** assumes different
       logical scopes for used filters (e.g. collision occurr if multiple cancer
@@ -251,7 +252,7 @@ parameters:
       from gastric, esophagus, colon ... cancer. However, this parameter allows
       to limit searches to the exact code match.
     defaultValue: "True"
-    isHidden: true
+    isHidden: false
     options:
       - value: "true"
         label: always match child terms

@@ -11,35 +11,11 @@ of the overall more than 16'000 cell lines, _cancercelllines.org_ goes beyond th
 and provides an entry point for the comparative analysis of genomic variants in
 cell lines as well as for the exploration of related publications.
 
-### Data Statistics
-
-#### Genotypic Sex of Donors
-
-<iframe src="news/pie_sexes.html" width="500" height="500"></iframe>
-
-#### Samples by Genotypic Sex
-
-<iframe src="news/pie_all_samples.html" width="500" height="500"></iframe>
-
-
-#### Donor Age
-
-<iframe src="news/histogram_ages.html" width="700" height="600"></iframe>
-
-#### Donors by Organ
-
-<iframe src="news/icdot_barplot.html" width="700" height="650"></iframe>
-
-### Data Sources
-
-cancercelllines also includes SNV data from CCLE and ClinVar resources:
-
-- CCLE mutation set: last accessed _2022-06-02_
-- ClinVar variation release: last accessed _2023-06-25_
-
 !!! example "Citation"
 
     * cancercelllines.org: Cancer cell line oncogenomic online resource (2023)
+    * Paloots R and Baudis M. (2023): _cancercelllines.org_ - a Novel Resource for
+      Genomic Variants in Cancer Cell Lines. _bioRxiv [DOI 10.1101/2023.12.12.571281](https://doi.org/10.1101/2023.12.12.571281)_ 2023 Dec 13
 
 ??? tip "Additional Articles & Citation Options"
 
@@ -59,7 +35,43 @@ cancercelllines also includes SNV data from CCLE and ClinVar resources:
     we suggest that you contact [Michael Baudis](https://info.baudisgroup.org/group/Michael_Baudis/)
     if you plan any commercial use of the database or are interested to incorporate
     the data into your research projects, for optional collaborative support.
-    
+
+## Data Sources
+
+_cancercelllines.org_ includes SNV data from the CCLE and ClinVar resources:
+
+- CCLE mutation set: last accessed _2022-06-02_
+- ClinVar variation release: last accessed _2023-06-25_
+
+<h3>Data Statistics</h3>
+
+<div style="width: 100%; margin-top: 20px;">
+    <div style="width: 50%; text-align: center; float: left; clear: none;">
+    <iframe src="news/pie_sexes.html" width="98%" height="300"></iframe>
+    <br/>
+    Genotypic Sex of Donors
+    </div>
+
+    <div style="width: 50%; text-align: center; float: left; clear: none;">
+    <iframe src="news/pie_all_samples.html" width="98%" height="300"></iframe>
+    <br/>
+    Samples by Genotypic Sex
+    </div>
+</div>
+
+<div style="width: 100%; text-align: center; float: left; margin-top: 20px;">
+<iframe src="news/histogram_ages.html" width="100%" height="500"></iframe>
+<br/>
+Donor Age 
+</div>
+
+<div style="width: 100%; text-align: center; float: left; margin-top: 20px; margin-bottom: 20px">
+
+<iframe src="news/icdot_barplot.html" width="100%%" height="650"></iframe>
+<br/>
+Donor Sites
+</div>
+
 ## Related Resources
 
 **Progenetix** The _Progenetix_ database and cancer genomic information resource provides a
@@ -82,7 +94,7 @@ develops a framework and default data model for the discovery and exchange of ge
 and associated biomedical annotations. _cancercelllines.org_ makes extensive use of
 the Beacon protocol for its API and also as engine behind its front end (see below). 
 
-## Progenetix Source Code
+## _cancercelllines.org_ Source Code
 
 With exception of some utility scripts and external dependencies (e.g.
 [MongoDB](https://www.mongodb.com/try/download/community)) the following projects
@@ -93,7 +105,7 @@ behind Progenetix and Beacon<span style="vertical-align: super; color: red; font
 
 - Python based service based on the [GA4GH Beacon protocol](http://beacon-project.io)
 - software powering the _cancercelllines.org_ and _Progenetix_ resources
-- [Beacon<span style="vertical-align: super; color: red; font-weight: 800;">+</span>](http://beacon.progenetix.org/ui/) implementation(s) use the same code base
+- [Beacon<span style="vertical-align: super; color: red; font-weight: 800;">+</span>](http://beacon.progenetix.org/) implementation(s) use the same code base
 
 ### [`cancercelllines-web`](https://github.com/progenetix/cancercelllines-web)
 
@@ -108,17 +120,5 @@ behind Progenetix and Beacon<span style="vertical-align: super; color: red; font
 ### [`progenetix-web`](https://github.com/progenetix/progenetix-web)
 
 - website for Progenetix and its Beacon<span style="vertical-align: super; color: red; font-weight: 800;">+</span> implementations
-- provides Beacon interfaces for the `bycon` server, as well as other Progenetix sevices (e.g. the [publications](http://progenetix.org/publications/) repository)
-- implemented as [React](https://reactjs.org) / [Next.js](https://nextjs.org) project
-- contains this documentation tree here as `mkdocs` project, with files in the `docs` directory
-
-### Additional Projects
-
-#### [`icdot2uberon`](https://github.com/progenetix/icdot2uberon)
-
-* mappings between ICD-O 3 topographies and UBERON anatomical sites
-
-#### [`ICDOntologies`](https://github.com/progenetix/ICDOntologies)
-
-* mappings between ICD-O 3 morphology / topography pairs and NCIt neoplasm core
-  cancer ontology
+- provides Beacon interfaces for the `bycon` stack to the Progenetix sevices
+- contains the main documentation tree

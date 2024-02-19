@@ -96,6 +96,12 @@
       isHidden: true
     variantMaxLength:
       isHidden: true
+    alternateBases:
+      isHidden: true
+    referenceBases:
+      isHidden: true
+    filterLogic:
+      isHidden: true
     allTermsFilters:
       defaultValue: ["NCIT:C3058"]
 - label: "MYC Duplication in CL"
@@ -110,12 +116,19 @@
       defaultValue: "124000000-127736593"
     end:
       defaultValue: "127740957-130000000"
+    alternateBases:
+      isHidden: true
+    referenceBases:
+      isHidden: true
     variantType:
       defaultValue: "EFO:0030070"
     variantMinLength:
       isHidden: true
     variantMaxLength:
       isHidden: true
+    filterLogic:
+      isHidden: true
+      
 - label: "TP53 Del. in Cell Lines"
   note: "Example for TP53 deletion"
   description: >-
@@ -127,6 +140,12 @@
       defaultValue: "5000000-7676592"
     end:
       defaultValue: "7669608-10000000"
+    alternateBases:
+      isHidden: true
+    referenceBases:
+      isHidden: true
     variantType:
       defaultValue: "EFO:0030067"
+    filterLogic:
+      isHidden: true
 
