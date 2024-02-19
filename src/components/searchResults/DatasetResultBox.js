@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react"
 import {
   // MAX_HISTO_SAMPLES,
-  SITE_DEFAULTS,
+  // SITE_DEFAULTS,
   replaceWithProxy,
   useProgenetixApi,
   useExtendedSWR
@@ -16,7 +16,7 @@ import { svgFetcher } from "../../hooks/fetcher"
 import BiosamplesStatsDataTable from "./BiosamplesStatsDataTable"
 import { WithData } from "../Loader"
 import { openJsonInNewTab } from "../../utils/files"
-import dynamic from "next/dynamic"
+// import dynamic from "next/dynamic"
 import { getVisualizationLink } from "../../modules/service-pages/dataVisualizationPage"
 
 const HANDOVER_IDS = {
@@ -38,7 +38,7 @@ const HANDOVER_IDS = {
 const TABS = {
   results: "Results",
   samples: "Biosamples",
-  samplesMap: "Biosamples Map",
+  // samplesMap: "Biosamples Map",
   variants: "Variants"
 }
 
@@ -97,9 +97,9 @@ export function DatasetResultBox({ data: responseSet, query }) {
 
   biosamplesHandover && tabNames.push(TABS.samples)
 
-  biosamplesReply?.data?.response?.resultSets[0].results?.some(
-    (biosample) => !!biosample.provenance?.geoLocation
-  ) && tabNames.push(TABS.samplesMap)
+  // biosamplesReply?.data?.response?.resultSets[0].results?.some(
+  //   (biosample) => !!biosample.provenance?.geoLocation
+  // ) && tabNames.push(TABS.samplesMap)
 
   if (handoverById(HANDOVER_IDS.variants)) tabNames.push(TABS.variants)
 
@@ -126,25 +126,25 @@ export function DatasetResultBox({ data: responseSet, query }) {
     tabComponent = (
       <BiosamplesDataTable apiReply={biosamplesReply} datasetId={id} />
     )
-  } else if (selectedTab === TABS.samplesMap) {
-    tabComponent = (
-      <div>
-        <h2 className="subtitle has-text-dark">Sample Origins</h2>
-        <p>
-          The map represents the origins of the matched samples, as derived from
-          the original publication or resource repository. In the majority of
-          cases this will correspond to the proxy information of the
-          corresponding author&apos;s institution. Additional information can be
-          found in the{" "}
-          <ExternalLink
-            href={`${SITE_DEFAULTS.MASTERDOCLINK}/geolocations.html`}
-            label="Geographic Coordinates documentation"
-          />
-          {"."}
-        </p>
-        <BiosamplesMap apiReply={biosamplesReply} datasetId={id} />
-      </div>
-    )
+  // } else if (selectedTab === TABS.samplesMap) {
+  //   tabComponent = (
+  //     <div>
+  //       <h2 className="subtitle has-text-dark">Sample Origins</h2>
+  //       <p>
+  //         The map represents the origins of the matched samples, as derived from
+  //         the original publication or resource repository. In the majority of
+  //         cases this will correspond to the proxy information of the
+  //         corresponding author&apos;s institution. Additional information can be
+  //         found in the{" "}
+  //         <ExternalLink
+  //           href={`${SITE_DEFAULTS.MASTERDOCLINK}/geolocations.html`}
+  //           label="Geographic Coordinates documentation"
+  //         />
+  //         {"."}
+  //       </p>
+  //       <BiosamplesMap apiReply={biosamplesReply} datasetId={id} />
+  //     </div>
+  //   )
   } else if (selectedTab === TABS.variants) {
     tabComponent = (
       <VariantsDataTable apiReply={variantsReply} datasetId={id} />
@@ -397,6 +397,6 @@ function PagedLink({ handover }) {
   )
 }
 
-const BiosamplesMap = dynamic(() => import("./BioSamplesMap"), {
-  ssr: false
-})
+// const BiosamplesMap = dynamic(() => import("./BioSamplesMap"), {
+//   ssr: false
+// })
