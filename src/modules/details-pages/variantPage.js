@@ -15,8 +15,10 @@ const entity = "variants"
 const exampleId = "5bab576a727983b2e00b8d32"
 
 const VariantDetailsPage = withUrlQuery(({ urlQuery }) => {
-  var { id } = urlQuery
-  var datasetIds = SITE_DEFAULTS.DATASETID
+  var { id, datasetIds } = urlQuery
+  if (!datasetIds) {
+    datasetIds = SITE_DEFAULTS.DATASETID
+  }
   const hasAllParams = id && datasetIds
   return (
     <Layout title="Variant Details">
@@ -79,7 +81,6 @@ function Variant({ variant, id, datasetIds }) {
       </ul>
     </>
   )}
-
 
   {variant.caseLevelData && (
     <>

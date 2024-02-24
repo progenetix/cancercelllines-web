@@ -15,10 +15,12 @@ import { BiosamplePlot } from "../../components/SVGloaders"
 
 const itemColl = "biosamples"
 const exampleId = "pgxbs-kftvir6m"
-const datasetIds = SITE_DEFAULTS.DATASETID
 
 const SampleDetailsPage = withUrlQuery(({ urlQuery }) => {
-  var { id } = urlQuery
+  var { id, datasetIds } = urlQuery
+  if (!datasetIds) {
+    datasetIds = SITE_DEFAULTS.DATASETID
+  }
   const hasAllParams = id && datasetIds
 
   const iURL = `${SITE_DEFAULTS.API_PATH}beacon/individuals/?biosampleIds=${id}&datasetIds=${datasetIds}&limit=1`

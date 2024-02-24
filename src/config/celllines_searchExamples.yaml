@@ -31,6 +31,8 @@
       isHidden: true
     cohorts:
       isHidden: true
+    analysisOperation:
+      isHidden: true
     sex:
       isHidden: true
     materialtype:
@@ -71,6 +73,8 @@
       isHidden: true
     cohorts:
       isHidden: true
+    analysisOperation:
+      isHidden: true
     sex:
       isHidden: true
     materialtype:
@@ -100,6 +104,8 @@
       isHidden: true
     referenceBases:
       isHidden: true
+    analysisOperation:
+      isHidden: true
     filterLogic:
       isHidden: true
     allTermsFilters:
@@ -126,6 +132,8 @@
       isHidden: true
     variantMaxLength:
       isHidden: true
+    analysisOperation:
+      isHidden: true
     filterLogic:
       isHidden: true
       
@@ -146,6 +154,8 @@
       isHidden: true
     variantType:
       defaultValue: "EFO:0030067"
+    analysisOperation:
+      isHidden: true
     filterLogic:
       isHidden: true
 

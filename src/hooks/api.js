@@ -125,6 +125,7 @@ export function makeFilters({
   clinicalClasses,
   bioontology,
   referenceid,
+  analysisOperation,
   cohorts,
   sex,
   materialtype
@@ -135,6 +136,7 @@ export function makeFilters({
     ...(clinicalClasses ?? []),
     ...(referenceid ?? []),
     ...(cohorts ? [cohorts] : []),
+    ...(analysisOperation ? [analysisOperation] : []),
     ...(sex ? [sex] : []),
     ...(materialtype ? [materialtype] : [])
   ]
@@ -147,6 +149,7 @@ export function buildQueryParameters(queryData) {
     bioontology,
     referenceid,
     cohorts,
+    analysisOperation,
     sex,
     materialtype,
     allTermsFilters,
@@ -182,6 +185,7 @@ export function buildQueryParameters(queryData) {
     bioontology,
     referenceid,
     cohorts,
+    analysisOperation,
     sex,
     materialtype
   })

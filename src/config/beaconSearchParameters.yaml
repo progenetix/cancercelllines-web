@@ -152,6 +152,18 @@ parameters:
       An aggregation of samples by origin (e.g. study, external resource), shared features or use in a publication.
     isMulti: true
     isHidden: true
+  analysisOperation:
+    label: Genomic Analysis Type
+    infoText: >
+      The general type of analysis - i.e. copy number profiling or sequence variation analysis
+    isHidden: false
+    options:
+      - value: ""
+        label: "all analyses"
+      - value: "EDAM:operation_3961"
+        label: "Copy number variation detection"
+      - value: "EDAM:operation_3227"
+        label: "(Sequence) Variant Calling"
   bioontology:
     label: Cancer Classification(s)
     infoLink: "https://info.progenetix.org/doc/filters-documentation.html"

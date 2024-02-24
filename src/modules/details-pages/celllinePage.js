@@ -18,12 +18,13 @@ import VariantsDataTable from "../../components/searchResults/VariantsDataTable"
 
 const service = "collations"
 const exampleId = "cellosaurus:CVCL_0023"
-const datasetIds = SITE_DEFAULTS.DATASETID
 const searchPage = "filterSearch"
 
 const CellLineDetailsPage = withUrlQuery(({ urlQuery }) => {
-
-  var { id } = urlQuery
+  var { id, datasetIds } = urlQuery
+  if (!datasetIds) {
+    datasetIds = SITE_DEFAULTS.DATASETID
+  }
   const hasAllParams = id && datasetIds
   const [plotGeneSymbols, setGeneSymbols] = useState("");
   const [plotCytoregionLabels, setCytoregionSymbols] = useState("");
