@@ -37,7 +37,7 @@ You can also search for individual cell line by the name or ID or search for cel
 ![Search form](search-form.png)
 
 
-### All search form fields:
+All search form fields:
 
 * The top row of the search fields offers some example queries, for both cell lines and positional queries.
 * You can use "Gene Spans" and "Cytobands" buttons to limit your results to a range of a gene of interest or a specific cytoband.
