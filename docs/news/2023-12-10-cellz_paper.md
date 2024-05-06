@@ -6,8 +6,8 @@ authors:
 template: post.html
 ---
 
-The preprint of our paper "cancercelllines.org - a Novel Resource for Genomic Variants in Cancer Cell Lines" is available now:
-https://www.biorxiv.org/content/10.1101/2023.12.12.571281v1
+Our paper "cancercelllines.org - a Novel Resource for Genomic Variants in Cancer Cell Lines" is available now:
+https://academic.oup.com/database/article/doi/10.1093/database/baae030/7660350?login=false
 
 
 <!--more-->

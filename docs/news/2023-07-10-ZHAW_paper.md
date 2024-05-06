@@ -6,7 +6,6 @@ authors:
 template: post.html
 ---
 
-The preprint for our collaboration with ZHAW is out now:
-https://arxiv.org/abs/2307.00933
-
+The publication for our collaboration with ZHAW is out now:
+https://academic.oup.com/bioinformaticsadvances/article/4/1/vbae045/7630495?login=false
 <!--more-->
