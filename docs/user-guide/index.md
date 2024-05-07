@@ -85,7 +85,7 @@ Biosamples tab lists samples for this query. Associated diagnostic codes are als
 
 ![Biosamples table](img.png)
 
-We have geographical info about where the sample was processed. That can be visualized in the Biosamples Map tab. This info is only available for CNV samples.
+We have geographical info about where the sample was processed. This data is geographically represented. Click "Geographical Map" to view it. This info is only available for CNV samples.
 
 ![Map of biosamples](map.png)
 
