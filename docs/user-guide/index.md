@@ -30,6 +30,8 @@ Subset CNV frequencies are visualized in the next section. Links below frequency
 ![Table of associated literature](lit-table.png)
 The last section of the cell line results page shows literature derived gene information on the cell lines. Click on the gene name to visualize it on the frequency plot. Clicking on the article title redirects you to the article page on PubMed. Abstract of the paper will be expanded upon left-click.
 
+![Genes of interest shown on CNV profile](annotated_genes.png)
+
 ## Search Cell Lines
 
 You can also search for individual cell line by the name or ID or search for cell lines that match the diagnosis of interest (eg NCIT code) or search for all cell lines that harbour a specific variant. 
