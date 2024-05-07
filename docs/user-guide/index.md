@@ -69,6 +69,8 @@ The top panel includes 5 other short query types: Cell Line Search, CNV query, G
 
 Here are the search results for an example query listed in the search form - K-562 cell line. All data in our database is uses GRCh38 assembly version. Used filters, in this case Cellosaurus ID for K-562 are shown on top. Cellz - an internal short name for the cancer cell lines dataset. Dataset responses can be viewed in a JSON format. In the results tab, the frequency plot for query result is shown. On the last page, you can find a table of matched subsets and sample numbers. These data can also be downloaded in TSV or JSON format.
 
+![results_search.png](results_search.png)
+
 ### Biosamples
 
 Clicking on “Biosample ID” on the Biosamples tab will lead to the sample page. There info about the cell line origin is shown - same as in Cell Line Page. Additional reference for the sample are provided and CNV plot of the sample is shown (when available).
