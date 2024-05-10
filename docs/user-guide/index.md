@@ -93,9 +93,7 @@ We have geographical info about where the sample was processed. This data is geo
 
 To access our SNV data, cell line on interest can be queried in "Search Cell Lines" like for CNV samples but additional field needs to be entered under Query by Position -> Variant Type -> SO:0001059 (any sequence alteration - SNV, INDEL…). This yields in all available SNVs for the cell line of interest. For example, search results for PC-9 cell line SNVs (Filtering Options -> only match exact terms) result in:
 
-![SNV results](img_2.png)
-
-CNV plot is empty in this case as no CNV samples were included in the query. Variants are listed under “Variants” tab. Here, a small part of matched variants is listed. The results can be sorted by Digest, Gene, Pathogenicity or Variant Effect by clicking on the column name. Click on the variant ID in blue for more information on the variant.
+Variants are listed under “Variants” tab. Here, a small part of matched variants is listed. The results can be sorted by Digest, Gene, Pathogenicity or Variant Effect by clicking on the column name. Click on the variant ID in blue for more information on the variant.
 
 ![Variants table](img_3.png)
 
