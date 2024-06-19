@@ -309,3 +309,9 @@ parameters:
       The maximum number of biosamples to retrieve per page and also the size of response pages.
     defaultValue: 100
     isHidden: true
+  includeResultsetResponses:
+    label: Show results
+    infoText: |
+      We want also empty result boxes so it is ALL (incontrast to Beacon default HIT).
+    defaultValue: ALL
+    isHidden: true
