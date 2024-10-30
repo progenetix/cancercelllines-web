@@ -102,7 +102,7 @@ export default function Index({
 
 export const getStaticProps = async () => {
   const subsetsReply = await tryFetch(
-    `${SITE_DEFAULTS.PREFETCH_PATH}services/collations/?datasetIds=${SITE_DEFAULTS.DATASETID}&method=counts&collationTypes=cellosaurus,NCIT,icdom,pubmed,icdot`
+    `${SITE_DEFAULTS.PREFETCH_PATH}services/collations/?datasetIds=${SITE_DEFAULTS.DATASETID}&collationTypes=cellosaurus,NCIT&deliveryKeys=count,id,label`
   )
   const cellosaurusCountReply = await tryFetch(
     `${SITE_DEFAULTS.PREFETCH_PATH}services/collations/?datasetIds=${SITE_DEFAULTS.DATASETID}&method=codematches&collationTypes=cellosaurus`
