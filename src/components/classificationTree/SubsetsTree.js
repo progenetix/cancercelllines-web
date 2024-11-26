@@ -6,10 +6,10 @@ import { FaAngleDown, FaAngleRight } from "react-icons/fa"
 import Tippy from "@tippyjs/react"
 import { FixedSizeTree as VTree } from "react-vtree"
 import useDebounce from "../../hooks/debounce"
-import { min } from "lodash"
+// import { min } from "lodash"
 import { filterNode } from "./tree"
 
-const ROW_HEIGHT = 30
+const ROW_HEIGHT = 28
 
 export function SubsetsTree({
   tree,
@@ -18,8 +18,7 @@ export function SubsetsTree({
   datasetIds,
   checkedSubsets,
   checkboxClicked,
-  sampleFilterScope,
-  defaultTreeDepth
+  sampleFilterScope
 }) {
   const {
     searchInput,
@@ -27,7 +26,7 @@ export function SubsetsTree({
     filteredTree,
     debouncedSearchInput
   } = useFilterTree(tree)
-  const [levelSelector, setLevelSelector] = useState(defaultTreeDepth)
+  const [levelSelector, setLevelSelector] = useState(3)
 
   // console.log(filteredTree)
 
@@ -43,7 +42,7 @@ export function SubsetsTree({
         <div className="field">
           <input
             className="input "
-            placeholder="Type text to filter ..."
+            placeholder="Filter subsets e.g. by prefix ..."
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
           />
@@ -87,7 +86,7 @@ export function SubsetsTree({
         )}
         {checkedSubsets.map((subset) => (
           <li className="tag is-primary" key={subset.id}>
-            {subset.label} ({subset.count})
+            {subset.label ? subset.label : subset.id} ({subset.count})
           </li>
         ))}
       </ul>
@@ -166,7 +165,6 @@ function Tree({
 // Node component receives all the data we created in the `treeWalker` +
 // internal openness state (`isOpen`), function to change internal openness
 // state (`toggle`) and `style` parameter that should be added to the root div.
-
 function Node({
   data: { isLeaf, subsetId, subset, nestingLevel },
   treeData: {
@@ -180,9 +178,9 @@ function Node({
   style,
   setOpen
 }) {
-  const isSearchPossible = subset && canSearch(subset)
+  const isSearchPossible = true // subset && canSearch(subset)
   const even = index % 2 === 0
-  const detailsPage = subsetId.match("cellosaurus") ? "cellline" : "subset"
+  const detailsPage = "subset"
   return (
     <div
       style={{
@@ -222,17 +220,21 @@ function Node({
             </span>
           )}
           <Tippy content={`Show data for subset "${subset.label}"`}>
-            <a
-              href={`/${detailsPage}/?id=${subsetId}&datasetIds=${datasetIds}`}
-            >
+            <>
             {(subset?.label && (
               <span className="Subsets__tree__label" title={subset.label}>
-                {subset.label}
+              <a href={`/${detailsPage}/?id=${subsetId}&datasetIds=${datasetIds}`}>
+              {subset.label}</a>: {subsetId}
               </span>
-            )) || <span>&nbsp;</span>}
-            </a>
+            ))
+            || 
+              <span className="Subsets__tree__label" title={subsetId}>
+              <a href={`/${detailsPage}/?id=${subsetId}&datasetIds=${datasetIds}`}>
+              {subsetId}</a>: {subsetId}
+              </span>
+            }
+            </>
           </Tippy>
-          <span>: {subsetId}</span>
           {isSearchPossible ? (
             <Tippy content={`Click to retrieve samples for ${subsetId}`}>
               <a
@@ -353,11 +355,11 @@ function sampleSelectUrl({ subsets, datasetIds, sampleFilterScope }) {
   return sampleSearchPageFiltersLink({ datasetIds, sampleFilterScope, filters })
 }
 
-function canSearch(subset) {
-  // Only necessary for NCIT
-  if (!subset.id.includes("NCIT:")) return true
-  const minDepth = subset.hierarchyPaths
-    ? min(subset.hierarchyPaths?.map((hp) => hp.depth))
-    : 999
-  return minDepth >= 2
-}
+// function canSearch(subset) {
+//   // Only necessary for NCIT
+//   if (!subset.id.includes("NCIT:")) return true
+//   const minDepth = subset.hierarchyPaths
+//     ? min(subset.hierarchyPaths?.map((hp) => hp.depth))
+//     : 999
+//   return minDepth >= 2
+// }

@@ -25,6 +25,8 @@ export default function Index({
     subsetsResponse.response.results.filter((s) => s.cnvAnalyses > 1)
   )
 
+  console.log(randomSubset)
+
   return (
     <Layout title="Cancer Cell Lines" headline="Cancer Cell Line Genomics">
         <img src={"/img/progenetix_cellosaurus.png"} style={imgHere} />
@@ -45,9 +47,11 @@ export default function Index({
           of the overall more than 16&lsquo;000 cell lines, <i>cancercelllines.org</i> provides
           a unique entry point for the comparative analysis of genomic variants in
           cell lines as well as for the exploration of related publications.
+          <SubsetHistogram datasetIds={SITE_DEFAULTS.DATASETID} id={randomSubset.id} />
+
         </p>
 
-        <SubsetHistogram
+{/*        <SubsetHistogram
           datasetIds={SITE_DEFAULTS.DATASETID}
           id={randomSubset.id}
           title="Cell Line Data CNV Frequency Plot"
@@ -57,7 +61,7 @@ export default function Index({
           regional gains and losses in ${randomSubset.cnvAnalyses}${" "}
           samples from ${randomSubset.id} (${randomSubset.label}) are on display.`}
         />
-
+*/}
         <p>
           In <i>cancercelllines.org</i> genomic variation data collected from a
           variaty of external resources and from original data (re-) analyses has
@@ -101,14 +105,14 @@ export default function Index({
 }
 
 export const getStaticProps = async () => {
-  const subsetsReply = await tryFetch(
-    `${SITE_DEFAULTS.PREFETCH_PATH}services/collations/?datasetIds=${SITE_DEFAULTS.DATASETID}&collationTypes=cellosaurus,NCIT&deliveryKeys=count,id,label`
-  )
   const cellosaurusCountReply = await tryFetch(
-    `${SITE_DEFAULTS.PREFETCH_PATH}services/collations/?datasetIds=${SITE_DEFAULTS.DATASETID}&method=codematches&collationTypes=cellosaurus`
+    `${SITE_DEFAULTS.PREFETCH_PATH}services/collations/?datasetIds=${SITE_DEFAULTS.DATASETID}&collationTypes=cellosaurus&requestedGranularity=count`
   )
   const ncitCountReply = await tryFetch(
-    `${SITE_DEFAULTS.PREFETCH_PATH}services/collations/?datasetIds=${SITE_DEFAULTS.DATASETID}&method=codematches&collationTypes=NCIT`
+    `${SITE_DEFAULTS.PREFETCH_PATH}services/collations/?datasetIds=${SITE_DEFAULTS.DATASETID}&collationTypes=NCIT&includeDescendantTerms=false&requestedGranularity=count`
+  )
+  const subsetsReply = await tryFetch(
+    `${SITE_DEFAULTS.PREFETCH_PATH}services/collations/?datasetIds=${SITE_DEFAULTS.DATASETID}&collationTypes=cellosaurus&deliveryKeys=count,id,label,cnv_analyses`
   )
   return {
     props: {

@@ -720,7 +720,6 @@ function useFilteringTerms(watchForm, ct) {
   const datasetIds = watchForm("datasetIds")
   return useFiltersByType({
     datasetIds,
-    method: "counts",
     collationTypes: ct
   })
 }

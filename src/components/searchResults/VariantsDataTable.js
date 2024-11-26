@@ -19,8 +19,8 @@ export default function VariantsDataTable({ apiReply, datasetId }) {
         accessor: "variation.variantLevelData.clinicalInterpretations[0].clinicalRelevance"
         },
         {
-        Header: "Variant Effect",
-        accessor: "variation.molecularAttributes.molecularEffects[0].label"
+        Header: "Variant type",
+        accessor: "variation.type"
         },
       {
         Header: TooltipHeader(
@@ -31,12 +31,20 @@ export default function VariantsDataTable({ apiReply, datasetId }) {
         Cell: ({ value: caseLevelData }) =>
         caseLevelData.map((cld, i) => (
           <div key={i}>
-            <a href={`/variant?id=${cld.id}&datasetIds=${datasetId}`} target="_blank" rel="noreferrer">
-              V: {cld.id}
+            <a href={`/variant?id=${cld.variantId}&datasetIds=${datasetId}`} target="_blank" rel="noreferrer">
+              V: {cld.variantId}
+            </a>
+            <br/>
+            <a href={`/analysis?id=${cld.analysisId}&datasetIds=${datasetId}`} target="_blank" rel="noreferrer">
+              A: {cld.analysisId}
             </a>
             <br/>
             <a href={`/biosample?id=${cld.biosampleId}&datasetIds=${datasetId}`} target="_blank" rel="noreferrer">
               B: {cld.biosampleId}
+            </a>
+            <br/>
+            <a href={`/individual?id=${cld.individualId}&datasetIds=${datasetId}`} target="_blank" rel="noreferrer">
+              I: {cld.individualId}
             </a>
           </div>
         ))
@@ -50,7 +58,9 @@ export default function VariantsDataTable({ apiReply, datasetId }) {
       apiReply={apiReply}
       render={(response) => (
         <div>
-          <Table columns={columns} data={response.response.resultSets[0].results} />
+          {response.response?.resultSets[0]?.results && (
+            <Table columns={columns} data={response.response.resultSets[0].results} />
+          )}
         </div>
       )}
     />

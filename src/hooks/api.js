@@ -284,7 +284,7 @@ export function useServiceItemDelivery(id, entity, datasetIds) {
 }
 
 export function getServiceItemUrl(id, collection, datasetIds) {
-  return `${SITE_DEFAULTS.API_PATH}services/${collection}?id=${id}&datasetIds=${datasetIds}`
+  return `${SITE_DEFAULTS.API_PATH}services/${collection}/${id}?datasetIds=${datasetIds}`
 }
 
 export function NoResultsHelp(id, entity) {
@@ -361,8 +361,14 @@ export function useCollations({ datasetIds, method, filters }) {
   return useProgenetixApi(url)
 }
 
-export function useFiltersByType({ datasetIds, method, collationTypes }) {
-  const url = `${SITE_DEFAULTS.API_PATH}beacon/filtering_terms/?datasetIds=${datasetIds}&method=${method}&collationTypes=${collationTypes}`
+export function useFiltersByType({ datasetIds, collationTypes }) {
+  // TODO: construct URL w/o optional parameters if empty
+  const url = `${SITE_DEFAULTS.API_PATH}beacon/datasets/${datasetIds}/filtering_terms/?collationTypes=${collationTypes}`
+  return useProgenetixApi(url)
+}
+
+export function useFilterTreesByType({ datasetIds, collationTypes }) {
+  const url = `${SITE_DEFAULTS.API_PATH}beacon/datasets/${datasetIds}/filtering_terms?collationTypes=${collationTypes}&mode=termTree`
   return useProgenetixApi(url)
 }
 
