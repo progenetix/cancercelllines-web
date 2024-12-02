@@ -2,10 +2,8 @@ import React from "react"
 import PropTypes from "prop-types"
 import Table, { InfodotHeader } from "../Table"
 import _ from "lodash"
-import { useCollationsById } from "../../hooks/api"
+import { BIOKEYS, useCollationsById } from "../../hooks/api"
 import { WithData } from "../Loader"
-
-const STATSKEYS = ["celllineInfo", "histologicalDiagnosis"]
 
 export default function BiosamplesStatsDataTable({
   biosamplesResponse,
@@ -49,7 +47,6 @@ export default function BiosamplesStatsDataTable({
           accessor: "count"
         },
         variantCount > 0
-
           ? [
               {
                 Header: InfodotHeader(
@@ -87,10 +84,7 @@ export default function BiosamplesStatsDataTable({
     [variantCount, datasetId]
   )
 
-  // const allSubsetsReply = useCollationsByType({ datasetIds: datasetId, method: "counts", collationTypes: "NCIT" })
   const allSubsetsReply = useCollationsById({ datasetIds: datasetId })
-  // const cellosaurusSubsetsReply = useCollationsByType({ datasetIds: datasetId, method: "counts", collationTypes: "cellosaurus" })
-
   return (
     <WithData
       apiReply={allSubsetsReply}
@@ -114,10 +108,10 @@ function getFrequency(v, allSubsetsById, k) {
 
 export function makeSubsetsData(biosamplesResults, allSubsetsById) {
   const ids = biosamplesResults
-    .flatMap((sample) => STATSKEYS.map(bioc => (sample[bioc])))
+    .flatMap((sample) => BIOKEYS.map(bioc => (sample[bioc])))
     .filter(a => a)
     .map(function (a) {
-      return a.id
+      return a.id     
     })
   const subsetCounts = _.countBy(ids)
   const subsets = Object.entries(subsetCounts).map(([k, v]) => ({

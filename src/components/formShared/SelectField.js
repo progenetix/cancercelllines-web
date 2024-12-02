@@ -28,7 +28,7 @@ export default function SelectField({
   options,
   control,
   rules,
-  // when false, we map the options to they values, otherwise we simply pass what react-select gives
+  // when false, we map the options to the values, otherwise we simply pass what react-select gives
   useOptionsAsValue = false,
   className,
   ...selectProps
@@ -61,7 +61,7 @@ export default function SelectField({
                 value={
                   useOptionsAsValue
                     ? value
-                    : valuesToOptions(value, options, { isMulti, name })
+                    : valuesToOptions(value, options, { isMulti })
                 }
                 options={options}
                 classNamePrefix="react-select"
@@ -79,15 +79,14 @@ export default function SelectField({
   )
 }
 
-function valuesToOptions(formValue, options, { isMulti, name }) {
+function valuesToOptions(formValue, options, { isMulti }) {
   if (isMulti) {
     if (formValue == null) return []
+    // console.log(formValue)
     if (!Array.isArray(formValue)) {
-      throw new Error(
-        `Array value expected for a ${name} set with ${isMulti} but received ${formValue}. Make sure the defaultValue is an array.`
-      )
-    } else
-      return options?.filter(({ value }) => value && formValue.includes(value))
+      formValue = [ formValue ]
+    }
+    return options?.filter(({ value }) => value && formValue.includes(value))
   } else {
     return options?.filter(({ value }) => value && formValue === value)
   }

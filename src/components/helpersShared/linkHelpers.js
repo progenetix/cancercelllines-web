@@ -17,17 +17,7 @@ export function ExternalLink({ href, label, onClick }) {
   )
 }
 
-export function BeaconRESTLink({ entryType, idValue, responseType, datasetIds, label, output }) {
-
-  const responseTypeOpt = responseType ? `/${responseType}` : ""
-  const outputOpt = output ? `&output=${output}` : ""
-
-  return <InternalLink
-      href={`/beacon/${entryType}/${idValue}${responseTypeOpt}/?datasetIds=${datasetIds}${outputOpt}`}
-      label={label}
-    />
-}
-
+// TODO: This cries for a template / yaml ... and a better name
 export function ReferenceLink(externalReference) {
   if (externalReference.id.includes("cellosaurus:")) {
     return (
@@ -119,4 +109,20 @@ export function ReferenceLink(externalReference) {
   } else {
     return null
   }
+}
+
+export function epmcId(publicationId) {
+  return publicationId.split(":")[1]
+}
+
+export function epmcUrl(publicationId) {
+  return `http://www.europepmc.org/abstract/MED/${epmcId(publicationId)}`
+}
+
+export function EpmcLink({ publicationId }) {
+  return (
+    <a href={epmcUrl(publicationId)} rel="noreferrer" target="_BLANK">
+      <img src="/img/icon_EPMC_16.gif" />
+    </a>
+  )
 }

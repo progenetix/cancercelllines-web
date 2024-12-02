@@ -15,8 +15,7 @@ export function AncestryData({ individual }) {
     return (
         <>
             {processedData && processedData.length > 0 && (
-                // <div ref={containerRef} style={{ display: "flex", flexDirection: "row", alignItems: "flex-start", width: "100%", marginBottom: "0px" }}>
-                <div ref={containerRef} style={{ display: "flex", flexDirection: "row", alignItems: "flex-start", width: "100%", marginBottom: "0px", height: "200px" }}>
+                <div ref={containerRef} style={{ display: "flex", flexDirection: "row", alignItems: "flex-start", width: "100%", marginBottom: "0px" }}>
                     <VictoryPie
                         data={processedData}
                         x="label"

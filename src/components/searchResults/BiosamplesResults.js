@@ -14,6 +14,7 @@ export function BiosamplesResults({ response, isLoading, error, query }) {
           <>
             <AlleleResponses
               biosampleResponseSets={response.response.resultSets}
+              responseMeta={response.meta}
               query={query}
             />
           </>
@@ -23,7 +24,7 @@ export function BiosamplesResults({ response, isLoading, error, query }) {
   )
 }
 
-function AlleleResponses({ biosampleResponseSets, query }) {
+function AlleleResponses({ biosampleResponseSets, responseMeta, query }) {
   if (biosampleResponseSets?.[0].resultsCount < 1) {
     return (
       <div className="notification">
@@ -32,7 +33,7 @@ function AlleleResponses({ biosampleResponseSets, query }) {
     )
   }
   return biosampleResponseSets.map((r, i) => (
-    <DatasetResultBox key={i} data={r} query={query} />
+    <DatasetResultBox key={i} data={r} responseMeta={responseMeta} query={query} />
   ))
 }
 
@@ -40,16 +41,29 @@ function QuerySummary({ query }) {
   const filters = makeFilters(query)
   return (
     <ul className="BeaconPlus__query-summary">
-      {query.assemblyId && (
+{/*      {query.assemblyId && (
         <li>
           <small>Assembly: </small>
           {query.assemblyId}
         </li>
       )}
+*/}     
+      {query.cytoBands && (
+        <li>
+          <small>Cytobands: </small>
+          {query.cytoBands}
+        </li>
+      )}
+      {query.variantQueryDigests && (
+        <li>
+          <small>Short Form: </small>
+          {query.variantQueryDigests}
+        </li>
+      )}
       {query.geneId && (
         <li>
           <small>Gene: </small>
-          {query.geneId.value}
+          {query.geneId}
         </li>
       )}
       {query.referenceName && (
@@ -68,6 +82,24 @@ function QuerySummary({ query }) {
         <li>
           <small>End: </small>
           {query.end}
+        </li>
+      )}
+      {query.mateName && (
+        <li>
+          <small>Adjacent Chro: </small>
+          {query.mateName}
+        </li>
+      )}
+      {query.mateStart && (
+        <li>
+          <small>Adj. Start: </small>
+          {query.mateStart}
+        </li>
+      )}
+      {query.mateEnd && (
+        <li>
+          <small>Adj. End: </small>
+          {query.mateEnd}
         </li>
       )}
       {query.variantType && (

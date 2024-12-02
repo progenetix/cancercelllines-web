@@ -3,7 +3,7 @@ import cn from "classnames"
 import { FaBars, FaTimes } from "react-icons/fa"
 import { ErrorBoundary } from "react-error-boundary"
 import Head from "next/head"
-import {ErrorFallback, MenuInternalLinkItem} from "./MenuHelpers"
+import {ErrorFallback, MenuInternalLinkItem} from "../components/MenuHelpers"
 import { SITE_DEFAULTS, THISYEAR } from "../hooks/api"
 
 export function Layout({ title, headline, children }) {
@@ -14,7 +14,7 @@ export function Layout({ title, headline, children }) {
         <title>{title || ""}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <div className="Layout__header">
+      <div className="Layout__header__celllines">
         {!sideOpen ? (
           <span
             className="Layout__burger icon"
@@ -52,9 +52,9 @@ export function Layout({ title, headline, children }) {
       </main>
       <footer className="footer">
         <div className="content container has-text-centered">
-          © 2000 - {THISYEAR} Progenetix Cancer Genomics Information Resource by
+          © 2023 - {THISYEAR} <i>cancercelllines.org</i> Information Resource by
           the{" "}
-          <a href={SITE_DEFAULTS.ORGSITELINK}>
+          <a href="https://info.baudisgroup.org">
             Computational Oncogenomics Group
           </a>{" "}
           at the{" "}
@@ -86,123 +86,70 @@ function Side({ onClick }) {
       <a href="/">
         <img
           className="Layout__side-logo"
-          src="/img/progenetix-logo-black.png"
-          alt="progenetix"
+          src="/img/cancercelllines-icon-400x300.png"
+          alt="cancer cell lines by Progenetix"
         />
       </a>
       <ul className="Layout__side__items">
+        <MenuInternalLinkItem
+          href="/"
+          label="Cancer Cell Lines"
+        />
+        <MenuInternalLinkItem
+          href="/subsets/cellosaurus-subsets"
+          label="Cell Line Listing"
+        />
+        <MenuInternalLinkItem
+          href="/search"
+          label="Search Cell Lines"
+        />
         <MenuInternalLinkItem
           href="/subsets/NCIT-subsets"
           label="CNV Profiles by Cancer Type"
         />
         <MenuInternalLinkItem
           href="/subsets/NCIT-subsets"
-          label="NCIT Neoplasia Codes"
+          label="NCIT Codes"
           isSub="isSub"
         />
         <MenuInternalLinkItem
           href="/subsets/icdom-subsets"
-          label="ICD-O Morphologies"
+          label="ICD-O 3 Morphologies"
           isSub="isSub"
         />
-        <MenuInternalLinkItem
-          href="/subsets/icdot-subsets"
-          label="ICD-O Organ Sites"
-          isSub="isSub"
-        />
-        <MenuInternalLinkItem
-          href="/subsets/NCITclinical-subsets"
-          label="TNM & Grade"
-          isSub="isSub"
-        />
-        <MenuInternalLinkItem href="/search/" label="Search Samples" />
-        <MenuInternalLinkItem
-          href="/progenetix-cohorts/arraymap"
-          label="Data Cohorts"
-        />
-        <MenuInternalLinkItem
-          href="/progenetix-cohorts/arraymap"
-          label="arrayMap"
-          isSub="isSub"
-        />
-        <MenuInternalLinkItem
-          href="/progenetix-cohorts/TCGA"
-          label="TCGA Cancer Samples"
-          isSub="isSub"
-        />
-        <MenuInternalLinkItem
-          href="/subsets/cbioportal-subsets"
-          label="cBioPortal Studies"
-          isSub="isSub"
-        />
-        <MenuInternalLinkItem
-          href="http://cancercelllines.org"
-          label={
-            <>
-              Cancer Cell Lines<sup style={{ color: "red" }}>o</sup>
-            </>
-          }
-        />
-        <MenuInternalLinkItem href="/publications" label="Publication DB" />
-        <MenuInternalLinkItem
-          href="/publications"
-          label="Genome Profiling"
-          isSub="isSub"
-        />
-        <MenuInternalLinkItem
-          href="/publicationsProgenetixRef"
-          label="Progenetix Use"
-          isSub="isSub"
-        />
-        <MenuInternalLinkItem
-          href="/service-collection/ontologymaps"
-          label="Services"
-        />
-        <MenuInternalLinkItem
-          href="/service-collection/ontologymaps"
-          label="NCIt Mappings"
-          isSub="isSub"
-        />
-        <MenuInternalLinkItem
-          href="/service-collection/uberonmaps"
-          label="UBERON Mappings"
-          isSub="isSub"
-        />
-        <MenuInternalLinkItem
-          href="/service-collection/uploader"
-          label="Upload & Plot"
-        />
-        <MenuInternalLinkItem
-          href="https://beaconplus.progenetix.org/"
-          label={
-            <>
-              Beacon<sup style={{ color: "red" }}>+</sup>
-            </>
-          }
-        />
-        <MenuInternalLinkItem href={SITE_DEFAULTS.MASTERDOCLINK} label="Documentation" />
+        <MenuInternalLinkItem href={SITE_DEFAULTS.PROJECTDOCLINK} label="Documentation" />
+{/*
         <MenuInternalLinkItem
           href={SITE_DEFAULTS.NEWSLINK}
           label="News"
           isSub="isSub"
         />
+*/}        
+        <MenuInternalLinkItem href={SITE_DEFAULTS.MASTERROOTLINK} label="External ..." />
         <MenuInternalLinkItem
-          href={`${SITE_DEFAULTS.MASTERDOCLINK}/use-cases`}
-          label="Downloads & Use Cases"
+          href={SITE_DEFAULTS.MASTERROOTLINK}
+          label="Progenetix Data"
           isSub="isSub"
         />
-
         <MenuInternalLinkItem
-          href={`${SITE_DEFAULTS.MASTERDOCLINK}/services`}
-          label="Sevices & API"
+          href={`${SITE_DEFAULTS.MASTERDOCLINK}`}
+          label="Progenetix Docs"
           isSub="isSub"
         />
-
+{/*
         <MenuInternalLinkItem
-          href={SITE_DEFAULTS.ORGSITELINK}
+          href={`${SITE_DEFAULTS.MASTERROOTLINK}/publications`}
+          label="Publication DB"
+          isSub="isSub"
+        />
+*/}        
+        <MenuInternalLinkItem
+          href="https://info.baudisgroup.org/"
           label="Baudisgroup @ UZH"
+          isSub="isSub"
         />
       </ul>
     </div>
   )
 }
+

@@ -14,9 +14,9 @@ AggregatorSearchPanel.propTypes = {
 }
 
 export default function AggregatorSearchPanel({
-  requestTypeConfig,
   parametersConfig,
-  cytoBands,
+  requestTypeConfig,
+  requestTypeExamples,
   collapsed
 }) {
   const [query, setQuery] = useState(null) // actual valid query
@@ -69,8 +69,8 @@ export default function AggregatorSearchPanel({
         }
       >
         <BiosamplesSearchForm
-          cytoBands={cytoBands}
           requestTypeConfig={requestTypeConfig}
+          requestTypeExamples={requestTypeExamples}
           parametersConfig={parametersConfig}
           isQuerying={isLoading}
           setSearchQuery={onValidFormQuery}

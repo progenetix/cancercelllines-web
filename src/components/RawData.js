@@ -10,14 +10,12 @@ export function ShowJSON({ data }) {
 
   return (
     <>
-      <h5>Raw Data</h5>
-      <span onClick={toggle}>⇒ click to show/hide</span>
+      <h5><span onClick={toggle}>Raw Data (click to show/hide)</span></h5>
         {isOpened && (
-        <div>
-
-          <pre className="prettyprint">{ JSON.stringify(data, null, 2) }</pre>
-        </div>
-      )}
+          <div>
+            <pre className="prettyprint">{ JSON.stringify(data, null, 2) }</pre>
+          </div>
+        )}
     </>
   )
 }

@@ -1,52 +1,4 @@
 ---
-- label: "Cell Line Search"
-  infoText: ""
-  description: |
-    This template provides a variety of fields _excluding genomic variant parameters_
-    for the purpose to identify samples matching a single or several phenotypic
-    or other properties. While here multiple (autocomplete) input fields are presented for convenience
-    to facilitate complex queries, in the end all values are combined as a list of Beacon `filters`
-    attributes (_i.e._ one can just add all of them to teh "Filters" field).
-    See also the [Beacon `filters` documentation](https://docs.genomebeacons.org/filters/#using-filters-in-queries) for more information.
-  img: false
-  parameters:
-    datasetIds:
-      defaultValue: ["cellz"]
-    referenceName:
-      isHidden: true
-    start:
-      isHidden: true
-    end:
-      isHidden: true
-    variantType:
-      isHidden: true
-    alternateBases:
-      isHidden: true
-    referenceBases:
-      isHidden: true
-    bioontology:
-      isHidden: false
-    clinicalClasses:
-      isHidden: true
-    accessid:
-      isHidden: true
-    allTermsFilters:
-      isHidden: false
-    filterLogic:
-      isHidden: true
-    includeDescendantTerms:
-      isHidden: false
-    sex:
-      isHidden: false
-    materialtype:
-      isHidden: true
-    referenceid:
-      isHidden: false
-    cohorts:
-      isHidden: true
-  examples: []
-
-
 - label: "CNV (Bracket)"
   infoText: "Query usein 2 `start` and 2 `end` values to find (structural) variants with some fuzziness for their start and end."
   description: |
@@ -88,7 +40,8 @@
       isHidden: false
   examples: []
 
-- label: "Genomic Range"
+
+- label: "Range"
   infoText: "Query for variants with overlap to a genomic range"
   description: |
     **Beacon Range Queries** are supposed to return matches of any variant with
@@ -187,12 +140,197 @@
   examples: []
   img: false
 
-- label: "All"
+- label: "Genomic Fusion"
+  infoText: 'This is an experimental implementation for a fusion query (by positions).'
+  description: |
+    The current implementation uses th existing `mateName` as well as the proposed
+    `mateStart` and `mateEnd` parameters to pass positional information (similar
+    to a *range request*) for a second genomic location, _i.e._ the fusion partner
+    (in the sense of a VRS v2 *Adjacency*.)
+  parameters:
+    referenceName:
+      isHidden: false
+    mateName:
+      isHidden: false
+    start:
+      isHidden: false
+    end:
+      isHidden: false
+    mateStart:
+      isHidden: false
+    mateEnd:
+      isHidden: false
+    variantType:
+      defaultValue: "SO:0000806"
+    alternateBases:
+      isHidden: false
+    referenceBases:
+      isHidden: false
+  examples: []
+  img: /img/BeaconFusionQuery-graphics.png
+
+- label: "Sample Data"
+  infoText: ""
+  description: |
+    This template provides a variety of fields _excluding genomic variant parameters_
+    for the purpose to identify samples matchinng a single or several phenotypic
+    or other properties. While here multiple (autocomplete) input fields are presented for convenience
+    to facilitate complex queries, in the end all values are combined as a list of Beacon `filters`
+    attributes (_i.e._ one can just add all of them to teh "Filters" field).
+    See also the [Beacon `filters` documentation](https://docs.genomebeacons.org/filters/#using-filters-in-queries) for more information.        
+  img: false
+  parameters:
+    referenceName:
+      isHidden: true
+    start:
+      isHidden: true
+    end:
+      isHidden: true
+    variantType:
+      isHidden: true
+    alternateBases:
+      isHidden: true
+    referenceBases:
+      isHidden: true
+    bioontology:
+      isHidden: false
+    clinicalClasses:
+      isHidden: false
+    accessid:
+      isHidden: true
+    allTermsFilters:
+      isHidden: false
+    includeDescendantTerms:
+      isHidden: false
+    sex:
+      isHidden: false
+    materialtype:
+      isHidden: false
+    referenceid:
+      isHidden: false
+    cohorts:
+      isHidden: true
+  examples: []
+
+
+# - label: "Aminoacid"
+#   infoText: ""
+#   description: |
+#     Annotated variants can potentially queried using the single amino acid
+#     replacement format. The `aminoacidChange` parameter ~~may~~ **should** be
+#     combined with e.g. a `geneId` to increase specificity.
+#   img: false
+#   parameters:
+#     datasetIds:
+#       defaultValue: ["progenetix"]
+#     aminoacidChange:
+#       isHidden: false
+#     geneId:
+#       isHidden: false
+#     genomicAlleleShortForm:
+#       isHidden: true
+#     referenceName:
+#       isHidden: true
+#     start:
+#       isHidden: true
+#     end:
+#       isHidden: true
+#     variantMinLength:
+#       isHidden: true
+#     variantMaxLength:
+#       isHidden: true
+#     variantType:
+#       isHidden: true
+#     alternateBases:
+#       isHidden: true
+#     referenceBases:
+#       isHidden: true
+#   examples:
+#     - label: BRAF V600E
+#       parameters:
+#         aminoacidChange:
+#           defaultValue: V600E
+#         geneId:
+#           defaultValue:
+#             data:
+#               symbol: BRAF
+#             label: "BRAF"
+
+# - label: "HGVS"
+#   infoText: ""
+#   description: |
+#     Variants can be identified through their genomic HGVS short form (for the
+#     supported reference genome). You may find more information in the [HGVS documentation](https://varnomen.hgvs.org/bg-material/simple/).
+#   img: false
+#   parameters:
+#     datasetIds:
+#       defaultValue: ["progenetix"]
+#     aminoacidChange:
+#       isHidden: true
+#     geneId:
+#       isHidden: true
+#     genomicAlleleShortForm:
+#       isHidden: false
+#     referenceName:
+#       isHidden: true
+#     start:
+#       isHidden: true
+#     end:
+#       isHidden: true
+#     variantMinLength:
+#       isHidden: true
+#     variantMaxLength:
+#       isHidden: true
+#     variantType:
+#       isHidden: true
+#     alternateBases:
+#       isHidden: true
+#     referenceBases:
+#       isHidden: true
+#   examples: []
+
+- label: "Short Form"
+  infoText: "This example shows a short form version of the CDKN2A deletion example."
+  img: false
+  parameters:
+    cytoBands:
+      isHidden: true
+    variantQueryDigests:
+      isHidden: false
+    variantType:
+      isHidden: true
+    referenceName:
+      isHidden: true
+    start:
+      isHidden: true
+    end:
+      isHidden: true
+    alternateBases:
+      isHidden: true
+    referenceBases:
+      isHidden: true
+    bioontology:
+      isHidden: true
+    clinicalClasses:
+      isHidden: true
+    accessid:
+      isHidden: true
+    allTermsFilters:
+      isHidden: false
+    sex:
+      isHidden: true
+    materialtype:
+      isHidden: true
+    referenceid:
+      isHidden: true
+    cohorts:
+      isHidden: true
+  examples: []
+
+- label: "All Fields"
   infoText: "Display all form fields"
   img: false
   parameters:
-    datasetIds:
-      defaultValue: ["progenetix"]
     aminoacidChange:
       isHidden: false
     geneId:
@@ -204,6 +342,8 @@
     start:
       isHidden: false
     end:
+      isHidden: false
+    variantQueryDigests:
       isHidden: false
     variantMinLength:
       isHidden: false
@@ -223,8 +363,6 @@
       isHidden: false
     allTermsFilters:
       isHidden: false
-    filterLogic:
-      isHidden: true
     includeDescendantTerms:
       isHidden: false
     geoCity:

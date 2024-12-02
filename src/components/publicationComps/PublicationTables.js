@@ -1,6 +1,6 @@
 import React from "react"
-import Table, { TooltipHeader, InfodotHeader } from "../../components/Table"
-import { EpmcLink} from "../../components/helpersShared/linkHelpers"
+import { EpmcLink } from "../helpersShared/linkHelpers"
+import Table, { TooltipHeader, InfodotHeader } from "../Table"
 import cn from "classnames"
 
 export function PublicationTable({ publications }) {
@@ -257,4 +257,5 @@ function getPublicationIdNumber(publicationId) {
     publicationId.length
   )
 }
+
 

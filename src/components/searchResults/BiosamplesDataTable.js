@@ -4,7 +4,6 @@ import React from "react"
 import PropTypes from "prop-types"
 import { WithData } from "../Loader"
 import Table, { TooltipHeader } from "../Table"
-// import DownloadButton from "../DownloadButton"
 import Link from "next/link"
 
 export default function BiosamplesDataTable({ apiReply, datasetId }) {
@@ -67,32 +66,15 @@ export default function BiosamplesDataTable({ apiReply, datasetId }) {
               {externalReference.description}
             </div>
           ))
-      },
-      {
-        Header: TooltipHeader(
-          "CNV Fraction",
-          "Fraction of the sample's genome covered by CNV events (genomic gain or deletion)"
-        ),
-        accessor: "info.cnvstatistics.cnvfraction"
       }
     ],
     [datasetId]
   )
-
   return (
     <WithData
       apiReply={apiReply}
       render={(response) => (
         <div>
-{/*
-          <div className="mb-4">
-            <DownloadButton
-              label="Download Biosamples"
-              json={response.response.resultSets[0].results}
-              fileName="biosamples"
-            />
-          </div>
-*/}
           <Table columns={columns} data={response.response.resultSets[0].results} />
         </div>
       )}

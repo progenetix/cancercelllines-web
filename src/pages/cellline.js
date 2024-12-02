@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react"
 import {
   SITE_DEFAULTS,
+  basePath,
   useProgenetixApi,
   sampleSearchPageFiltersLink,
   NoResultsHelp
 } from "../hooks/api"
 import { Loader } from "../components/Loader"
-import { Layout } from "../components/Layout"
+import { Layout } from "./../site-specific/Layout"
 import Panel from "../components/Panel"
 import { AncestryData } from "../components/AncestryData"
 import { LiteratureSearch } from "../components/LiteratureSearch"
-// import { ShowJSON } from "../components/RawData"
 import { SubsetHistogram } from "../components/SVGloaders"
 import { ExternalLink, InternalLink } from "../components/helpersShared/linkHelpers"
 import { withUrlQuery } from "../hooks/url-query"
@@ -28,10 +28,10 @@ const CellLineDetailsPage = withUrlQuery(({ urlQuery }) => {
   const [plotGeneSymbols, setGeneSymbols] = useState("");
   const [plotCytoregionLabels, setCytoregionSymbols] = useState("");
 
-  const aURL = `${SITE_DEFAULTS.API_PATH}beacon/genomicVariations/?filters=${id}&datasetIds=${datasetIds}&variantType=SO:0001059&paginateResults=false`
+  const aURL = `${basePath}beacon/genomicVariations/?filters=${id}&datasetIds=${datasetIds}&variantType=SO:0001059&paginateResults=false`
   const variantsReply = useProgenetixApi( aURL )
 
-  const iURL = `${SITE_DEFAULTS.API_PATH}beacon/individuals/?filters=${id}&datasetIds=${datasetIds}&limit=1`
+  const iURL = `${basePath}beacon/individuals/?filters=${id}&datasetIds=${datasetIds}&limit=1`
   var [individual, setIndividual] = useState([]);
   useEffect(() => {
     fetch( iURL )
@@ -106,7 +106,7 @@ export default CellLineDetailsPage
 
 function ThisSubsetLoader({ id, individual, datasetIds }) {
 
-  const sURL = `${SITE_DEFAULTS.API_PATH}services/collations/${id}?datasetIds=${datasetIds}`
+  const sURL = `${basePath}services/collations/${id}?datasetIds=${datasetIds}`
 
   const { data, error, isLoading } = useProgenetixApi(sURL)
 

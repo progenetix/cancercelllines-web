@@ -5,7 +5,6 @@ import {
   validateBeaconQuery
 } from "../../hooks/api"
 import React, { useMemo, useState } from "react" //useEffect, 
-import { markdownToReact } from "../../utils/md"
 import { useForm } from "react-hook-form"
 import {
   CytoBandsUtility,
@@ -16,10 +15,10 @@ import PropTypes from "prop-types"
 import { merge, transform } from "lodash"
 import SelectField from "../formShared/SelectField"
 import InputField from "../formShared/InputField"
+import {MarkdownParser} from "../MarkdownParser"
 import useDeepCompareEffect from "use-deep-compare-effect"
 import { withUrlQuery } from "../../hooks/url-query"
 import { GeoCitySelector } from "./GeoCitySelector"
-import { GeneSymbolSelector } from "./GeneSymbolSelector"
 import ChromosomePreview from "./ChromosomePreview"
 import { FaCogs } from "react-icons/fa"
 import cn from "classnames"
@@ -32,7 +31,6 @@ export const BiosamplesSearchForm = withUrlQuery(
 export default BiosamplesSearchForm
 
 BiosamplesSearchForm.propTypes = {
-  cytoBands: PropTypes.object.isRequired,
   isQuerying: PropTypes.bool.isRequired,
   setSearchQuery: PropTypes.func.isRequired,
   beaconQueryTypes: PropTypes.object.isRequired,
@@ -71,7 +69,6 @@ function useIsFilterlogicWarningVisible(watch) {
 }
 
 export function BeaconSearchForm({
-    cytoBands,
     isQuerying,
     setSearchQuery,
     beaconQueryTypes,
@@ -118,7 +115,7 @@ export function BeaconSearchForm({
   const {
     data: allsubsetsResponse,
     isLoading: isAllSubsetsDataLoading 
-  } = useFilteringTerms( watch, ct )
+  } = useFilteringTerms( watch, ct, "withpubmed" )
   const allsubsetsOptions = allsubsetsResponse?.response?.filteringTerms?.map((value) => ({
     value: value.id,
     label: `${value.id}: ${value.label} (${value.count})`
@@ -128,7 +125,7 @@ export function BeaconSearchForm({
   })
 
   // biosubsets lookup ------------------------------------------------------ //
-  ct = "NCIT,pgx:icdom,pgx:icdot,UBERON"
+  ct = "NCIT,icdom,icdot,UBERON"
   const {
     data: biosubsetsResponse,
     isLoading: isBioSubsetsDataLoading
@@ -142,8 +139,7 @@ export function BeaconSearchForm({
   })
   
   // referenceid lookup ----------------------------------------------------- //
-  // ct = "pubmed,GEOseries,GEOplatform,cellosaurus"
-  ct = "cellosaurus"
+  ct = "pubmed,GEOseries,AEseries,GEOplatform,cellosaurus"
   const {
     data: refsubsetsResponse,
     isLoading: isRefSubsetsDataLoading
@@ -224,6 +220,13 @@ export function BeaconSearchForm({
           <div className="columns my-0">
             <InputField
               className={cn(
+                !parameters.geneId.isHidden && "column",
+                "py-0 mb-3"
+              )}
+              {...parameters.geneId} {...fieldProps}
+            />
+            <InputField
+              className={cn(
                 !parameters.genomicAlleleShortForm.isHidden && "column",
                 "py-0 mb-3"
               )}
@@ -238,27 +241,12 @@ export function BeaconSearchForm({
             />
           </div>
           <div className="columns my-0">
-            {!parameters.geneId.isHidden && (
-              <GeneSymbolSelector
-                {...parameters.geneId} {...selectProps} 
-              />
-            )}
             <SelectField
               className={cn(
                 !parameters.analysisOperation.isHidden && "column",
                 "py-0 mb-3"
               )}
               {...parameters.analysisOperation}
-              {...selectProps}
-            />
-          </div>
-          <div className="columns my-0">
-            <SelectField
-              className={cn(
-                !parameters.referenceName.isHidden && "column",
-                "py-0 mb-3"
-              )}
-              {...parameters.referenceName}
               {...selectProps}
             />
             <SelectField
@@ -271,6 +259,14 @@ export function BeaconSearchForm({
             />
           </div>
           <div className="columns my-0">
+            <SelectField
+              className={cn(
+                !parameters.referenceName.isHidden && "column",
+                "py-0 mb-3"
+              )}
+              {...parameters.referenceName}
+              {...selectProps}
+            />
             <InputField
               className={cn(
                 !parameters.start.isHidden && "column",
@@ -286,6 +282,35 @@ export function BeaconSearchForm({
               className={cn(!parameters.end.isHidden && "column", "py-0 mb-3")}
               {...fieldProps}
               {...parameters.end}
+              rules={{
+                validate: checkIntegerRange
+              }}
+            />
+          </div>
+          <div className="columns my-0">
+            <SelectField
+              className={cn(
+                !parameters.mateName.isHidden && "column",
+                "py-0 mb-3"
+              )}
+              {...parameters.mateName}
+              {...selectProps}
+            />
+            <InputField
+              className={cn(
+                !parameters.mateStart.isHidden && "column",
+                "py-0 mb-3"
+              )}
+              {...fieldProps}
+              {...parameters.mateStart}
+              rules={{
+                validate: checkIntegerRange
+              }}
+            />
+            <InputField
+              className={cn(!parameters.mateEnd.isHidden && "column", "py-0 mb-3")}
+              {...fieldProps}
+              {...parameters.mateEnd}
               rules={{
                 validate: checkIntegerRange
               }}
@@ -331,6 +356,8 @@ export function BeaconSearchForm({
               {...parameters.alternateBases}
             />
           </div>
+          <InputField {...parameters.cytoBands} {...fieldProps} />
+          <InputField {...parameters.variantQueryDigests} {...fieldProps} />
           <div className="columns my-0">
             <SelectField
               className={cn(
@@ -467,7 +494,7 @@ export function BeaconSearchForm({
               {...parameters.includeResultsetResponses}
             />
           </div>
-          <ChromosomePreview watch={watch} cytoBands={cytoBands} />
+          <ChromosomePreview watch={watch} />
           <div className="field mt-5">
             <div className="control">
               <button
@@ -621,7 +648,7 @@ function ExampleDescription({ example }) {
   return example?.description ? (
     <article className="message is-info">
       <div className="message-body">
-        <div className="content">{markdownToReact(example?.description)}</div>
+        <div className="content">{MarkdownParser(example?.description)}</div>
       </div>
     </article>
   ) : null
@@ -661,10 +688,15 @@ function validateForm(formValues) {
   const {
     variantType,
     referenceName,
+    mateName,
     referenceBases,
     alternateBases,
     start,
     end,
+    mateStart,
+    mateEnd,
+    cytoBands,
+    variantQueryDigests,
     geneId,
     aminoacidChange,
     genomicAlleleShortForm,
@@ -672,6 +704,7 @@ function validateForm(formValues) {
     clinicalClasses,
     referenceid,
     cohorts,
+    freeFilters,
     allTermsFilters
   } = formValues
 
@@ -679,19 +712,25 @@ function validateForm(formValues) {
   const setMissing = (name) =>
     errors.push([name, { type: "manual", message: "Parameter is missing" }])
 
-  if (!referenceName && !referenceBases && !alternateBases && !start && !end && !variantType && !geneId && !aminoacidChange && !genomicAlleleShortForm && !bioontology && !referenceid && !allTermsFilters && !clinicalClasses && !cohorts) {
+  if (!referenceName && !referenceBases && !alternateBases && !start && !end && !variantQueryDigests && !cytoBands && !variantType && !geneId && !aminoacidChange && !genomicAlleleShortForm && !bioontology && !referenceid && !allTermsFilters && !freeFilters && !clinicalClasses && !cohorts) {
     !referenceName && setMissing("referenceName")
     !referenceBases && setMissing("referenceBases")
     !alternateBases && setMissing("alternateBases")
     !start && setMissing("start")
     !end && setMissing("end")
+    !mateName && setMissing("mateName")
+    !mateStart && setMissing("mateStart")
+    !mateEnd && setMissing("mateEnd")
+    !cytoBands && setMissing("cytoBands")
+    !variantQueryDigests && setMissing("variantQueryDigests")
     !variantType && setMissing("variantType")
     !geneId && setMissing("geneId")
     !bioontology && setMissing("bioontology")
     !clinicalClasses && setMissing("clinicalClasses")
     !referenceid && setMissing("referenceid")
+    !freeFilters && setMissing("freeFilters")
     !allTermsFilters && setMissing("allTermsFilters")
-    !cohorts && setMissing("cohorts")
+    !cohorts && setMissing("allTermsFilters")
   }
 
   const queryError = validateBeaconQuery(formValues)

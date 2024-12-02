@@ -1,12 +1,11 @@
 import React from "react"
-import { Layout } from "../components/Layout"
+import { Layout } from "./../site-specific/Layout"
 import Panel from "../components/Panel"
 import { SubsetHistogram } from "../components/SVGloaders"
 import { Admonition } from "../components/Admonitions"
 import { sample } from "lodash"
 import { SITE_DEFAULTS, tryFetch } from "../hooks/api"
 import { ExternalLink, InternalLink } from "../components/helpersShared/linkHelpers"
-
 // const searchLink = 'Use case: Local CNV Frequencies <a href="/biosamples/">{↗}</a>'+
 
 export default function Index({
@@ -31,7 +30,6 @@ export default function Index({
     <Layout title="Cancer Cell Lines" headline="Cancer Cell Line Genomics">
         <img src={"/img/progenetix_cellosaurus.png"} style={imgHere} />
         <Panel heading="" className="content">
-        
         <p>
           The <i>cancercelllines.org</i> genomic information resource contains genome
           profiling data, somatic mutation information and associated metadata for

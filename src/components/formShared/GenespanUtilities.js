@@ -1,4 +1,4 @@
-import { useProgenetixApi, SITE_DEFAULTS } from "../../hooks/api"
+import { useProgenetixApi, basePath } from "../../hooks/api"
 import { useEffect, useState } from "react"
 import { keyBy } from "lodash"
 
@@ -27,7 +27,7 @@ export function useGeneSpanSelect(inputValue) {
   if (data) {
     options = data.response.results.map((gene) => ({
       value: gene,
-      label: geneLabel(gene)
+      label: labeledGeneSpan(gene)
     }))
   }
   return { isLoading, error, options }
@@ -45,17 +45,17 @@ function useGeneSpans(querytext) {
   )
 }
 
-// function labeledGeneSpan(gene) {
-//   return (
-//     gene.referenceName +
-//     ":" +
-//     gene.start +
-//     "-" +
-//     gene.end +
-//     ":" +
-//     gene.symbol
-//   )
-// }
+function labeledGeneSpan(gene) {
+  return (
+    gene.referenceName +
+    ":" +
+    gene.start +
+    "-" +
+    gene.end +
+    ":" +
+    gene.symbol
+  )
+}
 
 function geneLabel(gene) {
   return (
@@ -71,5 +71,5 @@ function geneLabel(gene) {
 }
 
 function geneSearchUrl(querytext) {
-  return `${SITE_DEFAULTS.API_PATH}services/genespans/?geneId=${querytext}&filterPrecision=start&method=genespan`
+  return `${basePath}services/genespans/?geneId=${querytext}&filterPrecision=start&deliveryKeys=symbol,referenceName,start,end`
 }

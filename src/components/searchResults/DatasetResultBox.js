@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react"
 import {
-  // MAX_HISTO_SAMPLES,
-  // SITE_DEFAULTS,
+  getVisualizationLink,
   replaceWithProxy,
   useProgenetixApi,
   useExtendedSWR
@@ -15,100 +14,101 @@ import { ExternalLink } from "../helpersShared/linkHelpers"
 import { svgFetcher } from "../../hooks/fetcher"
 import BiosamplesStatsDataTable from "./BiosamplesStatsDataTable"
 import { WithData } from "../Loader"
-import { openJsonInNewTab } from "../../utils/files"
-// import dynamic from "next/dynamic"
-import { getVisualizationLink } from "../../modules/service-pages/dataVisualizationPage"
 
 const HANDOVER_IDS = {
-  histoplot: "histoplot", //  "pgx:HO.histoplot",
-  biosamples: "biosamples", //  "pgx:HO.biosamples",
-  biosamplestable: "biosamplestable", //  "pgx:HO.biosamplestable",
+  histoplot: "histoplot",
+  biosamples: "biosamples",
+  biosamplestable: "biosamplestable",
   biosamplesmap: "biosamplesmap",
-  // biosamplevariants: "biosamplevariants", //  "pgx:HO.biosamplevariants",
-  // annotatedvariants: "annotatedvariants", //  "pgx:HO.annotatedvariants",
-  // biosamplepgxsegvariants: "biosamplepgxsegvariants", //  "pgx:HO.biosamples-pgxseg",
-  // biosamplevcfvariants: "biosamplevcfvariants", //  "pgx:HO.biosamples-vcf",
-  phenopackets: "phenopackets", //  "pgx:HO.phenopackets",
-  UCSClink: "UCSClink", //  "pgx:HO.bedfile2ucsc",
+  phenopackets: "phenopackets",
+  UCSClink: "UCSClink",
   variants: "variants",
   pgxseg: "pgxseg",
-  vcf: "vcf" //  "EDAM:3016"
+  vcf: "vcf"
 }
 
 const TABS = {
   results: "Results",
   samples: "Biosamples",
-  // samplesMap: "Biosamples Map",
+  samplesMap: "Biosamples Map",
   variants: "Variants"
 }
 
-export function DatasetResultBox({ data: responseSet, query }) {
+export function DatasetResultBox({ data: responseSet, responseMeta, query }) {
   const {
     id,
     resultsHandovers,
     info,
     resultsCount
+    // paginatedResultsCount
   } = responseSet
 
-  // const handoverById = (givenId) =>
-  //   resultsHandovers.find(({ handoverType: { id } }) => id === givenId)
+  const limit = responseMeta.receivedRequestSummary?.pagination?.limit ? responseMeta.receivedRequestSummary?.pagination?.limit : 121
+
   const handoverById = (givenId) =>
     resultsHandovers.find(({ info: { contentId } }) => contentId === givenId)
 
+  // obviously should be looped somehow...
   const biosamplesHandover = handoverById(HANDOVER_IDS.biosamples)
   const biosamplesTableHandover = handoverById(HANDOVER_IDS.biosamplestable)
-  const biosamplesmapURL = handoverById(HANDOVER_IDS.biosamplesmap) === undefined ? false : handoverById(HANDOVER_IDS.biosamplesmap).url
-  const phenopacketsHandover = handoverById(HANDOVER_IDS.phenopackets)
+  const biocount = biosamplesHandover?.info?.count ? biosamplesHandover.info.count : 0
+  biosamplesHandover.pages = []
+  biosamplesTableHandover.pages = []
+  var cntr = 0
+  var skpr = 0
+  while (cntr < biocount) {
+    const pagu = "&skip=" + skpr + "&limit=" + limit
+    cntr += limit
+    skpr += 1
+    biosamplesHandover.pages.push({"url": replaceWithProxy(biosamplesHandover.url + pagu), "label": "Part" + skpr})
+    biosamplesTableHandover.pages.push({"url": replaceWithProxy(biosamplesTableHandover.url + pagu), "label": "Part" + skpr})
+  }
+
   const variantsHandover = handoverById(HANDOVER_IDS.variants)
   const vcfHandover = handoverById(HANDOVER_IDS.vcf)
   const pgxsegHandover = handoverById(HANDOVER_IDS.pgxseg)
-  const UCSCbedHandoverURL = handoverById(HANDOVER_IDS.UCSClink) === undefined ? false : handoverById(HANDOVER_IDS.UCSClink).url
+  const varcount = variantsHandover?.info?.count ? variantsHandover.info.count : 0
+  // variants are optional and existence has to be checked at several places
+  if (varcount > 0) {
+    variantsHandover.pages = []
+    vcfHandover.pages = []
+    pgxsegHandover.pages = []
+    cntr = 0
+    skpr = 0
+    while (cntr < varcount) {
+      const pagu = "&skip=" + skpr + "&limit=" + limit
+      cntr += limit
+      skpr += 1
+      variantsHandover.pages.push({"url": replaceWithProxy(variantsHandover.url + pagu), "label": "Part" + skpr})
+      vcfHandover.pages.push({"url": replaceWithProxy(vcfHandover.url + pagu), "label": "Part" + skpr})
+      pgxsegHandover.pages.push({"url": replaceWithProxy(pgxsegHandover.url + pagu), "label": "Part" + skpr})
+    }
+  }
 
-  const biosamplesReply = useProgenetixApi(
-    biosamplesHandover && replaceWithProxy(biosamplesHandover.url)
-  )
-  const variantsReply = useProgenetixApi(
-    variantsHandover && replaceWithProxy(variantsHandover.url)
-  )
+  // const phenopacketsHandover = handoverById(HANDOVER_IDS.phenopackets)
+  const UCSCbedHandoverURL = handoverById(HANDOVER_IDS.UCSClink) === undefined ? false : handoverById(HANDOVER_IDS.UCSClink).url
+  const biosamplesmapURL = handoverById(HANDOVER_IDS.biosamplesmap) === undefined ? false : handoverById(HANDOVER_IDS.biosamplesmap).url
+
+  // Data retrieval; variants are optional and existence has to be checked at several places
+  const variantsReply = useProgenetixApi(varcount > 0 ? variantsHandover.pages[0].url : "")
+  const biosamplesReply = useProgenetixApi(biosamplesHandover.pages[0].url)
+  const retrievedSampleCount = biosamplesReply?.data?.response?.resultSets[0]?.results.length
 
   // the histogram is only rendered but correct handover is needed, obviously
   let histoplotUrl
   let visualizationLink
   if (handoverById(HANDOVER_IDS.histoplot)) {
-    histoplotUrl = handoverById(HANDOVER_IDS.histoplot).url
+    histoplotUrl = handoverById(HANDOVER_IDS.histoplot).url + "&limit=" + limit
     let visualizationAccessId = new URLSearchParams(
       new URL(histoplotUrl).search
     ).get("accessid")
-    let visualizationFileId = new URLSearchParams(
-      new URL(histoplotUrl).search
-    ).get("fileId")
-    let visualizationSkip = new URLSearchParams(
-      new URL(histoplotUrl).search
-    ).get("skip")
-    let visualizationLimit = new URLSearchParams(
-      new URL(histoplotUrl).search
-    ).get("limit")
-    visualizationLink = getVisualizationLink(id, visualizationAccessId, visualizationFileId, visualizationSkip, visualizationLimit, resultsCount)
+    visualizationLink = getVisualizationLink(id, visualizationAccessId, "", 0, limit, resultsCount)
   }
 
   // main / samples / variants
-  const tabNames = []
-  tabNames.push(TABS.results)
-
-  biosamplesHandover && tabNames.push(TABS.samples)
-
-  // biosamplesReply?.data?.response?.resultSets[0].results?.some(
-  //   (biosample) => !!biosample.provenance?.geoLocation
-  // ) && tabNames.push(TABS.samplesMap)
-
-  if (handoverById(HANDOVER_IDS.variants)) tabNames.push(TABS.variants)
-
-  if (! query.start) {
-    if (handoverById(HANDOVER_IDS.annotatedvariants)) {
-      tabNames.push(TABS.annotatedvariants)
-    }
-  }
-
+  const tabNames = [TABS.results]
+  biocount > 0 && tabNames.push(TABS.samples)
+  varcount > 0 && tabNames.push(TABS.variants)
   const [selectedTab, setSelectedTab] = useState(tabNames[0])
 
   let tabComponent
@@ -142,17 +142,13 @@ export function DatasetResultBox({ data: responseSet, query }) {
   //         />
   //         {"."}
   //       </p>
-  //       <BiosamplesMap apiReply={biosamplesReply} datasetId={id} />
+  //       {/*<BiosamplesMap apiReply={biosamplesReply} datasetId={id} />*/}
   //     </div>
   //   )
   } else if (selectedTab === TABS.variants) {
     tabComponent = (
       <VariantsDataTable apiReply={variantsReply} datasetId={id} />
     )
-  // } else if (selectedTab === TABS.annotatedvariants) {
-  //   tabComponent = (
-  //     <VariantsDataTable apiReply={annotatedvariantsReply} datasetId={id} />
-  //   )
   }
 
   return (
@@ -162,26 +158,31 @@ export function DatasetResultBox({ data: responseSet, query }) {
         <div className="column is-one-third">
           <div>
             <b>Matched Samples: </b>
-            {info.counts.biosamples}
+            {resultsCount}
           </div>
           <div>
             <b>Retrieved Samples: </b>
-            {resultsCount}
+            {retrievedSampleCount}
           </div>
-          {info.counts.variantCount > 0 ? (
+          {info.counts.variants > 0 ? (
             <div>
               <div>
                 <b>Variants: </b>
-                {info.counts.variantCount}
+                {info.counts.variants}
               </div>
               <div>
                 <b>Calls: </b>
-                {info.counts.callCount}
+                {info.counts.analyses}
               </div>
             </div>
           ) : null}
         </div>
         <div className="column is-one-third">
+          {info.counts.variants > 0 ? (
+            <div>
+              <UCSCRegion query={query} />
+            </div>
+          ) : null}
           {biosamplesmapURL ? (
             <div>
               <ExternalLink
@@ -190,12 +191,7 @@ export function DatasetResultBox({ data: responseSet, query }) {
               />
             </div>
           ) : null}
-          {info.counts.variantCount > 0 ? (
-            <div>
-              <UCSCRegion query={query} />
-            </div>
-          ) : null}
-          {info.counts.variantCount > 0 ? (
+          {info.counts.variants > 0 ? (
             <div>
               <ExternalLink
                 label="Variants in UCSC"
@@ -236,7 +232,10 @@ export function DatasetResultBox({ data: responseSet, query }) {
         </div>
       ) : null}
       {tabComponent ? <div>{tabComponent}</div> : null}
+
+      <br/>
       <hr/>
+      <h2 className="subtitle has-text-dark">{id} Data Downloads</h2>
 
       {biosamplesTableHandover?.pages && (
         <div className="tabs">
@@ -303,6 +302,7 @@ export function DatasetResultBox({ data: responseSet, query }) {
           </div>
         </div>
       )}
+{/* 
       {phenopacketsHandover?.pages && (
         <div className="tabs">
           <div>
@@ -316,8 +316,7 @@ export function DatasetResultBox({ data: responseSet, query }) {
           </div>
         </div>
       )}
-
-
+*/}    
     </div>
   )
 }
@@ -357,8 +356,8 @@ function CnvHistogramPreview({ url: urlString }) {
   const { width } = useContainerDimensions(componentRef)
   url.search = new URLSearchParams([
     ...url.searchParams.entries(),
-    ["plot_width", width]
-  ]).toString()
+    // ["plotPars=plot_width", width]
+  ]).toString() + "&plotPars=plot_width=" + width
   let withoutOrigin = replaceWithProxy(url)
   // width > 0 to make sure the component is mounted and avoid double fetch
   const dataEffect = useExtendedSWR(width > 0 && withoutOrigin, svgFetcher)
@@ -390,11 +389,19 @@ function PagedLink({ handover }) {
     <li>
       <ExternalLink
         href={handover.url}
-        label={handover.handoverType.label}
+        label={handover.label}
         download
       />
     </li>
   )
+}
+
+function openJsonInNewTab(dataJson) {
+  const jsonString = JSON.stringify(dataJson, null, 2)
+  const x = window.open()
+  x.document.open()
+  x.document.write(`<html><body><pre>${jsonString}</pre></body></html>`)
+  x.document.close()
 }
 
 // const BiosamplesMap = dynamic(() => import("./BioSamplesMap"), {

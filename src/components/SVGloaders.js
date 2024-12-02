@@ -1,7 +1,7 @@
 import { Loader } from "./Loader"
 import React, { useRef } from "react"
 import {
-  SITE_DEFAULTS,
+  basePath,
   useSubsethistogram,
   subsetHistoBaseLink,
   subsetIdLink,
@@ -25,7 +25,17 @@ export default function SVGloader({ apiReply }) {
   )
 }
 
-export function SubsetHistogram({ id, datasetIds, plotRegionLabels, plotGeneSymbols, plotCytoregionLabels, title, description, size: givenSize }) {
+export function SubsetHistogram({
+  id,
+  datasetIds,
+  fileId,
+  plotRegionLabels,
+  plotGeneSymbols,
+  plotCytoregionLabels,
+  title,
+  description,
+  size: givenSize 
+}) {
   const componentRef = useRef()
   const { width } = useContainerDimensions(componentRef)
   const size = givenSize || width
@@ -35,6 +45,7 @@ export function SubsetHistogram({ id, datasetIds, plotRegionLabels, plotGeneSymb
         apiReply={useSubsethistogram({
           datasetIds,
           id,
+          fileId,
           plotRegionLabels,
           plotGeneSymbols,
           plotCytoregionLabels,
@@ -70,10 +81,23 @@ export function SubsetHistogram({ id, datasetIds, plotRegionLabels, plotGeneSymb
   )
 }
 
-export function BiosamplePlot({ biosId, datasetIds, plotRegionLabels, plotChros}) {
+export function AnalysisHistogram({ csid, datasetIds }) {
   const componentRef = useRef()
   const { width } = useContainerDimensions(componentRef)
-  const url = `${SITE_DEFAULTS.API_PATH}services/sampleplots/${biosId}?plotType=samplesplot&datasetIds=${datasetIds}&plot_width=${width}&plotRegionLabels=${plotRegionLabels}&plotChros=${plotChros}&forceEmptyPlot=true`
+  const url = `${basePath}services/sampleplots?plotType=samplesplot&analysisIds=${csid}&datasetIds=${datasetIds}&plot_width=${width}`
+  // width > 0 to make sure the component is mounted and avoid double fetch
+  const dataEffect = useExtendedSWR(width > 0 && url, svgFetcher)
+  return (
+    <div ref={componentRef} className="mb-4">
+      <SVGloader apiReply={dataEffect} />
+    </div>
+  )
+}
+
+export function BiosamplePlot({ biosid, datasetIds, plotRegionLabels, plotChros}) {
+  const componentRef = useRef()
+  const { width } = useContainerDimensions(componentRef)
+  const url = `${basePath}services/sampleplots/${biosid}?plotType=samplesplot&datasetIds=${datasetIds}&plotPars=plot_width=${width}::plotRegionLabels=${plotRegionLabels}::plotChros=${plotChros}::forceEmptyPlot=true`
   // width > 0 to make sure the component is mounted and avoid double fetch
   const dataEffect = useExtendedSWR(width > 0 && url, svgFetcher)
   return (

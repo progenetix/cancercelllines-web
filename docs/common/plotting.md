@@ -10,14 +10,14 @@ The standard format for (plot-)images generated on Progenetix is Scalable Vector
 
 On most pages where plots are being displayed there is a download option for the images - (please alert us where those are missing). Browsers also have the option to export SVGs themselves e.g. as PDF.
 
-## The `byconaut` plotting library
+## `bycon`'s' plotting library
 
 Functionality of the Progenetix and cancercellline.org plotting API is provided
-by the [`byconaut`](https://byconaut.progenetix.org/) software project. It supports:
+by the [`bycon`](https://bycon.progenetix.org/) software project. It supports:
 
 * render plots of sample-specific and aggregate CNV data, such as histograms clustered
   CNV sample strips
-* read and write e.g. [Progentix `.pgxseg` segment files](/doc/fileformats.html)
+* read and write e.g. [Progenetix `.pgxseg` segment files](/doc/fileformats.html)
 
 !!! alert "Plot Parameters and Documentation"
 
@@ -25,13 +25,13 @@ by the [`byconaut`](https://byconaut.progenetix.org/) software project. It suppo
     documentation about the use of the plotting API, e.g. how to modify
     plots using specific parameters (sizes, color, labels...):
 
-    * [`byconaut` plot documentation](https://byconaut.progenetix.org/plotting/) with all 
+    * [`bycon` plot documentation](https://bycon.progenetix.org/plotting/) with all 
       plot parameters
 
 ## Plot Examples
 
 Below are just some plot examples; for detailed use please refer to the
-[documentation](https://byconaut.progenetix.org/plotting/).
+[documentation](https://bycon.progenetix.org/plotting/).
 
 Examples link to or are embedded from **{{api_site_label}}**.
 
