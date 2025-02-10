@@ -182,11 +182,11 @@ function Variant({ variant, id, datasetIds }) {
         </>
       )}
 
-      {v?.variantAlternativeIds && (
+      {v?.identifiers?.variantAlternativeIds && (
         <div>
           <h5>Variant Alternative IDs</h5>
           <ul>
-            {v.variantAlternativeIds.map((altid, key) => (
+            {v.identifiers.variantAlternativeIds.map((altid, key) => (
                 <li key={key}>
                   {altid.id} - {altid.label}
                 </li>
