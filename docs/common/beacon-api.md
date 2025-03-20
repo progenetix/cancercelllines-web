@@ -69,7 +69,7 @@ cancercelllines.org implements these core entities as data collections in a Mong
 Besides variant parameters the Beacon protocol defines `filters` as (self-)scoped
 query parameters, e.fg. for phenotypes, diseases, biomedical performance or technical
 entities. Most of the filter options are based on ontology terms or identifiers in
-CURIE format (e.g. `NCIT:C4033`, `cellosaurus:CVCL_0030` or `PMID:16004614`). For use case examples please
+CURIE format (e.g. `NCIT:C4033`, `cellosaurus:CVCL_0030` or `pubmed:16004614`). For use case examples please
 look below; documentation of available ontologies and how to find out about available
 terms can be found on the [Classifications and Ontologies](common/classifications-and-ontologies.md)
 page. Please see Beacon's [`Filters`](http://docs.genomebeacons.org/filters/) documentation
@@ -129,7 +129,7 @@ The root path provides the standard `BeaconInfoResponse`.
 
 ##### `/filtering_terms/` + query
 
-* [/filtering_terms/?filters=PMID]({{config.api_web_root}}/beacon/filtering_terms/?filters=PMID)
+* [/filtering_terms/?filters=pubmed]({{config.api_web_root}}/beacon/filtering_terms/?filters=pubmed)
 * [/filtering_terms/?filters=NCIT,icdom]({{config.api_web_root}}/beacon/filtering_terms/?filters=NCIT,icdom)
 
 ----

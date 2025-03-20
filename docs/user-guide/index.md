@@ -56,7 +56,7 @@ All search form fields:
 * Cancer Classification(s) - use NCIT or ICDO disease codes to search for cell lines of the diagnostic code.
 * Genotypic Sex - search for male or female cell line samples.
 * Filtering options - additional filters to limit the number of search result, define filter logic and include child terms.
-* Filters - option to add additional free comma separated filters e.g. PMID, CVCL etc.
+* Filters - option to add additional free comma separated filters e.g. pubmed, CVCL etc.
 * Filter logic - and/or
 * Include Child Terms - includes available child terms or only shows exact matches. Can be applied for cell lines and diagnostic codes as well.
 * Response Limit/Page Size - default is 1000, can be increased or decreased
@@ -81,7 +81,7 @@ Visualization options land on a separate page with advanced options for data vis
 
 ![Visualization options](visual.png)
 
-Biosamples tab lists samples for this query. Associated diagnostic codes are also shown. Identifiers column shows other known sample identifiers such as GEO IDs or PMID.
+Biosamples tab lists samples for this query. Associated diagnostic codes are also shown. Identifiers column shows other known sample identifiers such as GEO IDs or pubmed.
 
 ![Biosamples table](img.png)
 
