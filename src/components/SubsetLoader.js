@@ -81,6 +81,22 @@ function Subset({ subset, datasetIds }) {
     />
   </div>
 
+
+  {/*This is some TODO here - just prototyping an cohort ... matched progenetix fetch*/}
+
+  {datasetIds.includes("cellz") && (
+    <>
+      <h5>Matched Native Cancer Sample Histogram (Progenetix data)</h5>
+        <div className="mb-3">
+        <SubsetHistogram
+          id={subset.id}
+          datasetIds={["progenetix"]}
+          loaderProps={{background: true, colored: true}}
+        />
+      </div>
+    </>
+  )}
+
   <h5>
     <InternalLink
       href={`${basePath}services/intervalFrequencies/${subset.id}/?output=pgxfreq`}
