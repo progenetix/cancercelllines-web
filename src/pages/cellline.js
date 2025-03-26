@@ -28,8 +28,8 @@ const CellLineDetailsPage = withUrlQuery(({ urlQuery }) => {
   const [plotGeneSymbols, setGeneSymbols] = useState("");
   const [plotCytoregionLabels, setCytoregionSymbols] = useState("");
 
-  const aURL = `${basePath}beacon/genomicVariations/?filters=${id}&datasetIds=${datasetIds}&variantType=SO:0001059&paginateResults=false`
-  const variantsReply = useProgenetixApi( aURL )
+  // const aURL = `${basePath}beacon/genomicVariations/?filters=${id}&datasetIds=${datasetIds}&variantType=SO:0001059&paginateResults=false`
+  // const variantsReply = useProgenetixApi( aURL )
 
   const iURL = `${basePath}beacon/individuals/?filters=${id}&datasetIds=${datasetIds}&limit=1`
   var [individual, setIndividual] = useState([]);
@@ -65,11 +65,13 @@ const CellLineDetailsPage = withUrlQuery(({ urlQuery }) => {
           />
         </Panel>
 
+        <VariantsPanel id={id} individual={individual} datasetIds={datasetIds} />
+
+{/*
         <Panel heading={`Annotated Variants for ${id}`} className="content">
           <VariantsDataTable apiReply={variantsReply} datasetId={datasetIds} />
         </Panel>
 
-{/*
         <Panel heading="CNV Profile" className="content">
           <p>The graph shows the copy number gains (up, blue) and losses (down, orange)
           as percentage of the cell line instances they were observed in. Off note, since
@@ -360,3 +362,14 @@ function Subset({ id, subset, individual, datasetIds, plotGeneSymbols, plotCytor
 }
 
 /*============================================================================*/
+
+function VariantsPanel({ id, individual, datasetIds }) {
+
+  const aURL = `${basePath}beacon/individuals/${individual.id}/g_variants/?filters=${id}&variantType=SO:0001059&paginateResults=false`
+  const variantsReply = useProgenetixApi( aURL )
+  return (
+    <Panel heading={`Annotated Variants for ${id}`} className="content">
+      <VariantsDataTable apiReply={variantsReply} datasetId={datasetIds} />
+    </Panel>
+  )
+}
