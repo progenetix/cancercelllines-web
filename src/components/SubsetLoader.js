@@ -82,7 +82,20 @@ function Subset({ subset, datasetIds }) {
   </div>
 
 
-  {/*This is some TODO here - just prototyping an cohort ... matched progenetix fetch*/}
+  {/*This is some TODO here - just prototyping an cohort ... matched refCNV ... fetch*/}
+
+  {datasetIds.includes("progenetix") && (
+    <>
+      <h5>Reference Histogram (matching refCNV data)</h5>
+        <div className="mb-3">
+        <SubsetHistogram
+          id={subset.id}
+          datasetIds={["refcnv"]}
+          loaderProps={{background: true, colored: true}}
+        />
+      </div>
+    </>
+  )}
 
   {datasetIds.includes("cellz") && (
     <>
