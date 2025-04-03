@@ -10,7 +10,7 @@ import { Loader } from "../components/Loader"
 import { Layout } from "./../site-specific/Layout"
 import Panel from "../components/Panel"
 import { AncestryData } from "../components/AncestryData"
-import { LiteratureSearch } from "../components/LiteratureSearch"
+// import { LiteratureSearch } from "../components/LiteratureSearch"
 import { SubsetHistogram } from "../components/SVGloaders"
 import { ExternalLink, InternalLink } from "../components/helpersShared/linkHelpers"
 import { withUrlQuery } from "../hooks/url-query"
@@ -60,8 +60,10 @@ const CellLineDetailsPage = withUrlQuery(({ urlQuery }) => {
             id={id}
             individual={individual}
             datasetIds={datasetIds}
+            setGeneSymbols={setGeneSymbols}
             plotGeneSymbols={plotGeneSymbols}
             plotCytoregionLabels={plotCytoregionLabels}
+            setCytoregionSymbols={setCytoregionSymbols}
           />
         </Panel>
 
@@ -104,7 +106,6 @@ const CellLineDetailsPage = withUrlQuery(({ urlQuery }) => {
             </>
           )}
         </Panel>
-*/}        
 
         <Panel heading={`Literature Derived Contextual Information`} className="content">
           <LiteratureSearch
@@ -116,6 +117,7 @@ const CellLineDetailsPage = withUrlQuery(({ urlQuery }) => {
             setCytoregionSymbols={setCytoregionSymbols}
           />
         </Panel>
+*/}        
 
       </>
       )}
