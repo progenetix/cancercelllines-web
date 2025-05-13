@@ -317,15 +317,15 @@ parameters:
   sex:
     label: Genotypic Sex
     infoText: |
-      Genotypic sex of the individual.
+      (Assumed) genotypic sex of the individual.
     defaultValue: ""
     isHidden: false
     options:
       - value: ""
-        label: "(no selection)"
-      - value: NCIT:C16576
+        label: (no selection)
+      - value: pgx:sex-female
         label: female
-      - value: NCIT:C20197
+      - value: pgx:sex-male
         label: male
   allTermsFilters:
     label: Select Filters
