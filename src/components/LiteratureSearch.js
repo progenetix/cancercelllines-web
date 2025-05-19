@@ -22,7 +22,7 @@ export function LiteratureSearch({ id, datasetIds, plotGeneSymbols, setGeneSymbo
     return (
         <Loader isLoading={isLoading} hasError={error} background>
             {data && (
-                <LiteratureSearchResultsTabbed label={data.response?.results[0]?.label} plotGeneSymbols={plotGeneSymbols} setGeneSymbols={setGeneSymbols} plotCytoregionLabels={plotCytoregionLabels} setCytoregionSymbols={setCytoregionSymbols}/>
+                <LiteratureSearchResultsTabbed label={data.response.results[0].label} plotGeneSymbols={plotGeneSymbols} setGeneSymbols={setGeneSymbols} plotCytoregionLabels={plotCytoregionLabels} setCytoregionSymbols={setCytoregionSymbols}/>
             )}
         </Loader>
     );

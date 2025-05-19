@@ -180,7 +180,7 @@ function Node({
 }) {
   const isSearchPossible = true // subset && canSearch(subset)
   const even = index % 2 === 0
-  const detailsPage =  subset.id.includes("cellosaurus") ? "cellline" : "subset" 
+  const detailsPage = "subset"
   return (
     <div
       style={{

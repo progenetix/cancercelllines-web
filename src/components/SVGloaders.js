@@ -34,7 +34,8 @@ export function SubsetHistogram({
   plotCytoregionLabels,
   title,
   description,
-  size: givenSize 
+  size: givenSize,
+  plotChros
 }) {
   const componentRef = useRef()
   const { width } = useContainerDimensions(componentRef)
@@ -49,7 +50,8 @@ export function SubsetHistogram({
           plotRegionLabels,
           plotGeneSymbols,
           plotCytoregionLabels,
-          size
+          size,
+          plotChros
         })}
       />
       <div className="img-legend">
