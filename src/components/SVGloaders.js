@@ -40,6 +40,8 @@ export function SubsetHistogram({
   const componentRef = useRef()
   const { width } = useContainerDimensions(componentRef)
   const size = givenSize || width
+  const idNo = id.split(",").length
+  // const dsNo = datasetIds.split(",").length
   return (
     <div ref={componentRef}>
       <SVGloader
@@ -70,10 +72,14 @@ export function SubsetHistogram({
         <Link href={subsetHistoBaseLink(id, datasetIds)}>
           <a>Download SVG</a>
         </Link>
-        {" | "}
-        <Link href={subsetIdLink(id)}>
-          <a>Go to {id}</a>
-        </Link>
+        {idNo === 1 && (
+          <>
+          {" | "}
+          <Link href={subsetIdLink(id)}>
+            <a>Go to {id}</a>
+          </Link>
+          </>
+        )}
         {" | "}
         <Link href={subsetPgxsegLink(id)}>
           <a>Download CNV Frequencies</a>
@@ -96,10 +102,10 @@ export function AnalysisHistogram({ csid, datasetIds }) {
   )
 }
 
-export function BiosamplePlot({ biosid, datasetIds, plotPars}) {
+export function BiosamplePlot({ biosid, datasetIds, plotRegionLabels, plotChros}) {
   const componentRef = useRef()
   const { width } = useContainerDimensions(componentRef)
-  const url = `${basePath}services/sampleplots/${biosid}?plotType=samplesplot&datasetIds=${datasetIds}&plotPars=plot_width=${width}::${plotPars}::forceEmptyPlot=true`
+  const url = `${basePath}services/sampleplots/${biosid}?plotType=samplesplot&datasetIds=${datasetIds}&plotPars=plot_width=${width}::plotRegionLabels=${plotRegionLabels}::plotChros=${plotChros}::forceEmptyPlot=true`
   // width > 0 to make sure the component is mounted and avoid double fetch
   const dataEffect = useExtendedSWR(width > 0 && url, svgFetcher)
   return (

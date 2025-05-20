@@ -143,7 +143,7 @@
 - label: "Genomic Fusion"
   infoText: 'This is an experimental implementation for a fusion query (by positions).'
   description: |
-    The current implementation uses th existing `mateName` as well as the proposed
+    The current implementation uses the xisting `mateName` as well as the proposed
     `mateStart` and `mateEnd` parameters to pass positional information (similar
     to a *range request*) for a second genomic location, _i.e._ the fusion partner
     (in the sense of a VRS v2 *Adjacency*.)

@@ -3,17 +3,17 @@ import {
   urlRetrieveIds
 } from "../hooks/api"
 import { SubsetLoader } from "../components/SubsetLoader"
-import { Layout } from "./../site-specific/Layout"
+import { Layout } from "../site-specific/Layout"
 import { withUrlQuery } from "../hooks/url-query"
 
 const SubsetDetailsPage = withUrlQuery(({ urlQuery }) => {
-  const { id, datasetIds, hasAllParams } = urlRetrieveIds(urlQuery)
+  var { id, datasetIds } = urlRetrieveIds(urlQuery)
   return (
     <Layout title="Subset Details">
-      {!hasAllParams ? (
-        NoResultsHelp("subset details")
-      ) : (
+      {id && datasetIds ? (
         <SubsetLoader id={id} datasetIds={datasetIds} />
+      ) : (
+        NoResultsHelp("subset details")
       )}
     </Layout>
   )

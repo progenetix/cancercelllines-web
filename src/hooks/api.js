@@ -12,20 +12,11 @@ export function useExtendedSWR(url, fetcher = defaultFetcher) {
   return { data, error, ...other, isLoading: !data && !error }
 }
 
-export const SITE_DEFAULTS = {
-  SITE: process.env.NEXT_PUBLIC_SITE_URL,
-  PREFETCH_PATH: process.env.NEXT_PUBLIC_PREFETCH_API_PATH,
-  DATASETID: SiteConfig.default_dataset_id,
-  PROJECTDOCLINK: SiteConfig.docs_master_site,
-  MASTERROOTLINK: SiteConfig.data_master_site,
-  MASTERDOCLINK: SiteConfig.docs_master_site,
-  NEWSLINK: SiteConfig.news_site,
-  ORGSITELINK: SiteConfig.organization_site
-}
-
 // export const MAX_HISTO_SAMPLES = 1000
+export const THISSITE = process.env.NEXT_PUBLIC_SITE_URL
 export const THISYEAR = new Date().getFullYear()
 export const BIOKEYS = ["icdoMorphology", "icdoTopography", "histologicalDiagnosis"]
+export const DATASETDEFAULT = SiteConfig.default_dataset_id
 
 export function useProgenetixApi(...args) {
   const { data, error, ...other } = useExtendedSWR(...args)
@@ -77,6 +68,15 @@ export async function tryFetch(url, fallBack = "N/A") {
  * When param is null no query will be triggered.
  */
 
+export function urlRetrieveIds(urlQuery) {
+  var { id, datasetIds } = urlQuery
+  if (!datasetIds) {
+    datasetIds = DATASETDEFAULT
+  }
+  return { id, datasetIds }
+}
+
+
 // This Beacon query only retrieves the counts & handovers using a custom `includeHandovers=true`
 // parameter, to avoid "double-loading" of the results.
 export function useBeaconQuery(queryData) {
@@ -87,13 +87,12 @@ export function useBeaconQuery(queryData) {
   )
 }
 
-export function urlRetrieveIds(urlQuery) {
-  var { id, datasetIds } = urlQuery
-  if (!datasetIds) {
-    datasetIds = SITE_DEFAULTS.DATASETID
-  }
-  const hasAllParams = id && datasetIds
-  return {id, datasetIds, hasAllParams}
+export function useSubsetsQuery(queryData) {
+  return useProgenetixApi(
+    queryData
+      ? `${basePath}services/collationplots/?${buildFilterParameters(queryData)}`
+      : null
+  )
 }
 
 export function useAggregatorQuery(queryData) {
@@ -121,11 +120,17 @@ export function mkGeoParams(geoCity, geodistanceKm) {
   return { geoLongitude, geoLatitude, geoDistance }
 }
 
-// export function mkGeneParams(gene) {
-//   if (!gene) return null
-//   const geneId = gene.map((gene) => gene.value).join(',')
-//   return { geneId }
-// }
+export function makePlotGeneSymbols({
+  plotGeneSymbols
+}) {
+  var geneSymbols = []
+  if (plotGeneSymbols) {
+    for (let i = 0; i < plotGeneSymbols.length; i++) {
+      geneSymbols.push(plotGeneSymbols[i].value)
+    }
+  }
+  return geneSymbols
+}
 
 export function makeFilters({
   allTermsFilters,
@@ -147,6 +152,35 @@ export function makeFilters({
     ...(sex ? [sex] : []),
     ...(materialtype ? [materialtype] : [])
   ]
+}
+
+export function buildFilterParameters(queryData) {
+  const {
+    bioontology,
+    referenceid,
+    cohorts,
+    analysisOperation,
+    sex,
+    materialtype,
+    allTermsFilters,
+    clinicalClasses
+  } = queryData
+
+  const filters = makeFilters({
+    allTermsFilters,
+    clinicalClasses,
+    bioontology,
+    referenceid,
+    cohorts,
+    analysisOperation,
+    sex,
+    materialtype
+  })
+  return new URLSearchParams(
+    flattenParams([
+      ["filters", filters]
+    ]).filter(([, v]) => !!v)
+  ).toString()
 }
 
 export function buildQueryParameters(queryData) {
@@ -206,6 +240,7 @@ export function buildQueryParameters(queryData) {
   ).toString()
 }
 
+
 export function useDataVisualization(queryData) {
   var q_path = "beacon/biosamples"
   if (queryData.fileId && queryData.fileId != "null") {
@@ -223,7 +258,6 @@ export function useDataVisualization(queryData) {
 export function getVisualizationLink(datasetIds, accessId, fileId, skip, limit, count) {
   return `/service-collection/dataVisualization?datasetIds=${datasetIds}&accessid=${accessId}&fileId=${fileId}&sampleCount=${count}&skip=${skip}&limit=${limit}`
 }
-
 
 export function buildDataVisualizationParameters(queryData) {
   return new URLSearchParams(
@@ -356,6 +390,7 @@ export function useSubsethistogram({
   return useExtendedSWR(size > 0 && `${svgbaseurl}&${searchQuery}`, svgFetcher)
 }
 
+
 export function useCollationsById({ datasetIds }) {
   const { data, ...other } = useFiltersByType({
     collationTypes: "",
@@ -375,12 +410,14 @@ export function useCollationsById({ datasetIds }) {
   return { data, ...other }
 }
 
+
 export function useFiltersByType({ datasetIds, collationTypes }) {
   // TODO: construct URL w/o optional parameters if empty
   const url = `${basePath}beacon/datasets/${datasetIds}/filtering_terms/?collationTypes=${collationTypes}`
   return useProgenetixApi(url)
 }
 
+// general site listings for collations etc. are bound to the default dataset
 export function useFilterTreesByType({ datasetIds, collationTypes }) {
   const url = `${basePath}beacon/datasets/${datasetIds}/filtering_terms?collationTypes=${collationTypes}&mode=termTree`
   return useProgenetixApi(url)
@@ -394,13 +431,21 @@ export function sampleSearchPageFiltersLink({
   return `/search/?${sampleFilterScope}=${filters}&datasetIds=${datasetIds}`
 }
 
+export function subsetSearchPageFiltersLink({
+  datasetIds,
+  sampleFilterScope,
+  filters
+}) {
+  return `/subsetsSearch/?${sampleFilterScope}=${filters}&datasetIds=${datasetIds}`
+}
+
 export function useGeoCity({ city }) {
   const url = city ?`${basePath}services/geolocations?city=${city}` : null
   return useProgenetixApi(url)
 }
 
 export function useGeneSymbol({ geneId }) {
-  const url = geneId ? `${basePath}services/genespans/?geneId=${geneId}&filterPrecision=start&deliveryKeys=symbol,referenceName,start,end` : null
+  const url = geneId ? `${basePath}services/genespans/?geneId=${geneId}&filterPrecision=start&deliveryKeys=symbol,referenceName,chromosome,start,end` : null
   return useProgenetixApi(url)
 }
 
