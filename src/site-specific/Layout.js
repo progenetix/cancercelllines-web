@@ -2,11 +2,14 @@ import React, { useState } from "react"
 import cn from "classnames"
 import { FaBars, FaTimes } from "react-icons/fa"
 import { ErrorBoundary } from "react-error-boundary"
+import { MarkdownParser } from "../components/MarkdownParser"
 import Head from "next/head"
 import {ErrorFallback, MenuInternalLinkItem} from "../components/MenuHelpers"
-import { SITE_DEFAULTS, THISYEAR } from "../hooks/api"
+import Panel from "../components/Panel"
+import { THISYEAR } from "../hooks/api"
+import layoutConfig from "../site-specific/layout.yaml"
 
-export function Layout({ title, headline, children }) {
+export function Layout({ title, headline, leadPanelMarkdown, tailPanelMarkdown, children }) {
   const [sideOpen, setSideOpen] = useState(false)
   return (
     <div className="Layout__app">
@@ -14,7 +17,7 @@ export function Layout({ title, headline, children }) {
         <title>{title || ""}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <div className="Layout__header__celllines">
+      <div className="Layout__header">
         {!sideOpen ? (
           <span
             className="Layout__burger icon"
@@ -45,18 +48,26 @@ export function Layout({ title, headline, children }) {
                 // reset the state of your app so the error doesn't happen again
               }}
             >
+              {leadPanelMarkdown && (
+                <Panel heading="" className="content">
+                  {MarkdownParser(leadPanelMarkdown)}
+                </Panel>
+              )}
               {children}
+              {tailPanelMarkdown && (
+                <Panel heading="" className="content">
+                  {MarkdownParser(tailPanelMarkdown)}
+                </Panel>
+              )}
             </ErrorBoundary>
           </div>
         </div>
       </main>
       <footer className="footer">
         <div className="content container has-text-centered">
-          © 2023 - {THISYEAR} <i>cancercelllines.org</i> Information Resource by
+          © {layoutConfig.sitePars.firstYear} - {THISYEAR} {layoutConfig.sitePars.longName} by
           the{" "}
-          <a href="https://info.baudisgroup.org">
-            Computational Oncogenomics Group
-          </a>{" "}
+          <a href={layoutConfig.sitePars.orgSiteLink}>{layoutConfig.sitePars.orgSiteLabel}</a>{" "}
           at the{" "}
           <a href="https://www.mls.uzh.ch/en/research/baudis/">
             University of Zurich
@@ -81,75 +92,26 @@ export function Layout({ title, headline, children }) {
 }
 
 function Side({ onClick }) {
+
   return (
     <div onClick={onClick}>
       <a href="/">
         <img
           className="Layout__side-logo"
-          src="/img/cancercelllines-icon-400x300.png"
-          alt="cancer cell lines by Progenetix"
+          src={layoutConfig.sitePars.siteLogo}
+          alt={layoutConfig.sitePars.siteLogoAlt}
         />
       </a>
       <ul className="Layout__side__items">
-        <MenuInternalLinkItem
-          href="/"
-          label="Cancer Cell Lines"
-        />
-        <MenuInternalLinkItem
-          href="/subsets/cellosaurus-subsets"
-          label="Cell Line Listing"
-        />
-        <MenuInternalLinkItem
-          href="/search"
-          label="Search Cell Lines"
-        />
-        <MenuInternalLinkItem
-          href="/subsets/NCIT-subsets"
-          label="CNV Profiles by Cancer Type"
-        />
-        <MenuInternalLinkItem
-          href="/subsets/NCIT-subsets"
-          label="NCIT Codes"
-          isSub="isSub"
-        />
-        <MenuInternalLinkItem
-          href="/subsets/icdom-subsets"
-          label="ICD-O 3 Morphologies"
-          isSub="isSub"
-        />
-        <MenuInternalLinkItem href={SITE_DEFAULTS.PROJECTDOCLINK} label="Documentation" />
-{/*
-        <MenuInternalLinkItem
-          href={SITE_DEFAULTS.NEWSLINK}
-          label="News"
-          isSub="isSub"
-        />
-*/}        
-        <MenuInternalLinkItem href={SITE_DEFAULTS.MASTERROOTLINK} label="External ..." />
-        <MenuInternalLinkItem
-          href={SITE_DEFAULTS.MASTERROOTLINK}
-          label="Progenetix Data"
-          isSub="isSub"
-        />
-        <MenuInternalLinkItem
-          href={`${SITE_DEFAULTS.MASTERDOCLINK}`}
-          label="Progenetix Docs"
-          isSub="isSub"
-        />
-{/*
-        <MenuInternalLinkItem
-          href={`${SITE_DEFAULTS.MASTERROOTLINK}/publications`}
-          label="Publication DB"
-          isSub="isSub"
-        />
-*/}        
-        <MenuInternalLinkItem
-          href="https://info.baudisgroup.org/"
-          label="Baudisgroup @ UZH"
-          isSub="isSub"
-        />
+        {layoutConfig.layoutSideItems.map((item, i) => (
+          <MenuInternalLinkItem
+            key={i}
+            href={item.href}
+            label={item.label}
+            isSub={item.isSub}
+          />
+        ))}
       </ul>
     </div>
   )
 }
-

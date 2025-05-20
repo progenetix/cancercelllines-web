@@ -1,9 +1,9 @@
 import React from "react"
 import { Layout } from "../../site-specific/Layout"
+import { DATASETDEFAULT } from "../../hooks/api"
 import SubsetsHierarchyLoader from  "../../components/SubsetsHierarchyLoader"
-import { SITE_DEFAULTS } from "../../hooks/api"
 
-export default function ncit_SubsetsPage() {
+export default function Page() {
   return (
     <Layout title="Subsets" headline="Cancer Types by National Cancer Institute NCIt Code">
       <div className="content">
@@ -20,7 +20,7 @@ export default function ncit_SubsetsPage() {
           response.
         </p>
       </div>
-      <SubsetsHierarchyLoader collationTypes="NCIT" datasetIds={SITE_DEFAULTS.DATASETID} />
+      <SubsetsHierarchyLoader collationTypes="NCIT" datasetIds={DATASETDEFAULT}/>
     </Layout>
   )
 }

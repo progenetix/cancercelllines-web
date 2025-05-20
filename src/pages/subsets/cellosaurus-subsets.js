@@ -1,7 +1,7 @@
 import React from "react"
 import { Layout } from "../../site-specific/Layout"
+import { DATASETDEFAULT } from "../../hooks/api"
 import SubsetsHierarchyLoader from  "../../components/SubsetsHierarchyLoader"
-import { SITE_DEFAULTS } from "../../hooks/api"
 
 export default function cellosaurus_SubsetsPage() {
   return (
@@ -22,7 +22,7 @@ export default function cellosaurus_SubsetsPage() {
           HeLa will also return the daughter lines by default - but optionally).
         </p>
       </div>
-      <SubsetsHierarchyLoader collationTypes="cellosaurus" datasetIds={SITE_DEFAULTS.DATASETID} />
+      <SubsetsHierarchyLoader collationTypes="cellosaurus" datasetIds={DATASETDEFAULT} />
     </Layout>
   )
 }

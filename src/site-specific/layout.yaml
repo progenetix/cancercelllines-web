@@ -1,0 +1,33 @@
+sitePars:
+  longName: Cancer Cell Lines Genomics Resource
+  firstYear: 2024
+  orgSiteLink: https://baudisgroup.org/
+  orgSiteLabel: Computational Oncogenomics Group
+  siteLogo: /img/cancercelllines-icon-400x300.png
+  siteLogoAlt: cancercelllines.org
+  docLink: https://docs.cancercelllines.org
+
+layoutSideItems:
+  - href: /subsets/cellosaurus-subsets/
+    label: Cell Line Listing
+  - href: /search/
+    label: Search Cell Lines
+  - href: /subsetsSearch/
+    label: Compare CNV Profiles
+  - href: /subsets/NCIT-subsets
+    label: NCIT Neoplasia Codes
+    isSub: isSub
+  - href: /subsets/icdom-subsets
+    label: ICD-O Morphologies
+    isSub: isSub
+  - href: /subsets/icdot-subsets
+    label: ICD-O Organ Sites
+    isSub: isSub
+  - href: /OpenAPI/
+    label: OpenAPI Paths and Examples
+  - href: https://docs.cancercelllines.org
+    label: Documentation
+  - href: https://progenetix.org/
+    label: Progenetix Resource
+  - href: https://baudisgroup.org/
+    label: Baudisgroup @ UZH

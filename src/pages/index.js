@@ -4,9 +4,8 @@ import Panel from "../components/Panel"
 import { SubsetHistogram } from "../components/SVGloaders"
 import { Admonition } from "../components/Admonitions"
 import { sample } from "lodash"
-import { SITE_DEFAULTS, tryFetch } from "../hooks/api"
+import { DATASETDEFAULT, tryFetch, THISSITE } from "../hooks/api"
 import { ExternalLink, InternalLink } from "../components/helpersShared/linkHelpers"
-// const searchLink = 'Use case: Local CNV Frequencies <a href="/biosamples/">{↗}</a>'+
 
 export default function Index({
   subsetsResponse,
@@ -45,7 +44,7 @@ export default function Index({
           of the overall more than 16&lsquo;000 cell lines, <i>cancercelllines.org</i> provides
           a unique entry point for the comparative analysis of genomic variants in
           cell lines as well as for the exploration of related publications.
-          <SubsetHistogram datasetIds={SITE_DEFAULTS.DATASETID} id={randomSubset.id} />
+          <SubsetHistogram datasetIds={DATASETDEFAULT} id={randomSubset.id} />
 
         </p>
 
@@ -104,13 +103,13 @@ export default function Index({
 
 export const getStaticProps = async () => {
   const cellosaurusCountReply = await tryFetch(
-    `${SITE_DEFAULTS.PREFETCH_PATH}services/collations/?datasetIds=${SITE_DEFAULTS.DATASETID}&collationTypes=cellosaurus&requestedGranularity=count`
+    `${THISSITE}services/collations/?datasetIds=${DATASETDEFAULT}&collationTypes=cellosaurus&requestedGranularity=count`
   )
   const ncitCountReply = await tryFetch(
-    `${SITE_DEFAULTS.PREFETCH_PATH}services/collations/?datasetIds=${SITE_DEFAULTS.DATASETID}&collationTypes=NCIT&includeDescendantTerms=false&requestedGranularity=count`
+    `${THISSITE}services/collations/?datasetIds=${DATASETDEFAULT}&collationTypes=NCIT&includeDescendantTerms=false&requestedGranularity=count`
   )
   const subsetsReply = await tryFetch(
-    `${SITE_DEFAULTS.PREFETCH_PATH}services/collations/?datasetIds=${SITE_DEFAULTS.DATASETID}&collationTypes=cellosaurus&deliveryKeys=count,id,label,cnv_analyses`
+    `${THISSITE}services/collations/?datasetIds=${DATASETDEFAULT}&collationTypes=cellosaurus&deliveryKeys=count,id,label,cnv_analyses`
   )
   return {
     props: {
