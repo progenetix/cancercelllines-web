@@ -251,22 +251,15 @@ export function InfodotTab(short, full) {
 function ExamplesButtons({ requestTypeExamples, onExampleClicked }) {
   return (
     <div className="column is-full" style={{ padding: "0px" }}>
-      <div className="columns">
-        <div className="column is-one-fifth label">
-          Query Examples
-        </div>
-        <div className="column">
-          {Object.entries(requestTypeExamples || []).map(([id, value]) => (
-            <button
-              key={id}
-              className="button is-link is-outlined"
-              onClick={() => onExampleClicked(value)}
-            >
-              {value.label}
-            </button>
-          ))}
-        </div>
-      </div>
+      {Object.entries(requestTypeExamples || []).map(([id, value]) => (
+        <button
+          key={id}
+          className="button is-link is-outlined"
+          onClick={() => onExampleClicked(value)}
+        >
+          {value.label}
+        </button>
+      ))}
     </div>
   )
 }
