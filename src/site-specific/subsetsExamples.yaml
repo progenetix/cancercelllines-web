@@ -10,7 +10,7 @@ examples:
     description: |
       Some sarcoma cell lines.
     parameters:
-      allTermsFilter:
+      allTermsFilters:
         defaultValue:
           - cellosaurus:CVCL_0312
           - cellosaurus:CVCL_0317
